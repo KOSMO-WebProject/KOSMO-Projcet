@@ -1,7 +1,9 @@
 [submodule "client"]
-path = client
-url = https://github.com/KOSMO-WebProject/client.git  # 예시 URL
+	path = client
+	url = https://github.com/KOSMO-WebProject/KOSMO-Projcet.git
 
+
+	
 [submodule "server"]
-path = server
-url = https://github.com/KOSMO-WebProject/server.git  # 예시 URLgit submodule sync  # URL 변경 사항을 적용
+	path = server
+	url = https://github.com/KOSMO-WebProject/KOSMO-Projcet.git
