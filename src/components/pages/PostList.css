@@ -1,0 +1,27 @@
+.board-list {
+  width: 100%;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.board-list h1 {
+  color: #333;
+}
+
+.board-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.board-list th, .board-list td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.board-list th {
+  background-color: #f2f2f2;
+}
