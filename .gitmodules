@@ -1,3 +1,6 @@
 [submodule "client"]
 	path = client
 	url = https://github.com/KOSMO-WebProject/KOSMO-Projcet.git
+[submodule "server"]
+	path = server
+	url = https://github.com/KOSMO-WebProject/KOSMO-Projcet.git
