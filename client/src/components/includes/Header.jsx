@@ -1,35 +1,28 @@
-import React from 'react';
-import './Header.css'; // CSS 스타일 파일
-import { Link } from 'react-router';
+import React from 'react'
+import { Container, Nav, Navbar } from 'react-bootstrap'
+// URL이 바뀌지 않게 하기 위해서 필요한 라이브러리 >> 제일 하단 내용 참고
+import { Link } from 'react-router-dom'
+import './Header.css'
 
-
-function Header() {
-  return (
-    <header className="header">
-      <img src="../images/logo.png" alt="Logo" className="header-logo" />
-      <nav className="header-nav">
-        <ul>
-          <li><a href="#new">New</a></li>
-          <li><a href="#men">Men</a></li>
-          <li><a href="#women">Women</a></li>
-          <li><a href="#kids">Kids</a></li>
-          <li><a href="#sale">Sale</a></li>
-        </ul>
-      </nav>
-      <div className="header-search">
-        <i className="fa-solid fa-magnifying-glass" ></i> {/* 돋보기 아이콘 */}
-        <input type="search" placeholder="검색" />
-        
-      </div>
-      <div className="header-icons">
-        <Link to='/posts'><span>고객센터</span></Link>
-        <span>ㅣ</span>
-        <Link to="/register"><i className='fa-regular fa-user'></i></Link> {/* 유저 아이콘 */}
-        <i className="fas fa-heart"></i> {/* 좋아요 아이콘 */}
-        <i className="fas fa-shopping-cart"></i> {/* 장바구니 아이콘 */}
-      </div>
-    </header>
-  );
+const Header = () => {
+    //아래 부분이 화면 처리부
+    return (
+        <>
+            <Navbar bg="light" data-bs-theme="light">
+                <Container className='container' >
+                    <Navbar.Brand href="/" >
+                    <img src="/images/logo.png" alt="Logo" width="44" height="20" />
+                    </Navbar.Brand>
+                    <Nav className="me-auto">
+                        <Link to="/calendar" className="nav-link">Calendar</Link>
+                        <Link to="/community_list" className="nav-link">Community</Link>
+                        <Link to="/theater_list" className="nav-link">Theater</Link>
+                        <Link to="/login" className="nav-link">Login</Link>
+                    </Nav>
+                </Container>
+            </Navbar>
+        </>
+    )
 }
 
-export default Header;
+export default Header

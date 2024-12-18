@@ -1,0 +1,34 @@
+.nav-link  {
+    cursor: pointer;
+    &:hover {
+      opacity: 80%;
+    }
+  }
+  
+  .ms-3 {
+    cursor: pointer;
+    &:hover {
+      opacity: 80%;
+    }
+  }
+  
+  .p {
+    color: #6c757d;
+  }
+  
+  
+  /* 초기 상태: 아래로 숨김 */
+  .footer-container {
+    transform: translateY(100px);
+    opacity: 0;
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+    border-top: 1px solid #6c757d;
+    margin-top: 4%;
+  }
+  
+  /* 화면에 보일 때 */
+  .footer-container.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  

@@ -22,7 +22,7 @@ const register = (req, res) => {
           req.body.userid,
           req.body.email,
           hashedPassword,
-          req.body.name,
+          req.body.nickName,
           req.body.phoneNumber,
           req.body.zipCode,
           req.body.address,
