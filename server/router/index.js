@@ -6,6 +6,9 @@ const productsRouter = require('./products');
 const authRouter = require("./auth")
 const postsRouter = require("./posts")
 
+
+
+
 router.use('/users', usersRouter);
 router.use('/products', productsRouter);
 router.use('/auth', authRouter);

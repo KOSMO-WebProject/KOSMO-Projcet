@@ -28,7 +28,6 @@ const register = (req, res) => {
           req.body.address,
           req.body.detailAddress,
         ];
-
         db.query(q, [values], (err, data) => {
           if (err) return res.status(500).json(err);
           return res.status(200).json("회원가입이 완료되었습니다.");
@@ -72,6 +71,7 @@ const login = (req, res) => {
       }) //쿠키를 만들어서 보낸다.
       .status(200)
       .json(others); // password 빼고 json으로 나머지 데이터들을 반환해준다.
+      // 사용자의 정보와 쿠키를 보낸다.
     /*
     예시 데이터
     {

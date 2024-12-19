@@ -5,7 +5,18 @@ const bodyparser = require("body-parser");
 const cookiepaser = require("cookie-parser");
 require("dotenv").config();
 
-app.use(cors());
+//middlewares
+app.use((req,res,next)=>{
+  res.header("Access-Control-Allow-Credentials",true)
+  next()
+})
+
+app.use(
+  cors({
+    origin : "http://loaclhost:3000",
+}));
+
+
 app.use(express.json());
 app.use(bodyparser.urlencoded({ extended: true })); // URL 인코딩된 데이터 파싱을 위해
 app.use(bodyparser.json()); // JSON 데이터 파싱을 위해

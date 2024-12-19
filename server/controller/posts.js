@@ -10,7 +10,7 @@ const getPostsList = (req, res) => {
 };
 
 const getPostsById = (req, res) => {
-    const postId = req.params.id;  // URL 파라미터에서 게시글 ID 추출
+    const postId = req.params.id;  // 요청받은 URL 파라미터에서 게시글 ID 추출
     const q = "SELECT p.*, u.nickid FROM posts p INNER JOIN users u ON p.userid = u.id WHERE p.id = ?";
     
     db.query(q, [postId], (error, results) => {
@@ -31,4 +31,5 @@ const getPostsById = (req, res) => {
 module.exports = {
   getPostsList,
   getPostsById,
-};
+  
+}

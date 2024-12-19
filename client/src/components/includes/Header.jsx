@@ -22,6 +22,10 @@ function Header() {
         
       </div>
       <div className="header-icons">
+      
+        <Link to='/login'><span>로그인</span></Link>
+        <Link to='/login'><span>로그아웃</span></Link>
+        <span>ㅣ</span>
         <Link to='/posts'><span>고객센터</span></Link>
         <span>ㅣ</span>
         <Link to="/register"><i className='fa-regular fa-user'></i></Link> {/* 유저 아이콘 */}

@@ -71,7 +71,7 @@ const Register = () => {
 
     if (!formData.detailAddress) {
       formIsValid = false;
-      errors['detailAddress'] = 'detailAddress is required';
+      errors['detailAddress'] = '상세주소를 입력해주세요.';
     }
 
     setErrors(errors);
@@ -83,12 +83,12 @@ const Register = () => {
 
   const nevigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); //기본 폼 제출 동작(페이지 새로고침)을 방지한다.
     if (validateForm()) {
       console.log('Form data:', formData);
       try{
-        axios.post('/auth/register',formData)
+        await axios.post('/auth/register',formData)
         alert('회원가입이 완료되었습니다.');
         nevigate("/")
       }
