@@ -45,6 +45,9 @@ Page Design Link : https://creatie.ai/goto/FL9vrA6h?page_id=M&file=1462286405475
 - 자바스크립트
 - NodeJ
 
+- ![20241212 drawio (2)](https://github.com/user-attachments/assets/1121e30d-bf4f-4fd2-8ad6-19f65d1070c6)
+
+
 ## 2.2 프로젝트 마인드맵
 <img src="" width="100%">(미작성)
 
