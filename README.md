@@ -41,9 +41,9 @@ Page Design Link : https://creatie.ai/goto/FL9vrA6h?page_id=M&file=1462286405475
 ## 2. 개발 환경
 ### 2.1 개발 환경
 - VsCode
-- 리액트
+- React
 - 자바스크립트
-- NodeJ
+- Node.js + Express
 
 - ![20241212 drawio (2)](https://github.com/user-attachments/assets/1121e30d-bf4f-4fd2-8ad6-19f65d1070c6)
 
