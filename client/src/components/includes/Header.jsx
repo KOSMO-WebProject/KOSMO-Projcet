@@ -26,9 +26,10 @@ function Header() {
         <Link to='/login'><span>로그인</span></Link>
         <Link to='/login'><span>로그아웃</span></Link>
         <span>ㅣ</span>
-        <Link to='/posts'><span>고객센터</span></Link>
         <span>ㅣ</span>
         <Link to="/register"><i className='fa-regular fa-user'></i></Link> {/* 유저 아이콘 */}
+        <span>ㅣ</span>
+        <Link to = "/notice">공지사항</Link>
         <i className="fas fa-heart"></i> {/* 좋아요 아이콘 */}
         <i className="fas fa-shopping-cart"></i> {/* 장바구니 아이콘 */}
       </div>

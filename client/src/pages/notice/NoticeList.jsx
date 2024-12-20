@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './PostList.css' 
+import './NoticeList.css' 
 import axios from 'axios'
 
 
 
-const PostList = () => {
-  const [posts,setPosts] = useState([])
+const NoticeList = () => {
+  const [notices,setNotices] = useState([])
 
   useEffect(()=>{
-    axios.get("/posts")
+    axios.get("/notices")
     .then(res=>res.data)
-    .then(res=>setPosts(res))
+    .then(res=>setNotices(res))
   },[])
+  console.log(notices);
   
   return (
     <div className="board-list">
@@ -27,12 +28,12 @@ const PostList = () => {
           </tr>
         </thead>
         <tbody>
-          {posts.map(post => (
-            <tr key={post.id}>
-              <td>{post.id}</td>
-              <td><Link to={`/posts/${post.id}`}>{post.title}</Link></td>
-              <td>{post.nickname}</td>
-              <td>{post.createdAt}</td>
+          {notices.map(notice => (
+            <tr key={notice.notice_id}>
+              <td>{notice.notice_id}</td>
+              <td><Link to={`/notice/${notice.notice_id}`}>{notice.title}</Link></td>
+              <td>{notice.user_name}</td>
+              <td>{notice.createdAt}</td>
             </tr>
           ))}
         </tbody>
@@ -42,4 +43,4 @@ const PostList = () => {
 }
 
 
-export default PostList;
+export default NoticeList;
