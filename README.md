@@ -10,8 +10,8 @@ Page Design Link : https://creatie.ai/goto/FL9vrA6h?page_id=M&file=1462286405475
 ## 1. 목표와 기능
 
 ### 1.1 목표
-- 리액트를 사용해 구성을 하고 공부를 한다.
-- 날씨 API로 옷 스타일 추천 및 판매
+- React와 Node.js 기반의 Express를 사용하여 웹 개발을 공부해본다.
+- 날씨 API로 사용자의 위치에 따른 날씨 정보를 제공해주고 해당 날씨에 맞는 옷 스타일 추천 및 판매
 - 옷 스타일 추천 사이트 목록 (미정)
   - 무신사
   - 나이키
@@ -22,9 +22,10 @@ Page Design Link : https://creatie.ai/goto/FL9vrA6h?page_id=M&file=1462286405475
 - 날씨(일간, 주간) 확인
 - 개절별 옷 스타일 추천
 - 모델을 대신해 SNS(인스타)에 사람들이 입은 모습을 보여준다.
-- 리뷰 및 게시판 구현
+- 리뷰 및 게시판 게시판 별 댓글 구현
 - 로그인, 로그아웃 구현
-- 회원 가입
+- 아이디, 비밀번호 찾기 구현
+- 회원 가입 및 회원 탈퇴
 - 개인 정보 수정 및 입력
 - 카드 결제 (실제로는 결제가 안된다.)
 
@@ -45,7 +46,7 @@ Page Design Link : https://creatie.ai/goto/FL9vrA6h?page_id=M&file=1462286405475
 - 자바스크립트
 - Node.js + Express
 
-- ![20241212 drawio (2)](https://github.com/user-attachments/assets/1121e30d-bf4f-4fd2-8ad6-19f65d1070c6)
+
 
 
 ## 2.2 프로젝트 마인드맵
@@ -59,32 +60,32 @@ Page Design Link : https://creatie.ai/goto/FL9vrA6h?page_id=M&file=1462286405475
 
 | App       | URL                                        | Views Function    | HTML File Name                        | Note           |
 |-----------|--------------------------------------------|-------------------|---------------------------------------|----------------|
-| main      | '/'                                        | home              | main/home.html                        | 홈화면          |
-| main      | '/about/'                                  | about             | main/about.html                       | 소개화면               |
+| main      | '/'                                        | home              | main/home.jsx                        | 홈화면          |
+| main      | '/about/'                                  | about             | main/about.jsx                       | 소개화면               |
 
 
-- accounts
+- auth
 
 | App       | URL                                        | Views Function    | HTML File Name                        | Note           |
 |-----------|--------------------------------------------|-------------------|---------------------------------------|----------------|
-| accounts  | 'register/'                                | register          | accounts/register.html                |회원가입         |
-| accounts  | 'login/'                                   | login             | accounts/login.html                   |로그인           |
-| accounts  | 'logout/'                                  | logout            | accounts/logout.html                  |로그아웃         |
-| accounts  | 'profile/'                                 | profile           | accounts/profile.html                 | 비밀번호변경기능 / <br>프로필 수정/ 닉네임추가 |
+| accounts  | 'register/'                                | register          | accounts/register.jsx                |회원가입         |
+| accounts  | 'login/'                                   | login             | accounts/login.jsx                   |로그인           |
+| accounts  | 'logout/'                                  | logout            | accounts/logout.jsx                  |로그아웃         |
+| accounts  | 'profile/'                                 | profile           | accounts/profile.jsx                 | 비밀번호변경기능 / <br>프로필 수정/ 닉네임추가 |
 
 
 - boardapp
 
 | App       | URL                                        | Views Function    | HTML File Name                        | Note           |
 |-----------|--------------------------------------------|-------------------|---------------------------------------|----------------|
-| board     | 'board/'                                   | board             | boardapp/post_list.html               | 게시판 목록 |
-| board     | 'board/<int:pk>/'                          | post_detail       | boardapp/post_detail.html            | 게시글 상세보기 |
-| board     | 'board/write/'                             | post_write        | boardapp/post_write.html             | 게시글 작성 |
-| board     | 'board/edit/<int:pk>/'                     | post_edit         | boardapp/post_edit.html              | 게시글 수정 |
-| board     | 'board/delete/<int:pk>/'                   | post_delete       | boardapp/post_delete.html            | 게시글 삭제 |
-| board     | 'board/<int:pk>/comment/'                  | comment_create    | boardapp/comment_form.html           | 댓글 작성 |
-| board     | 'board/<int:pk>/comment/<br><int:comment_pk>/edit/' | comment_edit | boardapp/comment_form.html           | 댓글 수정 |
-| board     | 'board/<int:pk>/comment/<br><int:comment_pk>/delete/' | comment_delete | boardapp/comment_<br>confirm_delete.html| 댓글 삭제 |
+| board     | 'board/'                                   | board             | boardapp/post_list.jsx               | 게시판 목록 |
+| board     | 'board/<int:pk>/'                          | post_detail       | boardapp/post_detail.jsx            | 게시글 상세보기 |
+| board     | 'board/write/'                             | post_write        | boardapp/post_write.jsx             | 게시글 작성 |
+| board     | 'board/edit/<int:pk>/'                     | post_edit         | boardapp/post_edit.jsx              | 게시글 수정 |
+| board     | 'board/delete/<int:pk>/'                   | post_delete       | boardapp/post_delete.jsx            | 게시글 삭제 |
+| board     | 'board/<int:pk>/comment/'                  | comment_create    | boardapp/comment_form.jsx           | 댓글 작성 |
+| board     | 'board/<int:pk>/comment/<br><int:comment_pk>/edit/' | comment_edit | boardapp/comment_form.jsx           | 댓글 수정 |
+| board     | 'board/<int:pk>/comment/<br><int:comment_pk>/delete/' | comment_delete | boardapp/comment_<br>confirm_delete.jsx| 댓글 삭제 |
 
 
 - blog
@@ -92,17 +93,17 @@ Page Design Link : https://creatie.ai/goto/FL9vrA6h?page_id=M&file=1462286405475
 
 | App       | URL                                        | Views Function    | HTML File Name                        | Note           |
 |-----------|--------------------------------------------|-------------------|---------------------------------------|----------------|
-| blog      | 'blog/'                                    | blog              | blog/blog.html                        |갤러리형 게시판 메인 화면  |
-| blog      | 'blog/<int:pk>/'                           | post              | blog/post.html                        |상세 포스트 화면    |
-| blog      | 'blog/write/'                              | write             | blog/write.html                       | 카테고리 지정, 사진업로드,<br> 게시글 조회수 반영|
-| blog      | 'blog/edit/<int:pk>/'                      | edit              | blog/edit.html                        | 게시물목록보기 |
-| blog      | 'blog/delete/<int:pk>/'                    | delete            | blog/delete.html                      | 삭제 화면      |
-| blog      | 'blog/search/'                             | search            | blog/search.html                      | 주제와 카테고리에 따라 검색,<br> 시간순에 따라 정렬|
-| blog      | 'post/<int:post_pk>/comment/'              | comment_new       | blog/comment_form.html                | 댓글 입력 폼     |
-| blog      | 'post/<int:post_pk>/comment/<br><int:parent_pk>/' | reply_new    | blog/comment_form.html                | 대댓글 폼      |
-| blog      | 'post/<int:pk>/like/'                      | like_post         | blog/post.html                        |좋아요를 누르면 blog/post로 Redirect됨|
-| blog      | 'comment/<int:pk>/update/'                 | comment_update    | blog/comment_form.html                |댓글 업데이터 경로   |
-| blog      | 'comment/<int:pk>/delete/'                 | comment_delete    | blog/comment_<br>confirm_delete.html  
+| blog      | 'blog/'                                    | blog              | blog/blog.jsx                        |갤러리형 게시판 메인 화면  |
+| blog      | 'blog/<int:pk>/'                           | post              | blog/post.jsx                        |상세 포스트 화면    |
+| blog      | 'blog/write/'                              | write             | blog/write.jsx                       | 카테고리 지정, 사진업로드,<br> 게시글 조회수 반영|
+| blog      | 'blog/edit/<int:pk>/'                      | edit              | blog/edit.jsx                        | 게시물목록보기 |
+| blog      | 'blog/delete/<int:pk>/'                    | delete            | blog/delete.jsx                      | 삭제 화면      |
+| blog      | 'blog/search/'                             | search            | blog/search.jsx                      | 주제와 카테고리에 따라 검색,<br> 시간순에 따라 정렬|
+| blog      | 'post/<int:post_pk>/comment/'              | comment_new       | blog/comment_form.jsx                | 댓글 입력 폼     |
+| blog      | 'post/<int:post_pk>/comment/<br><int:parent_pk>/' | reply_new    | blog/comment_form.jsx                | 대댓글 폼      |
+| blog      | 'post/<int:pk>/like/'                      | like_post         | blog/post.jsx                        |좋아요를 누르면 blog/post로 Redirect됨|
+| blog      | 'comment/<int:pk>/update/'                 | comment_update    | blog/comment_form.jsx                |댓글 업데이터 경로   |
+| blog      | 'comment/<int:pk>/delete/'                 | comment_delete    | blog/comment_<br>confirm_delete.jsx  
 
 ## 5. 와이퍼프레임 / UI / BM(비지니스 모델)
 5.1 <img src="" width="60%"> (작성중)
@@ -177,7 +178,9 @@ Page Design Link : https://creatie.ai/goto/FL9vrA6h?page_id=M&file=1462286405475
 * MySQL을 사용해 구성했습니다. 
 
 ## 7. 아키텍처
-<img src="20241212.drawio.png" width="60%">
+
+
+![20241212 drawio (2)](https://github.com/user-attachments/assets/1121e30d-bf4f-4fd2-8ad6-19f65d1070c6)
 
 ## 8. 에러 및 에러 해결
 
