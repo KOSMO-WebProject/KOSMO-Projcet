@@ -1,18 +1,17 @@
 const db = require("../database/db");
 
-const getPostsList = (req, res) => {
+const getNoticesList = (req, res) => {
   const q =
-    "SELECT p.id, p.title , u.nickid, p.content , p.createdAt FROM posts p inner join users u on p.userid = u.id ";
+    "SELECT n.notice_id, n.title , u.user_name, n.content , n.create_at FROM notices n inner join users u on n.userid = u.user_id ";
   db.query(q, (error, results) => {
     if (error) throw error;
     res.status(200).json(results);
   });
 };
 
-const getPostsById = (req, res) => {
-    const postId = req.params.id;  // URL 파라미터에서 게시글 ID 추출
-    const q = "SELECT p.*, u.nickid FROM posts p INNER JOIN users u ON p.userid = u.id WHERE p.id = ?";
-    
+const getNoticesById = (req, res) => {
+    const postId = req.params.id;  // 요청받은 URL 파라미터에서 게시글 ID 추출
+    const q = "SELECT n.*, u.user_name FROM notices n INNER JOIN users u ON n.userid = u.user_id WHERE n.notice_id = ?";
     db.query(q, [postId], (error, results) => {
       if (error) {
         console.error(error);
@@ -28,7 +27,10 @@ const getPostsById = (req, res) => {
   };
 
 
+
+
 module.exports = {
-  getPostsList,
-  getPostsById,
-};
+  getNoticesList,
+  getNoticesById,
+  
+}

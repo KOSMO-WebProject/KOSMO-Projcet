@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../includes/Header';
-import Footer from '../includes/Footer';
+import Header from '../components/includes/Header';
+import Footer from '../components/includes/Footer';
 import axios from 'axios';
 
 const HomePage = () => {
@@ -19,7 +19,7 @@ const HomePage = () => {
   useEffect(()=>{
     getCurrentLocation();
     const { lat, lon } = location;
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATEHER_API_KEY}`)
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`)
     .then(res=>setWeather(res.data))
   },[])
 
