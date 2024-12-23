@@ -1,63 +1,84 @@
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/authContext";
 
+import { useState } from 'react';
+import { Form, Button, Container } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router';
+import { useAuth } from '../../context/AuthContext';
 
 const Login = () => {
-  const [inputs, setInputs] = useState({
-    userid: "",
-    password: "",
-  });
-  const [err, setErr] = useState(null);
-  const navigate = useNavigate();
-  const { login } = useContext(AuthContext);  // AuthContext를 활성화합니다.
-  const handleChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+    const nav = useNavigate()
+    const { login } = useAuth()
+    const [id, setId] = useState('');
+    const [password, setPassword] = useState('');
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      await login(inputs);
-      navigate("/");
-    } catch (err) {
-      setErr(err.response ? err.response.data : "Login failed");
-    }
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log('ID:', id, 'Password:', password);
+        try {
+            
+            login(id,password)
+            
+            alert("로그인이 성공하였습니다.");
+            nav("/");
+        } catch (error) {
+            console.log(error);
+            if (error.response) {
+                // 서버 응답을 에러로부터 추출하여 사용자에게 보여줄 수 있습니다.
+                alert(`로그인 실패: ${error.response.data.message}`);
+            } else {
+                alert("로그인 요청 중 오류가 발생했습니다.");
+            }
+        }
+    };
+    
 
-  return (
-    <div className="login">
-      <div className="card">
-        <div className="left">
-          <h1>Hello World.</h1>
-          <p>Login</p>
-          <span>Don't you have an account?</span>
-          <Link to="/register">
-            <button>Register</button>
-          </Link>
-        </div>
-        <div className="right">
-          <h1>Login</h1>
-          <form onSubmit={handleLogin}>
-            <input
-              type="text"
-              placeholder="Username"
-              name="userid"
-              onChange={handleChange}
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={handleChange}
-            />
-            {err && <p>{err}</p>}
-            <button type="submit">Login</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
+    return (
+        <Container className="mt-5">
+            <Form onSubmit={handleSubmit}>
+                <h2 className="text-center mb-4">WWW</h2>
+          
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>아이디</Form.Label>
+                    <Form.Control
+                        type="id"
+                        name='username'
+                        placeholder="아이디를 입력해주세요."
+                        value={id}
+                        onChange={(e) => setId(e.target.value)}
+                        required
+                    />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>비밀번호</Form.Label>
+                    <Form.Control
+                        type="password"
+                        name='password'
+                        placeholder="비밀번호를 입력해주세요."
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </Form.Group>
+
+                <Button variant="primary" type="submit" className="w-100">
+                    로그인
+                </Button>
+
+                <div className="text-center mt-3">
+                    <Link>아이디 찾기</Link> | <Link>비밀번호 찾기</Link>
+                </div>
+
+                <hr />
+
+                <Button variant="outline-success" className="w-100 mb-2">
+                    네이버로 로그인
+                </Button>
+                <Button variant="outline-secondary" className="w-100 mb-2">
+                    카카오로 로그인
+                </Button>
+            </Form>
+        </Container>
+    );
 };
 
 export default Login;

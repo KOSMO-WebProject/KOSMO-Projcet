@@ -28,11 +28,29 @@ const getNoticesById = (req, res) => {
     });
   };
 
+const postNoticeById = async(req,res) => {
+  const { title,content, userid } = req.body
+  const create_at = new Date().toISOString()
+  const q = "INSERT INTO notices(title, content, create_at, user_id ) VALUES ( ? ? ? ? )"
+  db.query(q,[title, content, create_at, userid],(error, results)=>{
+    if(error){
+      console.error(error)
+      return res.status(500).json({ message: "글 등록에 실패하였습니다." });
+    }
+    else if (results){
+      res.status(200).json("게시글이 등록되었습니다.")
+    }
+  })
+
+
+}
+
 
 
 
 module.exports = {
   getNoticesList,
   getNoticesById,
-  
+  postNoticeById,
+
 }

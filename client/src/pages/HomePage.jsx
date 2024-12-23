@@ -16,11 +16,15 @@ const HomePage = () => {
     });
   };
 
+  // useEffect(()=>{
+  //   getCurrentLocation();
+  //   const { lat, lon } = location;
+  //   axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATEHER_API_KEY}`)
+  //   .then(res=>setWeather(res.data))
+  // },[])
+
   useEffect(()=>{
-    getCurrentLocation();
-    const { lat, lon } = location;
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=c7a27fd0468e13eededc7d117686436d`)
-    .then(res=>setWeather(res.data))
+    
   },[])
 
   useEffect(() => {
@@ -52,7 +56,7 @@ const HomePage = () => {
           의 날씨는 
           <span>{temperature}°C</span>
         </div>
-      <Footer/>
+        <Footer/>
     </div>
   );
 }

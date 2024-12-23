@@ -1,40 +1,48 @@
-import React from 'react';
-import './Header.css'; // CSS 스타일 파일
-import { Link } from 'react-router';
+// Header.jsx
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 
-function Header() {
-  return (
-    <header className="header">
-      <img src="../images/logo.png" alt="Logo" className="header-logo" />
-      <nav className="header-nav">
-        <ul>
-          <li><a href="#new">New</a></li>
-          <li><a href="#men">Men</a></li>
-          <li><a href="#women">Women</a></li>
-          <li><a href="#kids">Kids</a></li>
-          <li><a href="#sale">Sale</a></li>
-        </ul>
-      </nav>
-      <div className="header-search">
-        <i className="fa-solid fa-magnifying-glass" ></i> {/* 돋보기 아이콘 */}
-        <input type="search" placeholder="검색" />
-        
-      </div>
-      <div className="header-icons">
-      
-        <Link to='/login'><span>로그인</span></Link>
-        <Link to='/login'><span>로그아웃</span></Link>
-        <span>ㅣ</span>
-        <span>ㅣ</span>
-        <Link to="/register"><i className='fa-regular fa-user'></i></Link> {/* 유저 아이콘 */}
-        <span>ㅣ</span>
-        <Link to = "/notice">공지사항</Link>
-        <i className="fas fa-heart"></i> {/* 좋아요 아이콘 */}
-        <i className="fas fa-shopping-cart"></i> {/* 장바구니 아이콘 */}
-      </div>
-    </header>
-  );
-}
+
+
+const Header = () => {
+    const { currentUser, logout , login} = useAuth();
+    console.log(currentUser,logout, login)
+    return (
+        <Navbar bg="light" expand="lg">
+            <Container>
+                <Navbar.Brand href="/">
+                    <img src="/images/logo.png" alt="Logo" style={{ width: '100px' }} />
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Link to="/calendar" className="nav-link">Calendar</Link>
+                        <Link to="/community_list" className="nav-link">Community</Link>
+                        <Link to="/theater_list" className="nav-link">Theater</Link>
+                        <Link to="/Profile" className="nav-link">마이페이지</Link>
+                    </Nav>
+                    <Nav>
+                        {currentUser ? (
+                            <>
+                                <span className="navbar-text me-3">
+                                    Hello, {currentUser.nickname}!
+                                </span>
+                                <Button variant="outline-danger" onClick={logout}>Logout</Button>
+                            </>
+                        ) : (
+                            <>
+                                <Link to="/login" className="nav-link">Login</Link>
+                                <Link to="/register" className="nav-link"><i className='fa-regular fa-user'></i> Register</Link>
+                            </>
+                        )}
+                        <Link to="/notice" className="nav-link">Notice</Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
+    );
+};
 
 export default Header;
