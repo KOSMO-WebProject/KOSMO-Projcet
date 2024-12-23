@@ -9,6 +9,8 @@ const getNoticesList = (req, res) => {
   });
 };
 
+
+
 const getNoticesById = (req, res) => {
     const postId = req.params.id;  // 요청받은 URL 파라미터에서 게시글 ID 추출
     const q = "SELECT n.*, u.user_name FROM notices n INNER JOIN users u ON n.userid = u.user_id WHERE n.notice_id = ?";

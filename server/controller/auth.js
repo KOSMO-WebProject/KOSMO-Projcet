@@ -4,18 +4,15 @@ const jwt = require("jsonwebtoken");
 
 //회원가입
 const register = (req, res) => {
-  const q = "SELECT * FROM users WHERE userid = ?";
-
+  const q = "SELECT * FROM users WHERE userid = ?"; 
   db.query(q, [req.body.userid], (err, data) => {
     if (err) return res.status(500).json(err);
     if (data.length > 0)
       return res.status(409).json("해당 유저가 이미 존재합니다.");
-
     bcrypt.genSalt(10, (err, salt) => {
       if (err) return res.status(500).json(err);
       bcrypt.hash(req.body.password, salt, (err, hashedPassword) => {
         if (err) return res.status(500).json(err);
-
         const q =
           "INSERT INTO users(`userid`,`email`,`password`,`nickname`,`phonenumber`,`zipcode`,`address`,`detailaddress`) VALUES (?)";
         const values = [

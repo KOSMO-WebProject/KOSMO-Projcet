@@ -37,3 +37,4 @@ const port = process.env.SERVER_PORT; // 클라이언트(리액트) 포트번호
 app.listen(port, (req, res) => {
   console.log(`server start http://localhost:${port}`);
 });
+

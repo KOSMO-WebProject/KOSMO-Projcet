@@ -16,5 +16,6 @@ const getUserById = (req, res) => {
 };
 
 module.exports = {
-    getAllUsers
+    getAllUsers,
+    getUserById
 }
