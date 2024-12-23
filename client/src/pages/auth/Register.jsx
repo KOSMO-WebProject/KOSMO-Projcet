@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    userid: '',
+    username: '',
     password: '',
     name: '',
     phoneNumber: '',
@@ -23,9 +23,9 @@ const Register = () => {
     let formIsValid = true;
     let errors = {};
 
-    if (!formData.userid) {
+    if (!formData.username) {
       formIsValid = false;
-      errors['userid'] = 'ID를 입력해주세요.';
+      errors['username'] = 'ID를 입력해주세요.';
     }
 
 
@@ -156,8 +156,8 @@ const handleAddressSearch = () => {
       <form className="form-group" onSubmit={handleSubmit}>
         <div>
           <label>ID:</label>
-          <input type="text" name="userid" value={formData.userid} onChange={handleChange} />
-          {errors.userid && <p className="error-message">{errors.userid}</p>}
+          <input type="text" name="username" value={formData.username} onChange={handleChange} />
+          {errors.username && <p className="error-message">{errors.username}</p>}
         </div>
         <div>
           <label>Password:</label>
