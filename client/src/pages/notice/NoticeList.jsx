@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import './NoticeList.css' 
 import axios from 'axios'
 import { Button, Form, Modal } from 'react-bootstrap';
 import Footer from '../../components/includes/Footer';
 import NoticeItem from './NoticeItem';
 import Header from '../../components/includes/Header';
-import { makeRequest } from '../../axios';
+import { Link, useNavigate } from 'react-router';
+import { useAuth } from '../../contexts/AuthContext';
+
 
 
 
 const NoticeList = () => {
+    const { currentUser } = useAuth()
+    const nav = useNavigate()
   const [gubun, setGubun] = useState('')
   const [keyword, setKeyword] = useState('')
   const [notice, setNotice] = useState({
@@ -133,23 +136,15 @@ const NoticeList = () => {
       setKeyword(event.target.value)
       noticeList()
   }    
-
-  // useEffect(() => {
-  //     console.log('effect호출')
-  //     const notice = {
-  //         n_no: 0,
-  //         n_title: '',
-  //         n_writer: '',
-  //         n_content:''
-  //     }
-  //     const asynDB = async() => {
-  //         const res = await noticeListDB(notice)
-  //         console.log(res.data)
-  //         setNotices(res.data)
-  //         console.log(notices)
-  //     }
-  //     asynDB()
-  // },[refresh]) //end of useEffect
+  const onClickMove = () => {
+    if(currentUser){
+        nav("/notice/write")
+    }
+    else {
+        alert("회원가입이 필요합니다.")
+    }
+  }
+  
   return (
       <>
       <Header />
@@ -182,6 +177,7 @@ const NoticeList = () => {
                       <th>#</th>
                       <th>제목</th>
                       <th>작성자</th>
+                      <th>작성날짜</th>
                   </tr>
               </thead>
               {/* 데이터셋 연동하기 */}
@@ -197,7 +193,7 @@ const NoticeList = () => {
           <div className='list-footer'>
               <button className="btn btn-warning" onClick={noticeList}>전체조회</button>
               &nbsp;
-              <button  className="btn btn-success" onClick={handleShow}>글쓰기</button>
+              <button  className="btn btn-success" onClick={onClickMove}>글쓰기</button>
           </div>
           </div>
           <Footer/>

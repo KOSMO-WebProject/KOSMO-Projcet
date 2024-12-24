@@ -1,6 +1,6 @@
 
 import { useNavigate } from "react-router";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { Card, Button } from 'react-bootstrap';
 
 const UserProfile = () => {

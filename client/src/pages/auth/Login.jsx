@@ -2,48 +2,52 @@
 import { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Login = () => {
     const nav = useNavigate()
     const { login } = useAuth()
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('ID:', id, 'Password:', password);
         try {
             
             login(id,password)
-            
             alert("로그인이 성공하였습니다.");
             nav("/");
         } catch (error) {
             console.log(error);
             if (error.response) {
-                // 서버 응답을 에러로부터 추출하여 사용자에게 보여줄 수 있습니다.
                 alert(`로그인 실패: ${error.response.data.message}`);
             } else {
                 alert("로그인 요청 중 오류가 발생했습니다.");
             }
         }
     };
+
+    const handleIdChange = (e) =>{
+        setId(e.target.value)
+    }
+
+    const handlePasswordChange = (e) =>{
+        setPassword(e.target.value)
+    }
     
 
     return (
         <Container className="mt-5">
             <Form onSubmit={handleSubmit}>
                 <h2 className="text-center mb-4">WWW</h2>
-          
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>아이디</Form.Label>
                     <Form.Control
-                        type="id"
+                        type="text"
                         name='username'
                         placeholder="아이디를 입력해주세요."
                         value={id}
-                        onChange={(e) => setId(e.target.value)}
+                        onChange={handleIdChange}
                         required
                     />
                 </Form.Group>
@@ -55,7 +59,7 @@ const Login = () => {
                         name='password'
                         placeholder="비밀번호를 입력해주세요."
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={handlePasswordChange}
                         required
                     />
                 </Form.Group>
