@@ -7,6 +7,7 @@ const commentsController = require('../controller/comments');
 
 
 router.post("/write",commentsController.postCommentById)
+router.post("/replay",commentsController.postReplyById)
 router.get("/:id",commentsController.getCommentByNotice)
 
 

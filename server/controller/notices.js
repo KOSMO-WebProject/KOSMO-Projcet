@@ -31,7 +31,7 @@ const getNoticesById = (req, res) => {
 
 const postNoticeById = (req,res) => {
   const { title,content, user_id } = req.body
-  const create_at = getCurrentFormattedDate()
+  const create_at = getCurrentFormattedDate("date")
   const q = "INSERT INTO notices(title, content, create_at, userid ) VALUES ( ?, ?, ?, ? )"
   db.query(q,[title, content, create_at, user_id],(error, results)=>{
     if(error){
