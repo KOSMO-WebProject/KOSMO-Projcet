@@ -9,9 +9,9 @@ const getAllUsers = (req, res) => {
 };
 
 const getUserById = (req, res) => {
-    db.query('SELECT * FROM users WHERE id = ?', [req.params.id], (error, result) => {
+    db.query('SELECT * FROM users WHERE id = ?', [req.params.id], (error, results) => {
         if (error) throw error;
-        res.status(200).json(result);
+        res.status(200).json(results);
     });
 };
 

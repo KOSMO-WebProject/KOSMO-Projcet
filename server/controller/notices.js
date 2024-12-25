@@ -3,10 +3,10 @@ const { getCurrentFormattedDate } = require("../utils/currentyear");
 
 const getNoticesList = (req, res) => {
   const q =
-    "SELECT n.notice_id, n.title , u.nickname, n.content , n.create_at FROM notices n inner join users u on n.userid = u.user_id order by n.notice_id desc";
+    "SELECT n.notice_id, n.title , u.nickname, n.content , n.create_at FROM notices n LEFT OUTER JOIN users u on n.userid = u.user_id order by n.notice_id desc";
   db.query(q, (error, results) => {
     if (error) throw error;
-    res.status(200).json(results);
+    return res.status(200).json(results);
   });
 };
 
@@ -22,9 +22,9 @@ const getNoticesById = (req, res) => {
       }
   
       if (results.length > 0) {
-        res.status(200).json(results[0]); // 상세 조회 결과는 하나의 게시글만 반환
+        return res.status(200).json(results[0]); // 상세 조회 결과는 하나의 게시글만 반환
       } else {
-        res.status(404).json({ message: '게시물을 찾을 수 없습니다.' });
+        return res.status(404).json({ message: '게시물을 찾을 수 없습니다.' });
       }
     });
   };
@@ -39,7 +39,7 @@ const postNoticeById = (req,res) => {
       return res.status(500).json({ message: "글 등록에 실패하였습니다." });
     }
     else if (results){
-      res.status(200).json("게시글이 등록되었습니다.")
+      return res.status(200).json("게시글이 등록되었습니다.")
     }
   })
 }
@@ -55,14 +55,14 @@ const deleteNoticeById = (req,res) => {
       return res.status(500).json({ message: "글 삭제에 실패하였습니다." });
     }
     else if (results){
-      res.status(200).json("게시글이 삭제되었습니다.")
+      return res.status(200).json("게시글이 삭제되었습니다.")
     }
   })
 }
 
 const updateNoticeById = (req,res) => {
     const id = req.params.id
-    const create_at = getCurrentFormattedDate()
+    const create_at = getCurrentFormattedDate("date")
     const {content, title} = req.body
     const q = "UPDATE notices SET content = ? , title = ? , create_at = ? WHERE notice_id = ?"
     db.query(q,[content,title,create_at,id],(error, results)=>{
@@ -71,7 +71,7 @@ const updateNoticeById = (req,res) => {
         return res.status(500).json({ message: "글 수정에 실패하였습니다." });
       }
       else if (results){
-        res.status(200).json("게시글이 수정되었습니다.")
+        return res.status(200).json("게시글이 수정되었습니다.")
       }
     })
 }

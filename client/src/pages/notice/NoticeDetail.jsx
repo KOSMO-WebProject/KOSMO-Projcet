@@ -3,6 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Card, Button, Form, ListGroup, Modal, ListGroupItem } from 'react-bootstrap';
 import { useAuth } from '../../contexts/AuthContext';
+import CommentInput from './CommentInput';
+
+
 
 const NoticeDetail = () => {
     const { currentUser } = useAuth()
@@ -13,8 +16,6 @@ const NoticeDetail = () => {
         title : "",
         content: "",
     });
-    const [comments, setComments] = useState([]);
-    const [newComment, setNewComment] = useState('');
 
     const [show,setShow] = useState(false)
       const handleShow = () => setShow(true)
@@ -30,28 +31,17 @@ const NoticeDetail = () => {
             }
         }
         fetchData();
-        console.log(notice);
     }, []);
 
     const handleChangeForm = (e) => {
         setNotice((prev) => ({
             ...prev,
-            notiec_id:id,
+            notice_id:id,
             [e.target.name] : e.target.value
           }))
 
     }
 
-    // const handleCommentSubmit = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         const { data } = await axios.post(`/api/comments`, { noticeId: id, text: newComment });
-    //         setComments([...comments, data.comment]);
-    //         setNewComment('');
-    //     } catch (error) {
-    //         console.error('Error posting comment:', error);
-    //     }
-    // };
 
     const noticeDelete = async () => {
         try {
@@ -106,6 +96,7 @@ const NoticeDetail = () => {
           </Button>
           {/* <Link to="/notice"nvariant="primary" className='nav-link'>공지목록</Link> */}
         </div>
+         <CommentInput userId = {currentUser?currentUser.user_id:null}noticeId={notice.notice_id}/>
       </Card>   
       <hr />
     </div>
