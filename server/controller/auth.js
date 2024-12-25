@@ -10,12 +10,10 @@ const register = (req, res) => {
     if (err) return res.status(500).json(err);
     if (data.length > 0)
       return res.status(409).json("해당 유저가 이미 존재합니다.");
-
     bcrypt.genSalt(10, (err, salt) => {
       if (err) return res.status(500).json(err);
       bcrypt.hash(req.body.password, salt, (err, hashedPassword) => {
         if (err) return res.status(500).json(err);
-
         const q =
           "INSERT INTO users(`user_name`,`email`,`password`,`nickname`,`phonenumber`,`zipcode`,`address`,`detailaddress`) VALUES (?)";
         const values = [
@@ -56,9 +54,9 @@ const login = (req, res) => {
     //만약 비밀번호가 틀리면 400 에러
     try{
         //accessToken 발급
-        const accessToken = jwt.sign({ id: data[0].id }, process.env.ACCESS_SECRET,{expiresIn:'1h',issuer:"About Tech"}); //pk(user.id)에 맞는 사용자 토큰을 발급해준다.
+        const accessToken = jwt.sign({ user_id: data[0].user_id }, process.env.ACCESS_SECRET,{expiresIn:'1h'}); //pk(user.id)에 맞는 사용자 토큰을 발급해준다.
         //refreshToken 발급
-        const refreshToken = jwt.sign({ id: data[0].id }, process.env.REFRESH_SECRET,{expiresIn:'24h',issuer:"About Tech"}); //pk(user.id)에 맞는 사용자 토큰을 발급해준다.
+        const refreshToken = jwt.sign({ user_id: data[0].user_id }, process.env.REFRESH_SECRET,{expiresIn:'24h'}); //pk(user.id)에 맞는 사용자 토큰을 발급해준다.
         const { password, ...others } = data[0]; //반환할 데이터
         //token 전송
        // 동시에 accessToken과 refreshToken을 쿠키로 설정
@@ -83,59 +81,31 @@ const login = (req, res) => {
 };
 
 
-// const accessToken = (req, res) => {
-//   try {
-//       const token = req.cookies.accessToken; // 쿠키에서 accessToken을 가져온다.
-//       if (!token) {
-//           return res.status(401).json({ message: "토큰이 제공되지 않았습니다." });
-//       }
-//       const decoded = jwt.verify(token, process.env.ACCESS_SECRET); // 토큰을 검증하고 디코딩한다.
-//       // 토큰에서 추출한 사용자 ID로 사용자 데이터 조회
-//       const q = "SELECT * FROM users WHERE id = ?";
-//       db.query(q, [decoded.id], (err, result) => {
-//           if (err) {
-//               return res.status(500).json(err);
-//           }
-//           if (result.length === 0) {
-//               return res.status(404).json({ message: "유저를 찾을 수 없습니다." });
-//           }
-
-//           const { password, ...userData } = result[0]; // 패스워드를 제외한 사용자 데이터
-//           res.status(200).json(userData); // 사용자 데이터를 JSON 형식으로 반환
-//       });
-//   } catch (error) {
-//       if (error.name === "JsonWebTokenError") {
-//           return res.status(401).json({ message: "Invalid token" });
-//       } else if (error.name === "TokenExpiredError") {
-//           return res.status(401).json({ message: "Token expired" });
-//       } else {
-//           res.status(500).json({ message: "Server error" });
-//       }
-//   }
-// }
 
 const accessToken = (req, res) => {
-  // 쿠키에서 토큰을 추출
-  const token = req.cookies.accessToken;
-
+  const token = req.cookies.accessToken;  // 쿠키에서 토큰 추출
   if (!token) {
     return res.status(401).send({ message: 'Access token is missing' });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_SECRET);
-    req.user = decoded; // 디코드된 토큰 정보를 req 객체에 추가
-    res.status(200).json({
-      message: "Token is valid",
-      user: req.user
+    const user_id = decoded.user_id;  // ID 추출
+    const q = "SELECT * FROM users WHERE user_id = ?";  // 쿼리 수정
+    db.query(q, [user_id], (err, result) => {  // id를 배열로 전달
+        if (err) {
+            return res.status(500).json(err);
+        }
+        if (result.length === 0) {
+            return res.status(404).json({ message: "User not found." });
+        }
+        const { password, ...others } = result[0];
+        res.status(200).json(others);
     });
   } catch (error) {
-    // 토큰 검증 과정에서 발생한 에러를 처리
     return res.status(403).send({ message: 'Invalid or expired token' });
   }
 };
-
-
 
 
 

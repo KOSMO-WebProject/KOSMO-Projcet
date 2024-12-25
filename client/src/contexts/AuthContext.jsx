@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }) => {
         const loadUser = async () => {
             try {
                 const response = await axios.get('/auth/accesstoken', { withCredentials: true });
+                console.log(response);
                 setCurrentUser(response.data);
             } catch (error) {
                 console.error('Failed to load user:', error);

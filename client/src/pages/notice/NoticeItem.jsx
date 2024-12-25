@@ -9,9 +9,10 @@ const NoticeItem = ({notice}) => {
         <td>{notice.notice_id}</td>
         <td>
           {/* <Route path="/notice/:n_no" exact={true} element={<NoticeDetail />}/> */}
-          <Link to={"/notice/"+notice.notice_id} className='btn btn-primary'>{notice.content}</Link>
+          <Link to={"/notice/"+notice.notice_id} className='btn btn-primary'>{notice.title}</Link>
         </td>
-        <td>{notice.user_name}</td>
+        <td>{notice.nickname}</td>
+        <td>{notice.create_at}</td>
       </tr>
     </>
   )

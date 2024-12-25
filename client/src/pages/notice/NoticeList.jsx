@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import './NoticeList.css' 
 import axios from 'axios'
 import { Button, Form, Modal } from 'react-bootstrap';
 import Footer from '../../components/includes/Footer';
 import NoticeItem from './NoticeItem';
 import Header from '../../components/includes/Header';
+import { Link, useNavigate } from 'react-router';
+import { useAuth } from '../../contexts/AuthContext';
 
 
 
 
 const NoticeList = () => {
+    const { currentUser } = useAuth()
+    const nav = useNavigate()
   const [gubun, setGubun] = useState('')
   const [keyword, setKeyword] = useState('')
   const [notice, setNotice] = useState({
@@ -22,7 +25,19 @@ const NoticeList = () => {
   const [notices, setNotices] = useState([])
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);    
+  const handleShow = () => setShow(true);  
+  
+  const noticeList = () => {
+    const asyncDB = async() => {
+      await axios.get("/notices")
+      .then(res=>res.data)
+      .then(data=>setNotices(data))
+
+    //select처리
+    }//end of asyncDB
+    asyncDB()
+}
+
 
   const [refresh, setRefresh] = useState(0)
 //db경유하여 공지글 목록 가져오기
@@ -35,48 +50,11 @@ const NoticeList = () => {
       console.log(notices)
   },[])//의존성 배열이 빈통이니까 최초 한 번만 실행된다.
 
-  //공지 글 쓰기
-  // const noticeAdd = async(event) => {
-  //     event.preventDefault()
-  //     //useState훅은 이전 상태값을 기억해 준다. - 일반변수와 다른점임.
-  //     const res = await noticeInsertDB(notice)
-  //     console.log(res.data) //1이면 입력 성공 
-  //     console.log(res.data.success)
-  //     console.log(res.data.result)
-  //     console.log(JSON.stringify(res.data.result))
-  //     if(res.data.success === true){
-  //         //입력 성공
-  //         console.log('입력성공')
-  //         //리액트에서 화면을 재조정하는 경우가 있다. 1)props변경될때, 2)state변경될때
-  //         //일반변수는 이전 상태를 기억하지 못하지만 리액트의 useState를 사용하면 이전상태를 기억한다.
-  //         //최초 0으로 초기화 했다가 글등록이 성공하면 이전 상태값 0에 1을 더하여 상태값이 0에서 1로 변하도록
-  //         //강제하였다. -> 화면에 재조정이 일어난다.(다시 그린다.)
-  //         setRefresh((prev) => prev+1) //const [refesh, setRefresh] = useState(0->1변했으니 새로 그린다.- useEffect호출된다.)
-  //         //useEffect가 다시 한 번 자동 호출되는 조건은 재조정이 일어나도록 강제한다.
-  //         //useEffect는 의존성 배열을 가지고 있다.  의존성 배열에 상태값이 바뀌면 useEffect에 실행문이 다시 한번 호출된다.
-  //     }else{
-  //         //입력 실패
-  //         alert("글등록에 실패하였습니다.");
-  //     }
-  //     handleClose() //모달창 닫기
-  // }
-
   const noticeAdd = () =>{
 
 
   }
-  const noticeList = () => {
-      const asyncDB = async() => {
-        await axios.get("/notices")
-        .then(res=>res.data)
-        .then(data=>setNotices(data))
-
-      //select처리
-      }//end of asyncDB
-      asyncDB()
-      console.log(notices)
-  }
-
+ 
   //조건 검색 구현하기
   const noticeSearch = () => {
       const gubun = document.querySelector("#gubun").value
@@ -88,27 +66,7 @@ const NoticeList = () => {
       //구분(n_title, n_writer, n_content)을 선택하지 않으면
       return;
       }
-      //구분(gubun)과 입력값(keyword)에 대한 초기화 처리할 것.
-      //구분을 선택하고 입력값을 입력한 뒤에는 그 조건에 따라 필터링된 결과를 useState담기
-      //mdn filter API - 깊은 복사 인가 아니면 얕은 복사 인가?
-      //입력한 값이 db에 저장되어 있다. - 목록을 가져오는 것은 db에서 가져온다.
-      //조건을 수렴하는 결과만 필터링한 뒤 setNotices(result)하고 있다.
-      //db에서 가져온것이 아니다.
-      const result = Object.values(notices).filter(notice => {
-      if(!notice) return false
-      switch(gubun){
-          case 'n_title':
-          return notice.n_title && notice.n_title.includes(keyword)
-          case 'n_writer':
-          return notice.n_writer && notice.n_writer.includes(keyword)
-          case 'n_content':
-          return notice.n_content && notice.n_content.includes(keyword)
-          default:
-          return false
-      }//end of switch
-      })//end of 조건검색 결과 담음. 
-      console.log("검색 결과 : "+JSON.stringify(result))
-      setNotices(result)
+      
       setGubun('')
       setKeyword('')
   }
@@ -133,23 +91,15 @@ const NoticeList = () => {
       setKeyword(event.target.value)
       noticeList()
   }    
+  const onClickMove = () => {
+    if(currentUser){
+        nav("/notice/write")
+    }
+    else {
+        alert("회원가입이 필요합니다.")
+    }
+  }
 
-  // useEffect(() => {
-  //     console.log('effect호출')
-  //     const notice = {
-  //         n_no: 0,
-  //         n_title: '',
-  //         n_writer: '',
-  //         n_content:''
-  //     }
-  //     const asynDB = async() => {
-  //         const res = await noticeListDB(notice)
-  //         console.log(res.data)
-  //         setNotices(res.data)
-  //         console.log(notices)
-  //     }
-  //     asynDB()
-  // },[refresh]) //end of useEffect
   return (
       <>
       <Header />
@@ -182,6 +132,7 @@ const NoticeList = () => {
                       <th>#</th>
                       <th>제목</th>
                       <th>작성자</th>
+                      <th>작성날짜</th>
                   </tr>
               </thead>
               {/* 데이터셋 연동하기 */}
@@ -197,7 +148,7 @@ const NoticeList = () => {
           <div className='list-footer'>
               <button className="btn btn-warning" onClick={noticeList}>전체조회</button>
               &nbsp;
-              <button  className="btn btn-success" onClick={handleShow}>글쓰기</button>
+              <button  className="btn btn-success" onClick={onClickMove}>글쓰기</button>
           </div>
           </div>
           <Footer/>

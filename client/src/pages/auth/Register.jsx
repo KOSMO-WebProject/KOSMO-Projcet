@@ -81,16 +81,16 @@ const Register = () => {
   
 
 
-  const nevigate = useNavigate()
+  const nav = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //기본 폼 제출 동작(페이지 새로고침)을 방지한다.
     if (validateForm()) {
-      console.log('Form data:', formData);
+      // console.log('Form data:', formData);
       try{
         await axios.post('/auth/register',formData)
         alert('회원가입이 완료되었습니다.');
-        nevigate("/")
+        nav("/")
       }
       catch(err){
         console.log(err)
@@ -114,14 +114,12 @@ const handleAddressSearch = () => {
       oncomplete: function (data) {
         let addr = ''; // 주소 변수
         let extraAddr = ''; // 참고항목 변수
-  
         // 주소 타입에 따라 주소 값 설정
         if (data.userSelectedType === 'R') {
           addr = data.roadAddress; // 도로명 주소
         } else {
           addr = data.jibunAddress; // 지번 주소
         }
-  
         // 참고항목 설정
         if (data.userSelectedType === 'R') {
           if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
