@@ -6,7 +6,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import Footer from '../../components/includes/Footer';
 import NoticeItem from './NoticeItem';
 import Header from '../../components/includes/Header';
-import { makeRequest } from '../../axios';
+
 
 
 
