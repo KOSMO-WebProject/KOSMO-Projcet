@@ -1,13 +1,17 @@
 const db = require("../database/db");
 const { getCurrentFormattedDate } = require("../utils/currentyear");
 
-const getNoticesList = (req, res) => {
+const getNoticesList = async (req, res) => {
   const q =
     "SELECT n.notice_id, n.title , u.nickname, n.content , n.create_at FROM notices n LEFT OUTER JOIN users u on n.userid = u.user_id order by n.notice_id desc";
-  db.query(q, (error, results) => {
-    if (error) throw error;
-    return res.status(200).json(results);
-  });
+  try{
+    const [rows] = await db.get().execute(q)
+    console.log(rows)
+    return res.status(200).json(rows)
+
+  }catch(error){
+    return res.status(500).json({ message: "게시글을 조회할 수 없습니다."})
+  }
 };
 
 

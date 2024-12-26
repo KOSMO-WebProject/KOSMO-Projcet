@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
+import {createGlobalStyle} from "styled-components";
 
 const CommentInput = ({ userId, noticeId, fetchComments }) => {
     const [comment, setComment] = useState('');
@@ -18,6 +19,7 @@ const CommentInput = ({ userId, noticeId, fetchComments }) => {
                 notice_id: noticeId,
                 content: comment
             });
+
             fetchComments(); 
             setComment(""); 
         } catch (error) {

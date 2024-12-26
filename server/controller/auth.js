@@ -3,10 +3,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 //회원가입
-const register = (req, res) => {
+const register = async(req, res) => {
   const q = "SELECT * FROM users WHERE user_name = ?";
-
-  db.query(q, [req.body.userid], (err, data) => {
+  await db.get().execute(q, [req.body.userid], (err, data) => {
     if (err) return res.status(500).json(err);
     if (data.length > 0)
       return res.status(409).json("해당 유저가 이미 존재합니다.");
@@ -26,7 +25,7 @@ const register = (req, res) => {
           req.body.address,
           req.body.detailAddress,
         ];
-        db.query(q, [values], (err, data) => {
+        db.get().execute(q, [values], (err, data) => {
           if (err) return res.status(500).json(err);
           return res.status(200).json("회원가입이 완료되었습니다.");
         });
@@ -36,9 +35,9 @@ const register = (req, res) => {
 };
 
 //로그인
-const login = (req, res) => {
+const login = async (req, res) => {
   const q = "SELECT * FROM users WHERE user_name = ?"; //전체 데이터 조회
-  db.query(q, [req.body.username], (err, data) => {
+  await db.get().execute(q, [req.body.username], (err, data) => {
     if (err) return res.status(500).json("err");
     if (data.length === 0)
       return res.status(400).json("아이디 또는 비밀번호가 틀렸습니다."); //아이디에 맞는 데이터가 없으면 400 에러
@@ -82,17 +81,17 @@ const login = (req, res) => {
 
 
 
-const accessToken = (req, res) => {
+const accessToken = async (req, res) => {
   const token = req.cookies.accessToken;  // 쿠키에서 토큰 추출
   if (!token) {
     return res.status(401).send({ message: 'Access token is missing' });
   }
 
+  const q = "SELECT * FROM users WHERE user_id = ?";  // 쿼리 수정
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_SECRET);
     const user_id = decoded.user_id;  // ID 추출
-    const q = "SELECT * FROM users WHERE user_id = ?";  // 쿼리 수정
-    db.query(q, [user_id], (err, result) => {  // id를 배열로 전달
+    await db.get().execute(q, [user_id], (err, result) => {  // id를 배열로 전달
         if (err) {
             return res.status(500).json(err);
         }

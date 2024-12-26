@@ -5,6 +5,12 @@ import axios from 'axios';
 
 const Comment = ({ userId, noticeId }) => {
     const [comments, setComments] = useState([]);
+    const [replies, setReplies] = useState({
+        parent_id: 0,
+        notice_id : noticeId,
+        content : "",
+        user_id: userId
+    });
 
     useEffect(() => {
         fetchComments();
@@ -20,21 +26,18 @@ const Comment = ({ userId, noticeId }) => {
     };
 
     const addReply = async (commentId, content) => {
-        if (!content) return; 
         try {
             const response = await axios.post('/comments/reply', {
-                parent_id: commentId, 
-                content: content,   
-                user_id: userId       
+                parent_id: Number(commentId),
+                notice_id: noticeId,
+                content: content,
+                user_id: userId,
             });
-    
-            fetchComments(); 
-
+            fetchComments(); // 대댓글 추가 후 다시 데이터 로드
         } catch (error) {
-            console.error('Adding reply failed:', error);
+            console.error('대댓글 추가 실패:', error);
         }
     };
-
     return (
         <div>
             <CommentInput userId={userId} noticeId={noticeId} fetchComments={fetchComments} />
