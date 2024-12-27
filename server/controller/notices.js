@@ -11,6 +11,7 @@ const getNoticesList = async(req, res) => {
     return res.status(200).json(rows)
 
   }catch(error){
+    console.log(error);
     return res.status(500).json({ message: "게시글을 조회할 수 없습니다."})
   }
 };

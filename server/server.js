@@ -4,12 +4,12 @@ const app = express();
 const bodyparser = require("body-parser");
 const cookiepaser = require("cookie-parser");
 require("dotenv").config();
-
+const db = require('./database/db')
 //middlewares
-app.use((req,res,next)=>{
-  res.header("Access-Control-Allow-Credentials",true)
-  next()
-})
+// app.use((req,res,next)=>{
+//   res.header("Access-Control-Allow-Credentials",true)
+//   next()
+// })
 
 app.use(
   cors({
@@ -29,7 +29,12 @@ app.use("/", RouterPath); // 루트 경로에서 모든 라우팅 처리
 
 // RouterPath 모듈을 불러와서 루트 경로(/)에 등록함으로써, 모든 라우팅을 index.js로 위임합니다.
 
-
+db.connect((err)=>{
+  if(err){
+    console.log("Unable to connect to MySQL");
+    process.exit(1)
+  }
+})
 
 app.get("/", (req, res) => {
   console.log("Welcome to the API");

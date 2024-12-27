@@ -19,9 +19,11 @@ exports.connect = function() {
   }catch (error) {
     console.error("MySQL 커넥션풀 생성 중 오류",error)
     throw error;
-
   }
 }
+
+
+
 //외부에서 커넥션 풀을 활용하도록 연결 풀 반환하는 함수 선언
 exports.get = () => {
   if(!connect) {
