@@ -1,34 +1,154 @@
-.container {
+.header {
+  background-color: ghostwhite;
+  height: 60px; /* 높이 설정 */
+  padding: 0 30px; /* 좌우 여백 */
+  width: 100%;
+
   display: flex;
-  justify-content: space-between; /* 요소들 사이의 공간을 균등하게 분배 */
+  justify-content: space-between; /* 헤더의 모든 내용을 왼쪽 정렬 */
   align-items: center;
-  width: 100%; /* 컨테이너의 너비를 최대로 설정 */
 }
 
-.navbar {
-  background-color: #f8f9fa; /* 밝은 회색 톤의 배경 */
-  padding: 10px 20px; /* 좌우 패딩 추가 */
+.header-container {
+  width: 100%;
+  margin: 0; /* 가운데 정렬 해제 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 모든 섹션을 왼쪽 정렬 */
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* 요소 간의 간격 */
+  margin-right: auto; /* 왼쪽 정렬 후 오른쪽 여유 공간 확보 */
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  color: black;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.logo {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* 네비게이션 링크 간의 간격 */
 }
 
 .nav-link {
-  margin: 0 10px; /* 링크 간의 좌우 간격 */
-  font-size: 16px; /* 폰트 크기 */
-  color: #333; /* 색상 변경 */
+  color: black;
+  text-decoration: none;
+  font-size: 14px;
 }
 
-.navbar-brand {
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.right-section {
   display: flex;
   align-items: center;
+  gap: 30px; /* 검색창과 버튼 간의 간격 */
+  margin-right: auto;
+  margin-left: 800px;
 }
 
-.navbar-brand img {
-  height: auto;
-  width: 60px; /* 로고 이미지 크기 조정 */
+.search-input {
+  width: 200px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: #ffffff;
 }
 
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-  .nav-link {
-    font-size: 14px; /* 모바일에서 폰트 크기 조정 */
+.signup-button {
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.signup-button:hover {
+  background-color: #333;
+}
+
+.sidebar {
+  position: fixed;
+  top: 60px; /* 헤더 높이 반영 */
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background-color: #000000;
+  transition: left 0.3s ease-in-out;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar-link {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 10px 0;
+  font-size: 14px;
+}
+
+.sidebar-link:hover {
+  color: #cccccc;
+}
+
+/* 반응형 스타일 */
+@media screen and (max-width: 1024px) {
+  .header-container {
+    padding: 0 20px; /* 패딩 감소 */
+  }
+
+  .search-input {
+    width: 180px; /* 크기 감소 */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navigation {
+    display: none;
+  }
+
+  .search-input {
+    width: 150px; /* 크기 감소 */
+  }
+
+  .header {
+    padding: 0 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .search-input {
+    width: 120px; /* 크기 감소 */
+  }
+
+  .signup-button {
+    padding: 4px 10px; /* 크기 감소 */
+    font-size: 12px;
+  }
+
+  .logo {
+    height: 24px; /* 크기 감소 */
   }
 }

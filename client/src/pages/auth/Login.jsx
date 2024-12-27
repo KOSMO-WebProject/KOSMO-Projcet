@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../../contexts/AuthContext';
+import Header from "../../components/includes/Header";
 
 const Login = () => {
     const nav = useNavigate()

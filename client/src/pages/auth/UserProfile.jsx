@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
 import { Card, Button } from 'react-bootstrap';
+import Header from "../../components/includes/Header";
 
 const UserProfile = () => {
     const { currentUser, logout } = useAuth();
@@ -12,6 +13,7 @@ const UserProfile = () => {
     }
     return (
         <>
+            <Header/>
         <div className="user-profile-container" style={{ maxWidth: '400px', margin: '20px auto' }}>
         
             {currentUser ? (
@@ -27,7 +29,7 @@ const UserProfile = () => {
                 </Card>
             ) : (
                 <div className="alert alert-warning" role="alert">
-                    Please log in to view your profile.
+                    회원가입이 또는 로그인이 필요합니다.
                 </div>
             )}
         </div>
