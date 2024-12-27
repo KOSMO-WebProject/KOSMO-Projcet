@@ -29,20 +29,24 @@ app.use("/", RouterPath); // 루트 경로에서 모든 라우팅 처리
 
 // RouterPath 모듈을 불러와서 루트 경로(/)에 등록함으로써, 모든 라우팅을 index.js로 위임합니다.
 
-db.connect((err)=>{
-  if(err){
-    console.log("Unable to connect to MySQL");
-    process.exit(1)
-  }
-})
 
 app.get("/", (req, res) => {
   console.log("Welcome to the API");
   res.send("Hello World");
 });
 
-const port = process.env.SERVER_PORT; // 클라이언트(리액트) 포트번호와 다르게 한다.
-app.listen(port, (req, res) => {
-  console.log(`server start http://localhost:${port}`);
-});
 
+async function startServer() {
+  try {
+    await db.connect();
+    const port = process.env.SERVER_PORT;
+    app.listen(port, () => {
+      console.log(`서버가 http://localhost:${port}에서 실행 중입니다.`);
+    });
+  } catch (error) {
+    console.error("서버 시작 중 오류 발생:", error);
+    process.exit(1);
+  }
+}
+
+startServer();
