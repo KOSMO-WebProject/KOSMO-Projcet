@@ -27,8 +27,7 @@ const CommentList = ({ comments, addReply }) => {
                         />
                         <Button>댓글 추가</Button>
                     </InputGroup>
-                    {/* Display replies here if any */}
-                </ListGroupItem>
+                    {/* Display replies here if any */}                </ListGroupItem>
             ))}
         </ListGroup>
     );
