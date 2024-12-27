@@ -6,92 +6,93 @@ import { useNavigate } from 'react-router';
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    user_id: '',
-    user_pw: '',
-    user_name: '',
-    phone_number: '',
+    username: '',
+    password: '',
+    name: '',
+    phoneNumber: '',
     email: '',
-    date_of_birth: '',
-    gender: '',
-    recipient_name: '',
-    postal_code: '',
+    zipCode: '',
     address: '',
-    detailed_address: '',
-    is_default: false
+    detailAddress:''
   });
 
   const [errors, setErrors] = useState({});
-  const nav = useNavigate()
+
 
   const validateForm = () => {
     let formIsValid = true;
     let errors = {};
 
-    if (!formData.user_id) {
+    if (!formData.username) {
       formIsValid = false;
-      errors['user_id'] = 'ID를 입력해주세요.';
+      errors['username'] = 'ID를 입력해주세요.';
     }
-    if (!formData.user_pw) {
+
+
+    if (!formData.password) {
       formIsValid = false;
-      errors['user_pw'] = '비밀번호를 입력해주세요.';
+      errors['password'] = '비밀번호를 입력해주세요';
     }
-    if (!formData.user_name) {
+
+ 
+    if (!formData.name) {
       formIsValid = false;
-      errors['user_name'] = '이름을 입력해주세요.';
+      errors['name'] = '이름을  입력해주세요.';
     }
-    if (!formData.phone_number) {
+
+
+    if (!formData.phoneNumber) {
       formIsValid = false;
-      errors['phone_number'] = '전화번호를 입력해주세요.';
-    } else if (!/^\d{10,11}$/.test(formData.phone_number)) {
+      errors['phoneNumber'] = 'Phone number is required';
+    } else if (!/^\d{10,11}$/.test(formData.phoneNumber)) {
       formIsValid = false;
-      errors['phone_number'] = '전화번호는 10-11자리 숫자여야 합니다.';
+      errors['phoneNumber'] = 'Invalid phone number, should be 10-11 digits';
     }
+
+ 
     if (!formData.email) {
       formIsValid = false;
-      errors['email'] = '이메일을 입력해주세요.';
+      errors['email'] = '이메일을 입력해주세요';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       formIsValid = false;
-      errors['email'] = '유효한 이메일 형식이 아닙니다.';
+      errors['email'] = '이메일 형식이 아닙니다';
     }
-    if (!formData.date_of_birth) {
+
+ 
+    if (!formData.zipCode) {
       formIsValid = false;
-      errors['date_of_birth'] = '생년월일을 입력해주세요.';
+      errors['zipCode'] = '우편번호를 입력해주세요.';
     }
-    if (!formData.gender) {
-      formIsValid = false;
-      errors['gender'] = '성별을 선택해주세요.';
-    }
-    if (!formData.recipient_name) {
-      formIsValid = false;
-      errors['recipient_name'] = '수령인을 입력해주세요.';
-    }
-    if (!formData.postal_code) {
-      formIsValid = false;
-      errors['postal_code'] = '우편번호를 입력해주세요.';
-    }
+
     if (!formData.address) {
       formIsValid = false;
-      errors['address'] = '주소를 입력해주세요.';
+      errors['address'] = '도로명주소를 입력해주세요.';
     }
-    if (!formData.detailed_address) {
+
+    if (!formData.detailAddress) {
       formIsValid = false;
-      errors['detailed_address'] = '상세주소를 입력해주세요.';
+      errors['detailAddress'] = '상세주소를 입력해주세요.';
     }
 
     setErrors(errors);
     return formIsValid;
   };
 
+  
+
+
+  const nav = useNavigate()
+
   const handleSubmit = async (e) => {
     e.preventDefault(); //기본 폼 제출 동작(페이지 새로고침)을 방지한다.
     if (validateForm()) {
       // console.log('Form data:', formData);
-      try {
-        await axios.post('/auth/register', formData)
+      try{
+        await axios.post('/auth/register',formData)
         alert('회원가입이 완료되었습니다.');
         nav("/")
       }
-      catch (err) {
+      catch(err){
         console.log(err)
       }
 
@@ -107,8 +108,8 @@ const Register = () => {
   }, []);
 
 
-  // Daum 우편번호 팝업 호출
-  const handleAddressSearch = () => {
+   // Daum 우편번호 팝업 호출
+const handleAddressSearch = () => {
     new window.daum.Postcode({
       oncomplete: function (data) {
         let addr = ''; // 주소 변수
@@ -131,11 +132,11 @@ const Register = () => {
             extraAddr = ` (${extraAddr})`;
           }
         }
-
+  
         // 상태 업데이트: 기존 상태를 유지하며 새로운 데이터만 추가
         setFormData(prev => ({
           ...prev,
-          postal_code: data.zonecode,
+          zipCode: data.zonecode,
           address: addr,
         }));
       },
@@ -153,23 +154,23 @@ const Register = () => {
       <form className="form-group" onSubmit={handleSubmit}>
         <div>
           <label>ID:</label>
-          <input type="text" name="user_id" value={formData.user_id} onChange={handleChange} />
-          {errors.user_id && <p className="error-message">{errors.user_id}</p>}
+          <input type="text" name="username" value={formData.username} onChange={handleChange} />
+          {errors.username && <p className="error-message">{errors.username}</p>}
         </div>
         <div>
           <label>Password:</label>
-          <input type="password" name="user_pw" value={formData.user_pw} onChange={handleChange} />
-          {errors.user_pw && <p className="error-message">{errors.user_pw}</p>}
+          <input type="password" name="password" value={formData.password} onChange={handleChange} />
+          {errors.password && <p className="error-message">{errors.password}</p>}
         </div>
         <div>
           <label>Name:</label>
-          <input type="text" name="user_name" value={formData.user_name} onChange={handleChange} />
-          {errors.user_name && <p className="error-message">{errors.user_name}</p>}
+          <input type="text" name="name" value={formData.name} onChange={handleChange} />
+          {errors.name && <p className="error-message">{errors.name}</p>}
         </div>
         <div>
           <label>Phone Number:</label>
-          <input type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} />
-          {errors.phone_number && <p className="error-message">{errors.phone_number}</p>}
+          <input type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+          {errors.phoneNumber && <p className="error-message">{errors.phoneNumber}</p>}
         </div>
         <div>
           <label>Email:</label>
@@ -177,28 +178,28 @@ const Register = () => {
           {errors.email && <p className="error-message">{errors.email}</p>}
         </div>
         <div>
-          <label>우편번호:</label>
-          <input type="text" name="postal_code" value={formData.postal_code} onChange={handleChange} />
-          {errors.postal_code && <p className="error-message">{errors.postal_code}</p>}
+            <label>우편번호:</label>
+          <input type="text" name="zipCode" value={formData.zipCode} onChange={handleChange} />
+          {errors.zipCode && <p className="error-message">{errors.zipCode}</p>}
           <button type="button" onClick={handleAddressSearch}>주소 검색</button>
         </div>
         <div>
-          <div>
-            <label>도로명주소:</label>
-            <input type="text" name="address" value={formData.address} onChange={handleChange} />
-            {errors.address && <p className="error-message">{errors.address}</p>}
-          </div>
-          <div>
+        <div>
+          <label>도로명주소:</label>
+          <input type="text" name="address" value={formData.address} onChange={handleChange} />
+          {errors.address && <p className="error-message">{errors.address}</p>}
+        </div>
+        <div>
             <label>상세주소</label>
             <input
-              type="text"
-              name="detailed_address"
-              placeholder="상세주소"
-              value={formData.detailed_address}
-              onChange={handleChange}
+            type="text"
+            name="detailAddress"
+            placeholder="상세주소"
+            value={formData.detailAddress}
+            onChange={handleChange}
             />
-            {errors.detailed_address && <p className="error-message">{errors.detailed_address}</p>}
-          </div>
+            {errors.detailAddress && <p className="error-message">{errors.detailAddress}</p>}
+        </div>
         </div>
         <button className="submit-button" type="submit">회원가입</button>
       </form>
