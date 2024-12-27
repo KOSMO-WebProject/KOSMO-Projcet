@@ -1,0 +1,41 @@
+/* NoticeList.css 파일에 추가/수정할 내용 */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.page-header h2 {
+  text-align: center;
+}
+
+.search-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.form-select, .form-control {
+  margin-right: 10px;
+  flex-grow: 1;
+}
+
+.btn {
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.table {
+  margin-top: 20px;
+  width: 90%; /* 테이블의 너비를 조정하여 더 읽기 쉽게 만듭니다. */
+}
+
+.list-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
