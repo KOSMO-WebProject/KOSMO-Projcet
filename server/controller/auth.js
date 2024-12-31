@@ -1,6 +1,6 @@
 const db = require("../database/db");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt"); // 비밀번호를 암호화해주는 코드
+const jwt = require("jsonwebtoken"); // JWT 토큰을 생성하고 검증하는 라이브러리입니다. 주로 사용자 인증에 사용됩니다.
 
 // 회원가입
 const register = async (req, res) => {
@@ -12,19 +12,19 @@ const register = async (req, res) => {
       return res.status(409).json("해당 유저가 이미 존재합니다.");
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.user_pw, salt);
+    const salt = await bcrypt.genSalt(10); // Salt는 사용자의 비밀번호에 난수를 추가하여 함께 해시 함수를 돌려 보안을 높이는 매개변수이다.
+    const hashedPassword = await bcrypt.hash(req.body.user_pw, salt); // 비빌번호 해싱 비밀번호 입력 시 ...으로 나오게 합니다.
 
     const q = "INSERT INTO user(user_id, user_pw, user_name) VALUES (?)";
     values = [
-      req.body.user_id,
-      hashedPassword,
-      req.body.user_name,
-      req.body.phone_number,
-      req.body.postal_code,
-      req.body.address,
-      req.body.detailed_address,
-      req.body.is_default,
+      req.body.user_id, // pk값
+      hashedPassword, // 위에서 지정한 비빌번호 ***으로 나오게 합니다.
+      req.body.user_name, // 사용자 이름
+      req.body.phone_number, // 비빌번호
+      req.body.postal_code, // 우편번호
+      req.body.address, // 주소
+      req.body.detailed_address, // 상세 주소
+      req.body.is_default, // 주소 및 상세주소를 기본배송지로 적용
     ];
     const [rows1] = await db.get().execute(q, values);
     console.log(rows1);
