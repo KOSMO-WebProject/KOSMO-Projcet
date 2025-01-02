@@ -1,6 +1,7 @@
 const db = require("../database/db");
 const bcrypt = require("bcrypt"); // 비밀번호를 암호화해주는 코드
 const jwt = require("jsonwebtoken"); // JWT 토큰을 생성하고 검증하는 라이브러리입니다. 주로 사용자 인증에 사용됩니다.
+const axios = require("axios");
 
 // 회원가입
 const register = async (req, res) => {
@@ -119,9 +120,129 @@ const logout = (req, res) => {
   }
 };
 
+// 카카오 로그인 URL로 리디렉션
+const kakaoLogin = async (req, res) => {
+  const kakaoURL =
+    "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=6b10a8106270f172344447e5cec8953b&redirect_uri=http://localhost:3000/auth/kakao/login";
+  res.redirect(kakaoURL);
+};
+
+// 카카오 로그인 콜백 처리
+const kakaoCallback = async (req, res) => {
+  const code = req.query.code;
+
+  try {
+    // 카카오 Access Token 가져오기
+    const tokenResponse = await axios.post(
+      "https://kauth.kakao.com/oauth/token",
+      null,
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+        params: {
+          grant_type: "authorization_code",
+          client_id: process.env.KAKAO_CLIENT_ID,
+          redirect_uri: process.env.KAKAO_REDIRECT_URI,
+          code,
+        },
+      }
+    );
+
+    const accessToken = tokenResponse.data.access_token;
+
+    // 사용자 정보 가져오기
+    const userResponse = await axios.post(
+      "https://kapi.kakao.com/v2/user/me",
+      null,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    const kakaoUser = userResponse.data;
+    const kakaoId = kakaoUser.id;
+    const nickname = kakaoUser.properties.nickname;
+
+    /* 
+    // 데이터베이스에 사용자 존재 여부 확인
+    const [rows] = await db
+      .get()
+      .execute("SELECT * FROM user WHERE kakao_id = ?", [kakaoId]);
+
+    let userId;
+    if (rows.length === 0) {
+      // 신규 사용자면 DB에 등록
+      const insertQuery =
+        "INSERT INTO user (kakao_id, user_name) VALUES (?, ?)";
+      const [result] = await db.get().execute(insertQuery, [kakaoId, nickname]);
+      userId = result.insertId;
+    } else {
+      userId = rows[0].id;
+    } 
+        */
+
+    // JWT 토큰 생성
+    const jwtToken = jwt.sign(
+      { kakao_id: kakaoId },
+      process.env.ACCESS_SECRET,
+      {
+        expiresIn: "1h", // 토큰 만료 시간 설정
+      }
+    );
+
+    // 클라이언트에 토큰 전달 (쿠키 or 응답 JSON)
+    res.cookie("accessToken", jwtToken, { httpOnly: true }); // 쿠키로 저장
+    res.status(200).json({ message: "카카오 로그인 성공", nickname }); // 로그인 성공 응답
+  } catch (error) {
+    console.error("카카오 로그인 실패:", error.response?.data || error.message);
+    res.status(500).json({ error: "카카오 인증 실패" });
+  }
+};
+
+// 카카오 로그아웃 처리
+const kakaoLogout = async (req, res) => {
+  try {
+    // 클라이언트에서 받은 쿠키의 accessToken
+    const accessToken = req.cookies.accessToken;
+
+    if (!accessToken) {
+      return res.status(401).json({ message: "Access token is missing" });
+    }
+
+    // 카카오 API로 로그아웃 요청
+    const logoutResponse = await axios.post(
+      "https://kapi.kakao.com/v1/user/logout",
+      null,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    // 카카오 서버에서 로그아웃 성공
+    if (logoutResponse.status === 200) {
+      // 로그아웃 성공 시, 클라이언트의 쿠키에서 accessToken 제거
+      res.clearCookie("accessToken");
+      return res.status(200).json({ message: "카카오 로그아웃 성공" });
+    } else {
+      return res.status(400).json({ message: "카카오 로그아웃 실패" });
+    }
+  } catch (error) {
+    console.error("카카오 로그아웃 실패:", error.response?.data || error.message);
+    res.status(500).json({ error: "카카오 로그아웃 처리 중 오류 발생" });
+  }
+};
+
 module.exports = {
   register,
   login,
   logout,
   accessToken,
+  kakaoLogin,
+  kakaoCallback,
+  kakaoLogout,
 };
