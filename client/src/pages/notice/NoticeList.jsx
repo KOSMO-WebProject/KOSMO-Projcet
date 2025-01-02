@@ -6,13 +6,13 @@ import Footer from '../../components/includes/Footer';
 import NoticeItem from './NoticeItem';
 import Header from '../../components/includes/Header';
 import { Link, useNavigate } from 'react-router';
-import { useAuth } from '../../contexts/AuthContext';
+import { useSelector } from 'react-redux';
 
 
 
 
 const NoticeList = () => {
-    const { currentUser } = useAuth()
+    const { currentUser } = useSelector((state) => state.auth);
     const nav = useNavigate()
   const [gubun, setGubun] = useState('')
   const [keyword, setKeyword] = useState('')

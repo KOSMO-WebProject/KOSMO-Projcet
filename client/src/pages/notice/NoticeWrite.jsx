@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Container, Button, Row, Col, Form, FormControl } from 'react-bootstrap';
 import ReactQuill from 'react-quill-new'; // 라이브러리 이름 확인 및 수정
 import { useNavigate } from 'react-router';
-import { useAuth } from '../../contexts/AuthContext';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const NoticeWrite = () => {
-  const { currentUser } = useAuth();
+    const { currentUser } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
       user_id: currentUser ? currentUser.user_id : null, 

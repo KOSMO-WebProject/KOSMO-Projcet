@@ -13,7 +13,7 @@ const cheerio = require("cheerio");
     height: 768,
   });
 
-  const url = "https://www.musinsa.com/main/musinsa/ranking";
+  const url = "https://www.musinsa.com/main/musinsa/ranking?storeCode=musinsa&sectionId=200&categoryCode=003000&gf=M";
   await page.goto(url, {
     waitUntil: "domcontentloaded", // DOM이 로드될 때까지 대기
   });
@@ -33,7 +33,7 @@ const cheerio = require("cheerio");
             clearInterval(timer);
             resolve();
           }
-        }, 100); // 100ms 간격으로 스크롤 시간 조절
+        }, 100); // 100ms 간격으로 스크롤
       });
     });
   };
@@ -54,25 +54,25 @@ const cheerio = require("cheerio");
   $(".sc-1y072n9-0.jdzDMq").each((index, element) => {
     // 제품명 리스트 추출
     const productNames = $(element)
-        .find(
-            "p.text-body_13px_reg.line-clamp-2.break-all.whitespace-break-spaces.text-black.font-pretendard"
-        )
-        .map((i, el) => $(el).text().trim())
-        .get();
+      .find(
+        "p.text-body_13px_reg.line-clamp-2.break-all.whitespace-break-spaces.text-black.font-pretendard"
+      )
+      .map((i, el) => $(el).text().trim())
+      .get();
 
     // 가격 리스트 추출
     const productPrices = $(element)
-        .find(
-            "span.text-body_13px_semi.sc-1m4cyao-12.fYDlTs.text-black.font-pretendard"
-        )
-        .map((i, el) => $(el).text().trim())
-        .get();
+      .find(
+        "span.text-body_13px_semi.sc-1m4cyao-12.fYDlTs.text-black.font-pretendard"
+      )
+      .map((i, el) => $(el).text().trim())
+      .get();
 
     // 이미지 URL 추출
     const imageUrls = $(element)
-        .find("img.sc-1m4cyao-4")
-        .map((i, el) => $(el).attr("src"))
-        .get();
+      .find("img.sc-1m4cyao-4")
+      .map((i, el) => $(el).attr("src"))
+      .get();
 
     // 제품명, 가격, 이미지 URL을 매핑
     productNames.forEach((name, i) => {
