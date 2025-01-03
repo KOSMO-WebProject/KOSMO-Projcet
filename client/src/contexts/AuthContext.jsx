@@ -2,14 +2,27 @@ import { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
 
-//ContextAPI 사용해서 login logout token사용해보기
-const AuthContext = createContext();
+// 초기 상태
+const initialState = {
+    currentUser: null, // 초기 상태는 null
+    setCurrentUser: () => {}, // 사용자 상태를 설정하는 함수
+};
 
-export const useAuth = () => useContext(AuthContext);
+  // AuthContext 생성
+export const AuthContext = createContext(initialState);
 
+  // useAuth 훅: context 값을 사용하도록 제공
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
+};
 
+  // AuthProvider: children을 감싸고 context를 제공하는 컴포넌트
 export const AuthProvider = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);  // 사용자 상태 관리
 
     const login = async (username, password) => {
         try {

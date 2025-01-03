@@ -14,7 +14,7 @@ const getAllAddresses = async (req, res) => {
 
 // 특정 사용자 주소 조회
 const getAddressByUserId = async (req, res) => {
-  const query = "SELECT * FROM address WHERE user_id = ?";
+  const query = "SELECT * FROM address WHERE user_no = ?";
   try {
     const [results] = await db.get().execute(query, [req.params.userId]);
     if (results.length === 0) {
@@ -39,7 +39,7 @@ const addAddress = async (req, res) => {
     is_default,
   } = req.body;
   const query = `
-        INSERT INTO address (user_id, recipient_name, phone_number, postal_code, address, detailed_address, is_default)
+        INSERT INTO address (user_no, recipient_name, phone_number, postal_code, address, detailed_address, is_default)
         VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
   try {

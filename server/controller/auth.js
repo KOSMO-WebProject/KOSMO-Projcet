@@ -35,7 +35,7 @@ const register = async (req, res) => {
       const [rows2] = await db.get().execute(q, [req.body.user_id]);
       const id = rows2[0].id;
 
-      const q1 = "INSERT INTO address (user_id, recipient_name) VALUES (?, ?)";
+      const q1 = "INSERT INTO address (user_no, recipient_name) VALUES (?, ?)";
       await db.get().execute(q1, [id, req.body.user_name]);
       return res.status(201).json("회원가입이 완료되었습니다.");
     }
@@ -120,11 +120,10 @@ const logout = (req, res) => {
   }
 };
 
-// 카카오 로그인 URL로 리디렉션
 const kakaoLogin = async (req, res) => {
   const kakaoURL =
     "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=6b10a8106270f172344447e5cec8953b&redirect_uri=http://localhost:3000/auth/kakao/login";
-  res.redirect(kakaoURL);
+  res.redirect(kakaoURL); // 클라이언트를 카카오 로그인 페이지로 리다이렉션
 };
 
 // 카카오 로그인 콜백 처리
@@ -148,7 +147,6 @@ const kakaoCallback = async (req, res) => {
         },
       }
     );
-
     const accessToken = tokenResponse.data.access_token;
 
     // 사용자 정보 가져오기
@@ -232,8 +230,87 @@ const kakaoLogout = async (req, res) => {
       return res.status(400).json({ message: "카카오 로그아웃 실패" });
     }
   } catch (error) {
-    console.error("카카오 로그아웃 실패:", error.response?.data || error.message);
+    console.error(
+      "카카오 로그아웃 실패:",
+      error.response?.data || error.message
+    );
     res.status(500).json({ error: "카카오 로그아웃 처리 중 오류 발생" });
+  }
+};
+// 네이버 로그인 URL
+const naverLogin = async (req, res) => {
+  const naverURL =
+    "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=IaSUSzzA4CXcK_p1ylgw&state=&redirect_uri=http://localhost:5000/naver/login";
+  res.redirect(naverURL); // 클라이언트를 네이버 로그인 페이지로 리다이렉션
+};
+
+// 네이버 로그인 콜백 처리
+const naverCallback = async (req, res) => {
+  const code = req.query.code;
+
+  try {
+    // 네이버 Access Token 가져오기
+    const tokenResponse = await axios.post(
+      "https://nid.naver.com/oauth2.0/token",
+      null,
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+        params: {
+          grant_type: "authorization_code",
+          client_id: process.env.NAVER_CLIENT_ID,
+          client_secret: process.env.NAVER_CLIENT_SECRET,
+          redirect_uri: process.env.NAVER_REDIRECT_URI,
+          code,
+        },
+      }
+    );
+
+    const accessToken = tokenResponse.data.access_token;
+
+    // 사용자 정보 가져오기
+    const userResponse = await axios.get(
+      "https://openapi.naver.com/v1/nid/me",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    const userData = userResponse.data.response;
+    const naverId = userData.id;
+    const nickname = userData.name;
+
+    /*  
+   // 데이터베이스에 사용자 존재 여부 확인
+    const [existingUser] = await db.get().execute("SELECT * FROM user WHERE social_id = ?", [naverId]);
+
+    let userId;
+    if (existingUser.length === 0) {
+      // 신규 사용자면 DB에 등록
+      const insertQuery = "INSERT INTO user (social_id, user_name) VALUES (?, ?)";
+      const [result] = await db.get().execute(insertQuery, [naverId, nickname]);
+      userId = result.insertId;
+    } else {
+      userId = existingUser[0].id;
+    } 
+      */
+
+    // JWT 토큰 생성
+    const jwtToken = jwt.sign({ user_id: userId }, process.env.ACCESS_SECRET, {
+      expiresIn: "1h",
+    });
+
+    // 클라이언트에 토큰 전달 (쿠키로 저장)
+    res
+      .cookie("accessToken", jwtToken, { httpOnly: true })
+      .status(200)
+      .json({ message: "네이버 로그인 성공" });
+  } catch (error) {
+    console.error("네이버 로그인 실패:", error.response?.data || error.message);
+    res.status(500).json({ error: "네이버 인증 실패" });
   }
 };
 
@@ -245,4 +322,6 @@ module.exports = {
   kakaoLogin,
   kakaoCallback,
   kakaoLogout,
+  naverLogin,
+  naverCallback,
 };

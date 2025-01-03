@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/includes/Header';
-import Footer from '../components/includes/Footer';
 import axios from 'axios';
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
 
 const HomePage = () => {
   const [location, setLocation] = useState({ lat: 37.5664056, lon: 126.9778222 }); //기본주소는 서울시청으로 설정
@@ -47,7 +47,6 @@ const HomePage = () => {
   return (
     <div>
       <Header/>
-        HomePage
         <div>
           {citys.address_name}
         </div>
