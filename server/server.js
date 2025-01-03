@@ -1,9 +1,9 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+const cors = require('cors');
 const app = express();
-const bodyparser = require("body-parser");
-const cookiepaser = require("cookie-parser");
-require("dotenv").config();
+const bodyparser = require('body-parser');
+const cookiepaser = require('cookie-parser');
+require('dotenv').config();
 
 app.use(cors());
 app.use(express.json());
@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-const port = process.env.SERVER_PORT; // 클라이언트(리액트) 포트번호와 다르게 한다.
+const port = process.env.SERVER_PORT || '5000'; // 클라이언트(리액트) 포트번호와 다르게 한다.
 app.listen(port, (req, res) => {
-  console.log(`server start http://localhost:${port}`);
+  console.log(`Server start http://localhost:${port}`);
 });
