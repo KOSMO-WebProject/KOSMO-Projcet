@@ -1,4 +1,11 @@
 /* Container Styling */
+.login-main {
+  color: #000000;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bold;
+}
+
 .signup-container {
     display: flex;
     height: 100vh;
@@ -14,7 +21,7 @@
     background-color: #000;
   }
   .signup-video {
-    width: 100%;
+    width: 60%;
     height: 100%;
     object-fit: cover;
   }
@@ -42,7 +49,106 @@
     text-align: center;
   }
   
-  /* Form Styling */
+  .password-input-container {
+    position: relative;
+}
+
+  .password-field {
+    display: flex;
+    align-items: center;
+  }
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 20%; /* 아이콘의 위치 조정 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1.2rem;
+    color: #888;
+}
+
+.date-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.date-input {
+  width: 100%;
+  padding-right: 30px; /* 아이콘을 위한 공간 */
+  font-weight: normal;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.address-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.address-input {
+  padding-right: 40px; /* 아이콘을 위한 공간 */
+}
+
+.address-search-button {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+  color: #888;
+}
+
+.address-search-icon {
+  color: #888;
+}
+
+
+/* 선택된 옵션은 검정색으로 */
+.form-input:focus option {
+  color: black;
+}
+
+/* 사용자가 선택한 옵션 시 검정색으로 변경 */
+.form-input:focus {
+  color: black;
+}
+
+/* 플레이스홀더는 회색 */
+.form-input::placeholder {
+  color: #ccc;
+}
+
+.form-input {
+    margin-bottom: 15px;
+    padding: 10px;
+    padding-right: 40px; /* 아이콘과 텍스트 간의 간격 */
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+
+}
+
+.form-label{
+  font-size: 12px;
+  padding: 5px;
+}
+
   .signup-form {
     width: 100%;
     max-width: 400px;
@@ -50,14 +156,7 @@
     flex-direction: column;
   }
   
-  .form-input {
-    margin-bottom: 15px;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
+
   .form-button {
     padding: 10px;
     font-size: 1rem;
@@ -66,20 +165,29 @@
     background-color: #333;
     color: #fff;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   
   .form-button:hover {
     background-color: #555;
   }
   
-  .form-button.alternative {
+  .form-button.KAKAO {
     background-color: #f7e600;
     color: #000;
   }
   
-  .form-button.alternative:hover {
+  .form-button.KAKAO:hover {
     background-color: #d9c500;
+  }
+
+  .form-button.NAVER {
+    background-color: #00c503;
+    color: #000;
+  }
+  
+  .form-button.NAVER:hover {
+    background-color: #009e03;
   }
   
   .login-link {
@@ -95,4 +203,3 @@
   .login-link a:hover {
     text-decoration: underline;
   }
-  
