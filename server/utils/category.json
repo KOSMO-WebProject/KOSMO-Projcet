@@ -1,0 +1,146 @@
+[
+  {
+    "category_no": 1,
+    "category_name": "상의",
+    "parent_category": null,
+    "gender": "U"
+  },
+  {
+    "category_no": 2,
+    "category_name": "반팔",
+    "parent_category": 1,
+    "gender": "M"
+  },
+  {
+    "category_no": 3,
+    "category_name": "긴팔",
+    "parent_category": 1,
+    "gender": "M"
+  },
+  {
+    "category_no": 4,
+    "category_name": "반팔",
+    "parent_category": 1,
+    "gender": "F"
+  },
+  {
+    "category_no": 5,
+    "category_name": "긴팔",
+    "parent_category": 1,
+    "gender": "F"
+  },
+  {
+    "category_no": 6,
+    "category_name": "하의",
+    "parent_category": null,
+    "gender": "U"
+  },
+  {
+    "category_no": 7,
+    "category_name": "반바지",
+    "parent_category": 6,
+    "gender": "M"
+  },
+  {
+    "category_no": 8,
+    "category_name": "긴바지",
+    "parent_category": 6,
+    "gender": "M"
+  },
+  {
+    "category_no": 9,
+    "category_name": "반바지",
+    "parent_category": 6,
+    "gender": "F"
+  },
+  {
+    "category_no": 10,
+    "category_name": "긴바지",
+    "parent_category": 6,
+    "gender": "F"
+  },
+  {
+    "category_no": 11,
+    "category_name": "신발",
+    "parent_category": null,
+    "gender": "U"
+  },
+  {
+    "category_no": 12,
+    "category_name": "운동화",
+    "parent_category": 11,
+    "gender": "U"
+  },
+  {
+    "category_no": 13,
+    "category_name": "구두",
+    "parent_category": 11,
+    "gender": "U"
+  },
+  {
+    "category_no": 14,
+    "category_name": "장화",
+    "parent_category": 11,
+    "gender": "U"
+  },
+  {
+    "category_no": 15,
+    "category_name": "악세사리",
+    "parent_category": null,
+    "gender": "U"
+  },
+  {
+    "category_no": 16,
+    "category_name": "모자",
+    "parent_category": 15,
+    "gender": "U"
+  },
+  {
+    "category_no": 17,
+    "category_name": "머플러",
+    "parent_category": 15,
+    "gender": "U"
+  },
+  {
+    "category_no": 18,
+    "category_name": "선글라스",
+    "parent_category": 15,
+    "gender": "U"
+  },
+  {
+    "category_no": 19,
+    "category_name": "우산",
+    "parent_category": 15,
+    "gender": "U"
+  },
+  {
+    "category_no": 20,
+    "category_name": "아우터",
+    "parent_category": null,
+    "gender": "U"
+  },
+  {
+    "category_no": 21,
+    "category_name": "코트",
+    "parent_category": 20,
+    "gender": "M"
+  },
+  {
+    "category_no": 22,
+    "category_name": "패딩",
+    "parent_category": 20,
+    "gender": "M"
+  },
+  {
+    "category_no": 23,
+    "category_name": "코트",
+    "parent_category": 20,
+    "gender": "F"
+  },
+  {
+    "category_no": 24,
+    "category_name": "패딩",
+    "parent_category": 20,
+    "gender": "F"
+  }
+]

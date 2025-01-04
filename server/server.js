@@ -13,8 +13,8 @@ const db = require('./database/db')
 
 app.use(
   cors({
-    origin : "http://loaclhost:3000", 
-    credentials : true,
+    origin : "http://loaclhost:3000",  //클라이언트 도메인 허용
+    credentials : true, //쿠키 및 인증 정보 허용
 }));
 
 //기본 설정 middlewares

@@ -20,5 +20,6 @@ export const getCurrentFormattedDate = (type) => {
           return `${year}-${formattedMonth}-${formattedDay} ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
       default:
           throw new Error('Invalid type specified. Use "date" or "datetime".');
+
   }
 };
