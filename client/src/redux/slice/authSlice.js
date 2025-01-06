@@ -39,7 +39,7 @@ export const loadUser = createAsyncThunk(
       const response = await axios.get("/auth/accesstoken", {
         withCredentials: true,
       });
-      return response.data;
+      return response.data; // 사용자 정보 반환
     } catch (error) {
       return rejectWithValue(error.response.data || "사용자 정보 로드 실패");
     }

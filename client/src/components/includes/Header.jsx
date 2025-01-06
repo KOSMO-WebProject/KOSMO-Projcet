@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../redux/slice/authSlice";
+import {colors} from "@mui/material";
 // import Sidebar from './SideBar'; // Sidebar 임포트
 
 const Header = () => {

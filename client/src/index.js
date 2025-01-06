@@ -21,10 +21,6 @@ root.render(
    </Provider>
  
    </>
-        
-    
-  
-
 );
 
 
