@@ -1,1 +1,0 @@
-// Mypage.jsx created

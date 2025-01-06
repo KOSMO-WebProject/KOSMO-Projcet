@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/logo.png';
 import { login } from '../../redux/slice/authSlice';
 import './LoginPage.css'
-import axios from 'axios';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -28,18 +27,7 @@ const LoginPage = () => {
 
   const handleSocialLogin = (platform) => {
     console.log(`${platform} login clicked`);
-
-    if (platform === 'Kakao') {
-      // 서버의 카카오 로그인 엔드포인트로 요청
-      window.location.href = 'http://localhost:5000/auth/kakao/login';
-    } 
-    else if (platform === 'Naver') {
-      // 서버의 네이버 로그인 엔드포인트로 요청
-      window.location.href = 'http://localhost:5000/auth/naver/login';
-    }
-    else {
-      console.log(`${platform} login clicked`);
-    }
+    // Add social login redirection logic here
   };
 
   return (
