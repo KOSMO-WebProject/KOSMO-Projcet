@@ -1,0 +1,1 @@
+// DetailLandingPage.jsx created

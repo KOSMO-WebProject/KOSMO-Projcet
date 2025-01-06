@@ -1,29 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import { BrowserRouter } from 'react-router';
-import '@fortawesome/fontawesome-free/js/all.js'
-import 'react-quill-new/dist/quill.snow.css'; // 스타일시트 경로 확인
-import { AuthProvider } from './contexts/AuthContext';
-
-
-
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import store from './redux/store'; // store.js 파일의 경로에 맞게 수정
+import App from './App'; // App 컴포넌트 경로에 맞게 수정
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-   <>
-   <AuthProvider>
-   <BrowserRouter>
-        <App />
-   </BrowserRouter>
-   </AuthProvider>
- 
-   </>
-        
-    
-  
-
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>
 );
-
-
