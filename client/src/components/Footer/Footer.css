@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+// CSS styles for Footer component
+=======
 .footer-container {
   align-items: center;
   padding: 10px 50px; /* 패딩 감소 */
@@ -46,3 +49,4 @@
     width: 100%; /* 모바일에서 폼 요소 너비 조정 */
   }
 }
+>>>>>>> develop

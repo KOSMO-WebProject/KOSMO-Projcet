@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+// Component for footer section of the application
+=======
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Footer.css';
@@ -130,3 +133,4 @@ const Footer = () => {
 };
 
 export default Footer;
+>>>>>>> develop

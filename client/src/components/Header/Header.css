@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+// CSS styles for Header component
+=======
 button {
   all: unset; /* 모든 브라우저 기본 스타일 제거 */
   cursor: pointer;
@@ -244,3 +247,4 @@ button {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1050;
 }
+>>>>>>> develop

@@ -1,4 +1,17 @@
 import React from 'react';
+<<<<<<< HEAD
+import ReactDOM from 'react-dom/client'; // Note: import from 'react-dom/client'
+import App from './App';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
+const root = ReactDOM.createRoot(document.getElementById('root')); // Create root
+root.render(
+    <Provider store={store}>
+        <App />
+    </Provider>
+);
+=======
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
@@ -13,3 +26,4 @@ root.render(
         </BrowserRouter>
     </Provider>
 );
+>>>>>>> develop

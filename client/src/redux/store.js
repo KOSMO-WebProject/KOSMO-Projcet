@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+// src/redux/store.js
+import { configureStore } from '@reduxjs/toolkit';
+import signupReducer from './signupSlice';
+
+const store = configureStore({
+    reducer: {
+        signup: signupReducer,
+    },
+});
+
+export default store;
+=======
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './slice/authSlice.js';
 import products from './slice/productsSlice';
@@ -12,3 +25,4 @@ const store = configureStore({
 });
 
 export default store;
+>>>>>>> develop
