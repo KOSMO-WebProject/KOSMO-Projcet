@@ -1,1 +1,0 @@
-// DetailPage.jsx created

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-// Component for header section of the application
-=======
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
@@ -89,4 +86,3 @@ const Header = () => {
 };
 
 export default Header;
->>>>>>> develop

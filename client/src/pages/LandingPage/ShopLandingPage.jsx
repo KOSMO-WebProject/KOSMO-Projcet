@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-// ShopLandingPage.jsx created
-=======
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../../redux/slice/productsSlice";
@@ -95,4 +92,3 @@ const ShopLandingPage = () => {
 };
 
 export default ShopLandingPage;
->>>>>>> develop

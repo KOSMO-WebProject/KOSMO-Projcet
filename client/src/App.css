@@ -7,8 +7,4 @@ html, body {
 /*특정 요소에서 Pretendard만 사용하도록 강제할 경우*/
 .custom-font {
   font-family: 'Pretendard', sans-serif;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> develop

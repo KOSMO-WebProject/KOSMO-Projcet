@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-// LoginPage.jsx created
-=======
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -79,4 +76,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
->>>>>>> develop

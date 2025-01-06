@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-// Component for rendering the login form UI
-=======
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEmail, setPassword } from '../../../redux/actions';  // 경로 수정
@@ -48,4 +45,3 @@ const LoginForm = () => {
     };
 
 export default LoginForm;
->>>>>>> develop
