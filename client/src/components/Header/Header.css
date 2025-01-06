@@ -1,1 +1,250 @@
+<<<<<<< HEAD
 // CSS styles for Header component
+=======
+button {
+  all: unset; /* 모든 브라우저 기본 스타일 제거 */
+  cursor: pointer;
+}
+
+/* General Styles */
+.header {
+  font-family: Pretendard;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  height: 30px;
+}
+
+.navigation {
+  display: flex;
+  gap: 24px;
+}
+
+.H-nav-link {
+  text-decoration: none;
+  color: #151515;
+  font-weight: normal;
+  font-size: 16px !important;; /* 글씨 크기 추가 */
+  transition: font-weight 0.3s, font-size 0.3s; /* 크기 변경 애니메이션 추가 */
+}
+
+.H-nav-link:hover {
+  color: #000;
+  font-weight: bolder;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.signup-button {
+  background-color: #151515;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.signup-button:hover {
+  background-color: #ccc;
+  color: #151515;
+}
+
+.signup-button:active {
+  background-color: #151515; /* 클릭 시 원래 색상 유지 */
+  color: #fff; /* 클릭 시 텍스트 색상 유지 */
+}
+
+
+.search-icon {
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s transform 0.3s ease;
+}
+
+.search-icon.active {
+  color: #151515;
+}
+
+.search-input-container {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+  width: 0; /* 기본 상태 */
+  height: 40px;
+  transition: width 0.3s ease-in-out;
+}
+
+.search-input-container.open {
+  /* display: block; */
+  width: 200px; /* 검색창 확장 크기 */
+}
+
+.search-input {
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  display: block;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: left 0.3s;
+  z-index: 1100;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar-link {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 15px;
+  transition: color 0.3s;
+}
+
+.sidebar-link:hover {
+  color: #151515;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navigation {
+      display: none;
+  }
+
+  .menu-button {
+    all: unset; /* 기본 스타일 제거 */
+    font-size: 24px; /* 아이콘 크기 조정 */
+    cursor: pointer; /* 클릭 커서 표시 */
+    color: #333; /* 버튼 색상 */
+    transition: color 0.3s ease;
+    background-color: transparent !important; /* 강제로 배경 투명 */
+}
+
+  .menu-button:hover {
+      color: #151515;
+      background: none;
+  }
+}
+
+/* Search Icon */
+.search-icon {
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.search-icon.active {
+  color: #151515;
+}
+
+/* Search Input Container */
+.search-input-container {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+  width: 0;
+  height: 40px;
+  transition: width 0.3s ease-in-out;
+}
+
+.search-input-container.open {
+  width: 200px;
+}
+
+.search-input {
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  display: block;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Sidebar and Responsive Menu */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: left 0.3s ease-in-out;
+  z-index: 1100;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+/* Other CSS */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+}
+>>>>>>> develop
