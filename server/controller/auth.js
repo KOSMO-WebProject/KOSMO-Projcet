@@ -274,7 +274,7 @@ const naverCallback = async (req, res) => {
       "https://openapi.naver.com/v1/nid/me",
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          "Authorization": `Bearer ${accessToken}`,
         },
       }
     );
