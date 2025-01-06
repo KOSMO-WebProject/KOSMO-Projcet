@@ -9,7 +9,7 @@ router.get("/kakao/login", authController.kakaoLogin);
 router.get("/kakao/callback", authController.kakaoCallback);
 router.post("/kakao/logout", authController.kakaoLogout);
 router.get("/naver/login", authController.naverLogin);
-router.get("/naver/callback", authController.naverCallback);
+router.post("/naver/callback", authController.naverCallback);
 router.get("/accesstoken", authController.accessToken);
 
 module.exports = router;

@@ -38,6 +38,18 @@ const addAddress = async (req, res) => {
     detailed_address,
     is_default,
   } = req.body;
+
+  // 기본 배송지로 설정된 주소가 이미 존재한다면, 기존 주소는 기본 배송지 아니게 업데이트
+  if (is_default === 1) {
+    const updateQuery = "UPDATE address SET is_default = 0 WHERE user_no = ?";
+    try {
+      await db.get().execute(updateQuery, [user_no]);
+    } catch (error) {
+      console.error("기본 배송지 업데이트 실패:", error);
+      return res.status(500).json({ message: "기본 배송지 업데이트 실패" });
+    }
+  }
+
   const query = `
         INSERT INTO address (user_no, recipient_name, phone_number, postal_code, address, detailed_address, is_default)
         VALUES (?, ?, ?, ?, ?, ?, ?)

@@ -6,6 +6,7 @@ const axios = require("axios");
 // 회원가입
 const register = async (req, res) => {
   try {
+    // 1. 사용자 아이디 중복 확인
     const [rows] = await db
       .get()
       .execute("SELECT * FROM user WHERE user_id = ?", [req.body.user_id]);
@@ -13,25 +14,45 @@ const register = async (req, res) => {
       return res.status(409).json("해당 유저가 이미 존재합니다.");
     }
 
+    // 2. 비밀번호 해싱
     const salt = await bcrypt.genSalt(10); // Salt는 사용자의 비밀번호에 난수를 추가하여 함께 해시 함수를 돌려 보안을 높이는 매개변수이다.
     const hashedPassword = await bcrypt.hash(req.body.user_pw, salt); // 비빌번호 해싱 비밀번호 입력 시 ...으로 나오게 합니다.
 
-    const q = "INSERT INTO user(user_id, user_pw, user_name) VALUES (?)";
+    // user 테이블에 사용자 정보 삽입
+    const q = `INSERT INTO user (user_id, user_pw, user_name, phone_number, email, date_of_birth, gender, nick_name)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
     values = [
-      req.body.user_id, // pk값
+      req.body.user_id, // 아이디
       hashedPassword, // 위에서 지정한 비빌번호 ***으로 나오게 합니다.
       req.body.user_name, // 사용자 이름
-      req.body.phone_number, // 비빌번호
-      req.body.postal_code, // 우편번호
-      req.body.address, // 주소
-      req.body.detailed_address, // 상세 주소
-      req.body.is_default, // 주소 및 상세주소를 기본배송지로 적용
+      req.body.phone_number, // 전화번호
+      req.body.email, // 이메일
+      req.body.date_of_birth, // 생년월일
+      req.body.gender, // 성별
+      req.body.nick_name, // 닉네임
     ];
+
+    // DB에 사용자 정보 삽입
     const [rows1] = await db.get().execute(q, values);
     console.log(rows1);
 
+    // 사용자 등록이 완료되면 주소 정보 삽입
     if (rows1) {
-      const q = "SELECT * FROM user WHERE user_id = ?";
+      const userNo = rows1.insertId; // 새로 등록된 사용자의 user_no
+
+      // 주소 정보 삽입
+      const addressQuery = `INSERT INTO address (user_no, recipient_name, phone_number, postal_code, address, detailed_address, is_default)
+              VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+      const addressValues = [
+        userNo, // 새로 등록된 사용자 ID
+        req.body.recipient_name, // 수신자 이름
+        req.body.phone_number, // 수신자 전화번호
+        req.body.postal_code, // 우편번호
+        req.body.address, // 주소
+        req.body.detailed_address, // 상세 주소
+        req.body.is_default || 0, // 기본 주소 여부 (기본값은 0)
+      ];
       const [rows2] = await db.get().execute(q, [req.body.user_id]);
       const id = rows2[0].id;
 
@@ -48,6 +69,7 @@ const register = async (req, res) => {
 // 로그인
 const login = async (req, res) => {
   try {
+    // 사용자 아이디로 조회
     const [rows] = await db
       .get()
       .execute("SELECT * FROM user WHERE user_id = ?", [req.body.user_id]);
@@ -55,6 +77,7 @@ const login = async (req, res) => {
       return res.status(400).json("아이디 또는 비밀번호가 틀렸습니다.");
     }
 
+    // 비밀번호 확인
     const checkPassword = await bcrypt.compare(
       req.body.user_pw,
       rows[0].user_pw
@@ -63,6 +86,7 @@ const login = async (req, res) => {
       return res.status(400).json("아이디 또는 비밀번호가 틀렸습니다!");
     }
 
+    // JWT 토큰 생성
     const accessToken = jwt.sign(
       { user_id: rows[0].id },
       process.env.ACCESS_SECRET,
@@ -74,46 +98,15 @@ const login = async (req, res) => {
       { expiresIn: "24h" }
     );
 
+    // 사용자 비밀번호 제외한 정보 반환
     const { user_pw, ...others } = rows[0];
 
+    // JWT 토큰을 쿠키에 저장하고, 응답
     res
       .cookie("accessToken", accessToken, { httpOnly: true })
       .cookie("refreshToken", refreshToken, { httpOnly: true })
       .status(200)
       .json(others);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json(error);
-  }
-};
-
-const accessToken = async (req, res) => {
-  const token = req.cookies.accessToken;
-  if (!token) {
-    return res.status(401).send({ message: "Access token is missing" });
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.ACCESS_SECRET);
-    const [rows] = await db
-      .get()
-      .execute("SELECT * FROM user WHERE user_id = ?", [decoded.user_id]);
-    if (rows.length === 0) {
-      return res.status(404).json({ message: "User not found." });
-    }
-    const { password, ...others } = rows[0];
-    res.status(200).json(others);
-  } catch (error) {
-    console.error(error);
-    return res.status(403).send({ message: "Invalid or expired token" });
-  }
-};
-
-const logout = (req, res) => {
-  try {
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
-    res.status(200).json({ message: "로그아웃 성공" });
   } catch (error) {
     console.error(error);
     res.status(500).json(error);
@@ -237,16 +230,19 @@ const kakaoLogout = async (req, res) => {
     res.status(500).json({ error: "카카오 로그아웃 처리 중 오류 발생" });
   }
 };
+
 // 네이버 로그인 URL
 const naverLogin = async (req, res) => {
-  const naverURL =
-    "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=IaSUSzzA4CXcK_p1ylgw&state=&redirect_uri=http://localhost:5000/naver/login";
+  const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.NAVER_CLIENT_ID}&redirect_uri=${process.env.NAVER_REDIRECT_URI}&state=STATE_STRING`;
   res.redirect(naverURL); // 클라이언트를 네이버 로그인 페이지로 리다이렉션
 };
 
 // 네이버 로그인 콜백 처리
 const naverCallback = async (req, res) => {
-  const code = req.query.code;
+  const code = req.body.code;
+  const state = req.body.state;
+  console.log(code)
+  console.log(state)
 
   try {
     // 네이버 Access Token 가져오기
@@ -261,8 +257,8 @@ const naverCallback = async (req, res) => {
           grant_type: "authorization_code",
           client_id: process.env.NAVER_CLIENT_ID,
           client_secret: process.env.NAVER_CLIENT_SECRET,
-          redirect_uri: process.env.NAVER_REDIRECT_URI,
           code,
+          state,
         },
       }
     );
@@ -274,13 +270,15 @@ const naverCallback = async (req, res) => {
       "https://openapi.naver.com/v1/nid/me",
       {
         headers: {
-          "Authorization": `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       }
     );
 
     const userData = userResponse.data.response;
+    console.log(userData)
     const naverId = userData.id;
+    const email = userData.email;
     const nickname = userData.name;
 
     /*  
@@ -299,7 +297,7 @@ const naverCallback = async (req, res) => {
       */
 
     // JWT 토큰 생성
-    const jwtToken = jwt.sign({ user_id: userId }, process.env.ACCESS_SECRET, {
+    const jwtToken = jwt.sign({ user_id: naverId }, process.env.ACCESS_SECRET, {
       expiresIn: "1h",
     });
 
@@ -311,6 +309,39 @@ const naverCallback = async (req, res) => {
   } catch (error) {
     console.error("네이버 로그인 실패:", error.response?.data || error.message);
     res.status(500).json({ error: "네이버 인증 실패" });
+  }
+};
+
+const accessToken = async (req, res) => {
+  const token = req.cookies.accessToken;
+  if (!token) {
+    return res.status(401).send({ message: "Access token is missing" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.ACCESS_SECRET);
+    const [rows] = await db
+      .get()
+      .execute("SELECT * FROM user WHERE user_id = ?", [decoded.user_id]);
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "User not found." });
+    }
+    const { password, ...others } = rows[0];
+    res.status(200).json(others);
+  } catch (error) {
+    console.error(error);
+    return res.status(403).send({ message: "Invalid or expired token" });
+  }
+};
+
+const logout = (req, res) => {
+  try {
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+    res.status(200).json({ message: "로그아웃 성공" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
   }
 };
 
