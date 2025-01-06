@@ -137,8 +137,6 @@ const SignupForm = () => {
                     </div>
 
                     <button type="submit" className="form-button">Sign-up</button>
-                    <button type="button" className="form-button KAKAO">signup with KAKAO</button>
-                    <button type="button" className="form-button NAVER">signup with NAVER</button>
                     {showZipcodePopup && (
                         <div className="zipcode-popup-overlay">
                             <ZipcodeSearch
