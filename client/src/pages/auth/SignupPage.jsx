@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import "react-calendar/dist/Calendar.css";
-import "./SignupForm.css";
-import { Link } from "react-router-dom";
+import "./SignupPage.css";
+import {Link, useNavigate} from "react-router-dom";
 import DaumPostcode from "react-daum-postcode";
 
 import SignupComponent from "../../components/auth/SignupComponent";
+import {register} from "../../api/auth";
 
 const SignupPage = () => {
+    const navigate = useNavigate();
     const [showZipcodePopup, setShowZipcodePopup] = useState(false);
     const [addressData, setAddressData] = useState({
         zipcode: "",
@@ -22,13 +24,23 @@ const SignupPage = () => {
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (data) => {
-        if (data.password !== data.passwordCheck) {
-            alert("Passwords do not match!");
+    const onSubmit = async (data) => {
+        if (data.user_pw !== data.passwordCheck) {
+            alert("비밀번호가 일치하지 않습니다.");
             return;
         }
-        console.log("Form Submitted:", data);
-        alert("회원가입이 완료되었습니다!");
+        try {
+            const result = await register(data);
+            if (result.success) {
+                alert("회원가입이 완료되었습니다!");
+                navigate("/");
+            } else {
+                alert(result.message || "회원가입에 실패하였습니다.");
+            }
+        } catch (error) {
+            alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
+            console.error(error);
+        }
     };
 
     const handleZipcodeSelect = (data) => {
@@ -38,7 +50,7 @@ const SignupPage = () => {
         });
 
         // React Hook Form의 필드 값 업데이트
-        setValue("zipcode", data.zonecode);
+        setValue("postal_code", data.zonecode);
         setValue("address", data.address);
 
         setShowZipcodePopup(false);
@@ -59,7 +71,7 @@ const SignupPage = () => {
                         onZipcodePopup={() => setShowZipcodePopup(true)}
                     />
                     <button type="submit" className="form-button">
-                        Sign-up
+                        회원가입
                     </button>
                 </form>
 

@@ -9,7 +9,6 @@ import axios from 'axios';
 const LoginPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { loading, error } = useSelector((state) => state.auth);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -68,9 +67,7 @@ const LoginPage = () => {
                         className='btn black'
                         type="button"
                         onClick={handleLogin}
-                        disabled={loading}
                     >
-                        {loading ? '로그인 중...' : '로그인'}
                     </button>
                 </form>
                 <div className="social-login">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Controller } from "react-hook-form";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FaEye, FaEyeSlash, FaSearch } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -12,7 +12,7 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
         <>
             {/* Full Name */}
             <Controller
-                name="fullName"
+                name="user_name"
                 control={control}
                 defaultValue=""
                 rules={{ required: "이름은 필수 입력 항목입니다." }}
@@ -29,7 +29,7 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
 
             {/* Nickname */}
             <Controller
-                name="nickname"
+                name="nick_name"
                 control={control}
                 defaultValue=""
                 rules={{ required: "닉네임은 필수 입력 항목입니다." }}
@@ -70,7 +70,7 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
             {/* Password */}
             <div className="password-input-container">
                 <Controller
-                    name="password"
+                    name="user_pw"
                     control={control}
                     defaultValue=""
                     rules={{ required: "비밀번호는 필수 입력 항목입니다." }}
@@ -93,9 +93,39 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
             </div>
             {errors.password && <p className="error">{errors.password.message}</p>}
 
+            {/* Password Check */}
+            <div className="password-input-container">
+                <Controller
+                    name="passwordCheck"
+                    control={control}
+                    defaultValue=""
+                    rules={{
+                        required: "비밀번호 확인은 필수 입력 항목입니다.",
+                        validate: (value) =>
+                            value === watch("user_pw") || "비밀번호가 일치하지 않습니다.",
+                    }}
+                    render={({ field }) => (
+                        <input
+                            {...field}
+                            type={showPasswordCheck ? "text" : "password"}
+                            placeholder="비밀번호를 다시 입력해주세요"
+                            className="form-input"
+                        />
+                    )}
+                />
+                <button
+                    type="button"
+                    onClick={() => setShowPasswordCheck(!showPasswordCheck)}
+                    className="password-toggle"
+                >
+                    {showPasswordCheck ? <FaEyeSlash /> : <FaEye />}
+                </button>
+            </div>
+            {errors.passwordCheck && <p className="error">{errors.passwordCheck.message}</p>}
+
             {/* Birthday with React-datepicker */}
             <Controller
-                name="birthday"
+                name="date_of_birth"
                 control={control}
                 defaultValue={null} // React-datepicker uses null for empty values
                 rules={{ required: "생년월일을 선택해주세요." }}
@@ -112,6 +142,29 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
             />
             {errors.birthday && <p className="error">{errors.birthday.message}</p>}
 
+            {/* Phone Number */}
+            <Controller
+                name="phone_number"
+                control={control}
+                defaultValue=""
+                rules={{
+                    required: "전화번호는 필수 입력 항목입니다.",
+                    pattern: {
+                        value: /^[0-9]{3}-[0-9]{3,4}-[0-9]{4}$/,
+                        message: "유효한 전화번호를 입력해주세요. (예: 010-1234-5678)",
+                    },
+                }}
+                render={({ field }) => (
+                    <input
+                        {...field}
+                        type="text"
+                        placeholder="전화번호 (예: 010-1234-5678)"
+                        className="form-input"
+                    />
+                )}
+            />
+            {errors.phoneNumber && <p className="error">{errors.phoneNumber.message}</p>}
+
             {/* Gender */}
             <Controller
                 name="gender"
@@ -122,16 +175,16 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
                         <option value="" disabled>
                             성별 선택
                         </option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
+                        <option value="male">남자</option>
+                        <option value="female">여자</option>
+                        <option value="other">기타</option>
                     </select>
                 )}
             />
 
             {/* Address */}
             <Controller
-                name="zipcode"
+                name="postal_code"
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
@@ -170,7 +223,7 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
             />
 
             <Controller
-                name="detailAddress"
+                name="detailed_address"
                 control={control}
                 defaultValue=""
                 render={({ field }) => (

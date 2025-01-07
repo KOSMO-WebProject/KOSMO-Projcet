@@ -11,7 +11,11 @@
     height: 100vh;
     background-color: #f4f4f4;
 }
-
+.signup-form {
+    width: 100%;
+    max-width: 600px; /* 최대 너비를 설정 */
+    margin: 0 auto; /* 폼을 중앙 정렬 */
+}
 /* Image Section Styling */
 .image-section {
     flex: 1;
@@ -90,30 +94,101 @@ p {
 }
 
 .address-input-wrapper {
-    position: relative;
     display: flex;
     align-items: center;
+    gap: 20px; /* 우편번호 입력 필드와 버튼 사이 간격 */
+    width: 100%;
 }
+
 
 .address-input {
-    padding-right: 40px; /* 아이콘을 위한 공간 */
+    flex: 1; /* 우편번호 입력 필드가 가능한 공간을 차지 */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
-
 .address-search-button {
-    position: absolute;
-    left: 1650px;
-    top: 60%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
+    padding: 8px 14px;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-left: -500px;
     cursor: pointer;
-    padding: 0;
-    font-size: 1rem;
-    color: #888;
+    transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
+.address-search-button:hover {
+    background-color: #555;
+    border-color: #777;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.address-search-button:active {
+    background-color: #222;
+    border-color: #444;
+    transform: scale(0.95);
+}
 .address-search-icon {
     color: #888;
+}
+
+/* 필수 입력 메시지 스타일 */
+.error {
+    font-size: 12px; /* 글자 크기 축소 */
+    color: #ff0000; /* 빨간색 */
+    margin-top: 5px; /* 입력 필드와 메시지 사이 간격 */
+    word-wrap: break-word; /* 메시지가 길 경우 줄바꿈 */
+    white-space: normal; /* 메시지를 여러 줄로 표시 */
+}
+
+
+/* 반응형 웹 */
+@media (max-width: 768px) {
+    .form-section {
+        padding: 10px;
+        width: 90%; /* 좁은 화면에서는 폭 줄임 */
+    }
+    .error {
+        font-size: 10px; /* 작은 화면에서는 글자 크기 더 축소 */
+    }
+
+    .signup-form {
+        padding: 10px; /* 좁은 화면에서는 여백 축소 */
+    }
+
+    .address-input-wrapper {
+        flex-direction: column; /* 좁은 화면에서는 세로 정렬 */
+    }
+
+    .address-search-button {
+        margin-top: 10px; /* 버튼에 여백 추가 */
+        width: 100%; /* 버튼 너비 전체 사용 */
+    }
+}
+
+@media (max-width: 480px) {
+    .form-input,
+    .form-button {
+        font-size: 14px; /* 폰트 크기 축소 */
+        padding: 8px; /* 여백 조정 */
+    }
+
+    .address-search-button {
+        font-size: 14px;
+        padding: 8px;
+    }
+    .error {
+        font-size: 10px; /* 작은 화면에서는 글자 크기 더 축소 */
+    }
+
+    .signup-form {
+        padding: 10px; /* 좁은 화면에서는 여백 축소 */
+    }
 }
 
 
@@ -222,7 +297,7 @@ p {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    width: 400px; /* 팝업 너비 */
+    width: 600px; /* 팝업 너비 */
     max-width: 90%; /* 화면 크기에 따라 너비 제한 */
     text-align: center;
 }

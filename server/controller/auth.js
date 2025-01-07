@@ -2,6 +2,7 @@ const db = require("../database/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
+const {getCurrentFormattedDate} = require("../utils/currentyear");
 // 회원가입
 const register = async (req, res) => {
   try {
@@ -29,6 +30,17 @@ const register = async (req, res) => {
       req.body.gender, // 성별
       req.body.nick_name, // 닉네임
     ];
+
+    if(req.body.gender === "남자"){
+      req.gender.gender = "M"
+    }
+    else if(req.body.gender === "여자"){
+      req.body.gender = "F"
+    }
+    else {
+        req.body.gender = "U"
+    }
+
 
     // DB에 사용자 정보 삽입
     const [rows1] = await db.get().execute(q1, values);
