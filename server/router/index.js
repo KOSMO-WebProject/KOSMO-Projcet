@@ -6,6 +6,7 @@ const productsRouter = require('./products');
 const authRouter = require("./auth")
 const noticesRouter = require("./notices")
 const commentsRouter = require("./comments")
+const addressRouter = require("./address")
 
 
 //index.js (중앙 라우터 모듈)
@@ -20,6 +21,7 @@ router.use('/users', usersRouter); //유저정보들 (관리자 추가 예정)
 router.use('/products', productsRouter); // 상품
 router.use('/notices', noticesRouter); //공지사항
 router.use('/comments', commentsRouter); //댓글
+router.use('/address',addressRouter) //주소
 
 
 module.exports = router;
