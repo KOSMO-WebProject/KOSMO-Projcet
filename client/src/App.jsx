@@ -14,7 +14,7 @@ import KakaoCallback from "./pages/auth/social/KaKaoCallback";
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {loadUser} from "./redux/slice/authSlice";
-import SignupForm from "./pages/auth/SignupForm";
+import SignupPage from "./pages/auth/SignupPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const App = () => {
         <Route path="/" exact={true} element={<HomePage />} />
         <Route path="/register" exact={true} element={<Register />} />
         <Route path="/profile" exact={true} element={<UserProfile />} />
-        <Route path="/signup" exact={true} element={<SignupForm />} />
+        <Route path="/signup" exact={true} element={<SignupPage />} />
 
         <Route path="/clothing" exact ={true} element={<ShopLandingPage />}/>
         <Route path="/notice" exact={true} element={<NoticeList />} />
