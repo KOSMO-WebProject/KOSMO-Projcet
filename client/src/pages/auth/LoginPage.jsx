@@ -17,11 +17,16 @@ const LoginPage = () => {
     const handleLogin = async () => {
         try {
             // 로그인 액션에서 email 사용
-            await dispatch(login({ username:email, password })).unwrap();
-            console.log('Login successful');
-            navigate('/'); // 로그인 성공 시 이동할 경로 설정
+            const response = await dispatch(login({ user_id :email, password })).unwrap();
+            if(response.user_no) {
+                alert('로그인 성공');
+                navigate('/');
+            }
+
         } catch (err) {
-            console.error('Login failed:', err); // 수정: error -> err
+            console.error('Login failed:', err);
+            alert('아이디 또는 비밀번호가 틀렸습니다.');
+            return;
         }
     };
 
@@ -68,6 +73,7 @@ const LoginPage = () => {
                         type="button"
                         onClick={handleLogin}
                     >
+                        로그인
                     </button>
                 </form>
                 <div className="social-login">

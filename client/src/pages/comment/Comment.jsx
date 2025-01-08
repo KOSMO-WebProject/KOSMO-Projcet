@@ -3,35 +3,35 @@ import CommentInput from './CommentInput';
 import CommentList from './CommentList';
 import axios from 'axios';
 
-const Comment = ({ userId, noticeId }) => {
+const Comment = ({ userNo, noticeNo }) => {
     const [comments, setComments] = useState([]);
     const [replies, setReplies] = useState({
-        parent_id: 0,
-        notice_id : noticeId,
+        parent_no: 0,
+        notice_no : noticeNo,
         content : "",
-        user_id: userId
+        user_no: userNo
     });
 
     useEffect(() => {
         fetchComments();
-    }, [noticeId]);
+    }, [noticeNo]);
 
     const fetchComments = async () => {
         try {
-            const response = await axios.get(`/comments/${noticeId}`);
+            const response = await axios.get(`/comments/${noticeNo}`);
             setComments(response.data);
         } catch (error) {
             console.error('댓글 불러오기 실패:', error);
         }
     };
 
-    const addReply = async (commentId, content) => {
+    const addReply = async (commentNo, content) => {
         try {
             const response = await axios.post('/comments/reply', {
-                parent_id: Number(commentId),
-                notice_id: noticeId,
+                parent_no: Number(commentNo),
+                notice_no: noticeNo,
                 content: content,
-                user_id: userId,
+                user_no: userNo,
             });
             fetchComments(); // 대댓글 추가 후 다시 데이터 로드
         } catch (error) {
@@ -40,7 +40,7 @@ const Comment = ({ userId, noticeId }) => {
     };
     return (
         <div>
-            <CommentInput userId={userId} noticeId={noticeId} fetchComments={fetchComments} />
+            <CommentInput userNo={userNo} noticeNo={noticeNo} fetchComments={fetchComments} />
             <CommentList comments={comments} addReply ={addReply}/>
         </div>
     );

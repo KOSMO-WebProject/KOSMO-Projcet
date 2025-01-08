@@ -1,11 +1,12 @@
 import axios from "axios";
 
-// 회원가입
 export const register = async (user) => {
     try {
         const response = await axios.post("/auth/register", user);
-        return response.data;
+        return response;
     } catch (error) {
-        return error.response.data;
+        console.error("Register Error:", error.response?.data || error.message);
+        return error.response?.data || "요청 실패";
     }
 };
+

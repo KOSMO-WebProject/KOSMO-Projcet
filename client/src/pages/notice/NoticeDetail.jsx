@@ -68,11 +68,11 @@ const NoticeDetail = () => {
         <Card>
           <ListGroup className="list-group-flush">
             <ListGroup.Item>제목: {notice.title}</ListGroup.Item>
-            <ListGroup.Item>작성자: {notice.nickname}</ListGroup.Item>
+            <ListGroup.Item>작성자: {notice.nick_name}</ListGroup.Item>
             <ListGroup.Item>내용: {notice.content}</ListGroup.Item>
           </ListGroup>
           <div className="button-group">
-            {currentUser && currentUser.user_id === notice.userid && (
+            {currentUser && currentUser.user_no === notice.userno && (
               <>
                 <Button variant="primary" onClick={handleShow}>
                   수정
@@ -88,8 +88,8 @@ const NoticeDetail = () => {
           </div>
           {/* <CommentInput userId={currentUser?.user_id} noticeId={notice.notice_id} /> */}
           <Comment
-            userId={currentUser ? currentUser.user_id : null}
-            noticeId={notice.notice_id}
+            userNo={currentUser ? currentUser.user_no : null}
+            noticeNo={notice.notice_no}
           />
         </Card>
       </div>

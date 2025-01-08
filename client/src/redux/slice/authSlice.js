@@ -4,11 +4,11 @@ import axios from "axios";
 // 비동기 로그인 액션
 export const login = createAsyncThunk(
   "auth/login",
-  async ({ username, password }, { rejectWithValue }) => {
+  async ({ user_id, password }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         "/auth/login",
-        { username, password },
+        { user_id, password },
         { withCredentials: true }
       );
       return response.data;

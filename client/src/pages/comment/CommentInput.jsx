@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import {createGlobalStyle} from "styled-components";
 
-const CommentInput = ({ userId, noticeId, fetchComments }) => {
+const CommentInput = ({ userNo, noticeNo, fetchComments }) => {
     const [comment, setComment] = useState('');
 
     const handleCommentChange = (e) => {
@@ -15,11 +15,10 @@ const CommentInput = ({ userId, noticeId, fetchComments }) => {
         if (!comment) return;
         try {
             const response = await axios.post(`/comments/write`, {
-                user_id: userId,
-                notice_id: noticeId,
+                user_no: userNo,
+                notice_no: noticeNo,
                 content: comment
             });
-
             fetchComments(); 
             setComment(""); 
         } catch (error) {

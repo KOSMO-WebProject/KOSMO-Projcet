@@ -65,7 +65,7 @@ const Header = () => {
               </div>
               {currentUser ? (
                   <>
-                    <span>{currentUser.nickname}님</span>
+                    <span>{currentUser.nick_name}님</span>
                     <Button onClick={() => navigate("/profile")}>마이페이지</Button>
                     <Button onClick={handleLogout}>로그아웃</Button>
                   </>

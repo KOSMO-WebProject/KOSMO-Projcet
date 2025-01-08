@@ -24,18 +24,20 @@ const SignupPage = () => {
         formState: { errors },
     } = useForm();
 
-    const onSubmit = async (data) => {
+    const onSubmit = async  (data) => {
+        data.date_of_birth = new Date(data.date_of_birth).toISOString().split("T")[0];
+        const formData = data
         if (data.user_pw !== data.passwordCheck) {
             alert("비밀번호가 일치하지 않습니다.");
             return;
         }
         try {
-            const result = await register(data);
-            if (result.success) {
+            const result = await register(formData);
+            if (result.status === 201) {
                 alert("회원가입이 완료되었습니다!");
                 navigate("/");
             } else {
-                alert(result.message || "회원가입에 실패하였습니다.");
+                alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
             }
         } catch (error) {
             alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");

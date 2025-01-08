@@ -9,7 +9,7 @@ const NoticeWrite = () => {
     const { currentUser } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-      user_id: currentUser ? currentUser.user_id : null, 
+      user_no : currentUser ? currentUser.user_no : null,
       title: "",
       content: "",
   });

@@ -67,6 +67,29 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
             />
             {errors.email && <p className="error">{errors.email.message}</p>}
 
+            {/* User ID */}
+            <Controller
+                name="user_id"
+                control={control}
+                defaultValue=""
+                rules={{
+                    required: "아이디는 필수 입력 항목입니다.",
+                    pattern: {
+                        value: /^[a-zA-Z0-9_]{4,20}$/, // 4~20자의 영문, 숫자, 밑줄만 허용
+                        message: "아이디는 4~20자의 영문, 숫자, 밑줄만 가능합니다.",
+                    },
+                }}
+                render={({ field }) => (
+                    <input
+                        {...field}
+                        type="text"
+                        placeholder="아이디를 입력해주세요"
+                        className="form-input"
+                    />
+                )}
+            />
+            {errors.user_id && <p className="error">{errors.user_id.message}</p>}
+
             {/* Password */}
             <div className="password-input-container">
                 <Controller

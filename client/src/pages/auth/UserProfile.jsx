@@ -19,7 +19,7 @@ const UserProfile = () => {
               <Card.Text>
                 <strong>Email:</strong> {currentUser.email}
                 <br />
-                <strong>Phone:</strong> {currentUser.phonenumber}
+                <strong>Phone:</strong> {currentUser.phone_number}
               </Card.Text>
             </Card.Body>
           </Card>
