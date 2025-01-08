@@ -14,6 +14,7 @@ import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {loadUser} from "./redux/slice/authSlice";
 import SignupPage from "./pages/auth/SignupPage";
+import BackpackPage from "./pages/shop/BackpackPage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/" exact={true} element={<HomePage />} />
         <Route path="/profile" exact={true} element={<UserProfile />} />
         <Route path="/signup" exact={true} element={<SignupPage />} />
+        <Route path="/backpack" exact={true} element={<BackpackPage />} />
 
         <Route path="/clothing" exact ={true} element={<ShopLandingPage />}/>
         <Route path="/notice" exact={true} element={<NoticeList />} />

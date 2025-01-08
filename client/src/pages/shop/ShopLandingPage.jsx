@@ -25,7 +25,6 @@ const ShopLandingPage = () => {
             { id: 3, title: "남성 패션 아이템", description: "세련된 남성 스타일", category: 'Men' },
             { id: 4, title: "남성 패션 아이템", description: "캐주얼한 남성 스타일", category: 'Men' },
         ];
-
         const sampleCategories = ['Women', 'Men'];
 
         dispatch(setProducts(sampleProducts));

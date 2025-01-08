@@ -142,5 +142,24 @@
     "category_name": "패딩",
     "parent_category": 20,
     "gender": "F"
+  },
+  {
+    "category_no": 25,
+    "category_name": "가방",
+    "parent_category": null,
+    "gender": "U"
+  },
+  {
+    "category_no": 26,
+    "category_name": "백팩",
+    "parent_category": 25,
+    "gender": "U"
+  },
+  {
+    "category_no": 26,
+    "category_name": "숄더백",
+    "parent_category": 25,
+    "gender": "U"
   }
+
 ]
