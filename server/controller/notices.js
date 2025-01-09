@@ -1,19 +1,47 @@
 const db = require("../database/db");
 const { getCurrentFormattedDate } = require("../utils/currentyear");
 
-const getNoticesList = async(req, res) => {
-  const q =
-    "SELECT n.notice_no, n.title , u.nick_name, n.content , n.create_at FROM notice n LEFT OUTER JOIN user u on n.userno = u.user_no order by n.notice_no desc";
+const getNoticesList = async (req, res) => {
+  const { page = 1, size = 10 } = req.query; // Get page and size from query params
+  const offset = (page - 1) * size; // Calculate offset
 
-  try{
+  const q = `
+    SELECT n.notice_no, n.title, u.nick_name, n.content, n.create_at
+    FROM notice n
+    LEFT OUTER JOIN user u ON n.userno = u.user_no
+    ORDER BY n.notice_no DESC
+    LIMIT ${Number(size)} OFFSET ${Number(offset)}
+  `;
+  
+  try {
+    console.log(`Running query with page: ${page}, size: ${size}, offset: ${offset}`);
     const [rows] = await db.get().execute(q);
-    return res.status(200).json(rows)
+    
+    if (!rows || rows.length === 0) {
+      return res.status(404).json({ message: "No notices found." });
+    }
 
-  }catch(error){
-    console.log(error);
-    return res.status(500).json({ message: "게시글을 조회할 수 없습니다."})
+    // Get total count for pagination
+    const countQ = 'SELECT COUNT(*) as totalCount FROM notice';
+    const [countRows] = await db.get().execute(countQ);
+    const totalCount = countRows[0].totalCount;
+    const totalPages = Math.ceil(totalCount / size);
+
+    return res.status(200).json({
+      content: rows,
+      totalPages,
+      currentPage: Number(page),
+      totalCount
+    });
+  } catch (error) {
+    console.error("Error fetching notices:", error);
+    return res.status(500).json({ message: "게시글을 조회할 수 없습니다.", error: error.message });
   }
 };
+
+
+
+
 
 
 

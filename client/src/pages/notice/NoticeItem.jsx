@@ -1,21 +1,22 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './NoticeItem.css';
 
-const NoticeItem = ({notice}) => {
-    console.log(notice)
+const NoticeItem = ({ notice }) => {
+  const formattedDate = new Date(notice.create_at).toLocaleDateString('ko-KR');
+
   return (
-    <>
-      <tr>
-        <td>{notice.notice_no}</td>
-        <td>
-          {/* <Route path="/notice/:n_no" exact={true} element={<NoticeDetail />}/> */}
-          <Link to={"/notice/"+notice.notice_no} className='btn btn-primary'>{notice.title}</Link>
-        </td>
-        <td>{notice.nick_name}</td>
-        <td>{notice.create_at}</td>
-      </tr>
-    </>
-  )
-}
+    <tr>
+      <td>{notice.notice_no}</td>
+      <td>
+        <Link to={`/notice/${notice.notice_no}`} className="notice-title-link">
+          {notice.title}
+        </Link>
+      </td>
+      <td>{notice.nick_name}</td>
+      <td>{formattedDate}</td>
+    </tr>
+  );
+};
 
-export default NoticeItem
+export default NoticeItem;

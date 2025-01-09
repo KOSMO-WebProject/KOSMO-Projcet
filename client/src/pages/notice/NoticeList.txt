@@ -6,31 +6,21 @@ import NoticeItem from './NoticeItem';
 import Header from '../../components/includes/Header';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
-import Pagination from './Pagination';  // Import the Pagination component
-import { useSearchParams } from 'react-router-dom';
 
 const NoticeList = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const nav = useNavigate();
+  const [gubun, setGubun] = useState('');
+  const [keyword, setKeyword] = useState('');
   const [notices, setNotices] = useState([]);
   const [searchVisible, setSearchVisible] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
-  
-  // Use useSearchParams to get query params from the URL
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = Number(searchParams.get('page')) || 1;  // Default to page 1 if not provided
-  const size = Number(searchParams.get('size')) || 5;  // Default to 10 items per page
 
   const noticeList = async () => {
     try {
       const response = await axios.get('/notices', {
-        params: {
-          page: currentPage,
-          size: size,  // Number of items per page
-        },
+        params: { gubun, keyword }
       });
-      setNotices(response.data.content);
-      setTotalPages(response.data.totalPages);
+      setNotices(response.data);
     } catch (error) {
       console.error('Error fetching notices:', error);
     }
@@ -38,7 +28,10 @@ const NoticeList = () => {
 
   useEffect(() => {
     noticeList();
-  }, [currentPage, size]);  // Fetch notices whenever currentPage or size changes
+  }, [gubun, keyword]);
+
+  const handleGubun = (event) => setGubun(event.target.value);
+  const handleKeyword = (event) => setKeyword(event.target.value);
 
   const onClickMove = () => {
     if (currentUser) {
@@ -49,13 +42,6 @@ const NoticeList = () => {
   };
 
   const toggleSearch = () => setSearchVisible(!searchVisible);
-
-  // Handle page change and update the query parameter in the URL
-  const handlePageChange = (page) => {
-    if (page >= 1 && page <= totalPages) {
-      setSearchParams({ page, size });  // Update URL with new page and size
-    }
-  };
 
   return (
     <>
@@ -77,6 +63,27 @@ const NoticeList = () => {
         </div>
       </div>
 
+      {searchVisible && (
+        <div className="search-row" style={{ marginTop: '10px' }}>
+          <select className="form-select" value={gubun} onChange={handleGubun}>
+            <option value="">분류선택</option>
+            <option value="n_title">제목</option>
+            <option value="n_writer">작성자</option>
+            <option value="n_content">내용</option>
+          </select>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="검색어를 입력하세요"
+            value={keyword}
+            onChange={handleKeyword}
+          />
+          <button type="button" className="btn btn-danger" onClick={noticeList}>
+            검색
+          </button>
+        </div>
+      )}
+
       <div className="search-visible">
         <table className="table table-hover">
           <thead>
@@ -89,18 +96,11 @@ const NoticeList = () => {
           </thead>
           <tbody>
             {notices && notices.map((notice) => (
-              <NoticeItem key={notice.notice_no} notice={notice} />
+              <NoticeItem key={notice.id} notice={notice} />
             ))}
           </tbody>
         </table>
       </div>
-
-      {/* Pagination */}
-      <Pagination 
-        totalPages={totalPages} 
-        currentPage={currentPage} 
-        onPageChange={handlePageChange} 
-      />
 
       <Footer />
     </>
