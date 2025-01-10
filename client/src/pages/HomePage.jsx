@@ -23,12 +23,9 @@ const HomePage = () => {
   //   .then(res=>setWeather(res.data))
   // },[])
 
-  useEffect(()=>{
-    
-  },[])
-
   useEffect(() => {
-    const { lat, lon } = location;
+    getCurrentLocation()
+    const { lat, lon} = location;
     if (lat && lon) {
       axios.get(`https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${lon}&y=${lat}&input_coord=WGS84`, {
         headers: {
@@ -39,7 +36,7 @@ const HomePage = () => {
       .then(data=> setCitys(data))
       .catch(err => console.error('API 요청 중 오류 발생:', err));
     }
-  }, [location]); // location 상태가 변경될 때마다 이 useEffect 실행
+  }, []); // location 상태가 변경될 때마다 이 useEffect 실행
   console.log(citys)
   console.log(weather)
   const temperature = weather.main ? Math.round(weather.main.temp - 273.15) : "날씨정보를 가져올 수 없습니다"; // 섭씨 온도 계산 및 반올림

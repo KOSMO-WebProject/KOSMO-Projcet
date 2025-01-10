@@ -10,3 +10,13 @@ export const getBackPackList = async () => {
         console.error("Error fetching backpack data:", error);
     }
 }
+
+export const getBackPackDetail = async (no) => {
+    try{
+        const response = await axios.get("/products/backpack/" + no);
+        return response.data;
+    }
+    catch (error){
+        console.error("Error fetching detail data:", error);
+    }
+}
