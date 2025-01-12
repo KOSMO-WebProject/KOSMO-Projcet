@@ -4,12 +4,15 @@ import Footer from "../../components/includes/Footer";
 import Header from "../../components/includes/Header";
 import { getBackPackList } from "../../api/product";
 import ProductCard from "../product/ProductCard";
+import {useDispatch, useSelector} from "react-redux";
 
 const BackpackPage = () => {
     const [bags, setBags] = useState([]);
     const [filteredBags, setFilteredBags] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const { products, loading } = useSelector((state) => state.products);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchBags = async () => {

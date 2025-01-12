@@ -20,3 +20,13 @@ export const getBackPackDetail = async (no) => {
         console.error("Error fetching detail data:", error);
     }
 }
+
+export const productDetail = async (no) => {
+    try{
+        const response = await axios.get("/products/detail/" + no);
+        return response.data;
+    }
+    catch (error){
+        console.error("Error fetching detail data:", error);
+    }
+}
