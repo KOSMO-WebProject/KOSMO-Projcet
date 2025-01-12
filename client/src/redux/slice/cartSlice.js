@@ -38,6 +38,34 @@ export const fetchCartItemsAsync = createAsyncThunk(
     }
 );
 
+export const DeleteCartItemAsync = createAsyncThunk(
+    'cart/DeleteCartItemAsync',
+    async (cart_item_no, { rejectWithValue }) => {
+        try {
+            const response = await axios.delete(`/carts/item/${cart_item_no}`);
+            console.log('Response from server:', response.data);
+            return cart_item_no;
+        } catch (error) {
+            console.error('Error deleting cart item:', error);
+            return rejectWithValue(error.response?.data || '장바구니 삭제 실패');
+        }
+    }
+);
+
+export const DeleteAllCartItemAsync = createAsyncThunk(
+    'cart/DeleteAllCartItemAsync',
+    async (cart_no, { rejectWithValue }) => {
+        try {
+            const response = await axios.delete(`/carts/${cart_no}`);
+            console.log('Response from server:', response.data);
+            return cart_no;
+        } catch (error) {
+            console.error('Error deleting cart item:', error);
+            return rejectWithValue(error.response?.data || '장바구니 삭제 실패');
+        }
+    }
+);
+
 // Slice 생성
 const cartSlice = createSlice({
     name: 'cart',
@@ -94,8 +122,34 @@ const cartSlice = createSlice({
             .addCase(fetchCartItemsAsync.rejected, (state, action) => {
                 state.error = action.payload || '장바구니 조회 중 오류 발생';
                 state.loading = false;
-            });
+            })
         //장바구니 삭제
+            .addCase(DeleteCartItemAsync.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(DeleteCartItemAsync.fulfilled, (state, action) => {
+                const deletedCartItemNo = action.payload;
+                state.items = state.items.filter((item) => item.cart_item_no !== deletedCartItemNo);
+                state.loading = false;
+            })
+            .addCase(DeleteCartItemAsync.rejected, (state, action) => {
+                state.error = action.payload || '장바구니 삭제 중 오류 발생';
+                state.loading = false;
+            })
+            .addCase(DeleteAllCartItemAsync.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(DeleteAllCartItemAsync.fulfilled, (state, action) => {
+                const deletedCartNo = action.payload;
+                state.items = state.items.filter((item) => item.cart_no !== deletedCartNo);
+                state.loading = false;
+            })
+            .addCase(DeleteAllCartItemAsync.rejected, (state, action) => {
+                state.error = action.payload || '장바구니 삭제 중 오류 발생';
+                state.loading = false;
+            });
     },
 });
 

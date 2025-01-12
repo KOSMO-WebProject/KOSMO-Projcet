@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-    removeFromCart,
-    clearCart,
     updateQuantity,
-    fetchCartItemsAsync
+    fetchCartItemsAsync, DeleteAllCartItemAsync,
 } from '../../redux/slice/cartSlice';
 import Header from "../../components/includes/Header";
 import Footer from "../../components/includes/Footer";
+import CartItem from './CartItem'; // 분리된 컴포넌트
 import './CartPage.css';
+import {useNavigate} from "react-router-dom";
+
+
 
 const CartPage = () => {
     const cartItems = useSelector((state) => state.cart.items);
     const loading = useSelector((state) => state.cart.loading);
     const error = useSelector((state) => state.cart.error);
-    const { currentUser } = useSelector((state) => state.auth); // 사용자 정보 가져오기
+    const navigate = useNavigate();
+    const { currentUser } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
     const [selectedItems, setSelectedItems] = useState([]);
 
     useEffect(() => {
         if (currentUser) {
-            dispatch(fetchCartItemsAsync(currentUser.user_no)); // 사용자 ID로 장바구니 데이터 가져오기
+            dispatch(fetchCartItemsAsync(currentUser.user_no));
         }
     }, [currentUser, dispatch]);
 
@@ -29,10 +32,9 @@ const CartPage = () => {
         if (newQuantity < 1) return;
         dispatch(updateQuantity({ index, quantity: newQuantity }));
     };
-
     const handleClearCart = () => {
         if (window.confirm("장바구니를 비우시겠습니까?")) {
-            dispatch(clearCart());
+            dispatch(DeleteAllCartItemAsync(cartItems[0].cart_no));
             setSelectedItems([]);
         }
     };
@@ -53,7 +55,9 @@ const CartPage = () => {
     const handlePayment = () => {
         const selectedProducts = selectedItems.map((index) => cartItems[index]);
         console.log("결제할 상품:", selectedProducts);
-        alert("결제 페이지로 이동합니다.");
+        console.log("총 금액:", totalAmount);
+        navigate('/widget/checkout', { state: { selectedProducts, totalAmount, currentUser } });
+        alert("결제 페이지로 이동합니다.")
     };
 
     if (loading) return <p>Loading...</p>;
@@ -70,29 +74,14 @@ const CartPage = () => {
                     <>
                         <div className="cart-items">
                             {cartItems.map((item, index) => (
-                                <div key={index} className="cart-item">
-                                    <input
-                                        type="checkbox"
-                                        checked={selectedItems.includes(index)}
-                                        onChange={() => handleCheckboxChange(index)}
-                                        className="item-checkbox"
-                                    />
-                                    <img src={item.img_url} alt={item.name} className="cart-item-image" />
-                                    <div className="cart-item-details">
-                                        <h2>{item.name}</h2>
-                                        <p>사이즈: {item.selectedSize || "프리사이즈"}</p>
-                                        <p>컬러: {item.selectedColor || "기본 컬러"}</p>
-                                        <p>가격: {Number(item.price).toLocaleString()} 원</p>
-                                    </div>
-                                    <div className="cart-item-actions">
-                                        <div className="quantity-control">
-                                            <button onClick={() => handleQuantityChange(index, item.quantity - 1)}>-</button>
-                                            <span>{item.quantity}</span>
-                                            <button onClick={() => handleQuantityChange(index, item.quantity + 1)}>+</button>
-                                        </div>
-                                        <button onClick={() => dispatch(removeFromCart(index))} className="remove-button">삭제</button>
-                                    </div>
-                                </div>
+                                <CartItem
+                                    key={item.cart_item_no}
+                                    item={item}
+                                    index={index}
+                                    selectedItems={selectedItems}
+                                    onCheckboxChange={handleCheckboxChange}
+                                    onQuantityChange={handleQuantityChange}
+                                />
                             ))}
                         </div>
                         <div className="cart-footer">

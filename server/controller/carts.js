@@ -6,7 +6,7 @@ const cartList = async (req, res) => {
     const { user_no } = req.params;
     try {
         const [results] = await db.get().execute(
-            'SELECT c.cart_item_no, c.product_no, c.quantity, c.selected_size, c.selected_color, p.price, p.name , p.img_url FROM cartitem c LEFT OUTER JOIN product p ON c.product_no = p.product_no WHERE c.cart_no = (SELECT cart_no FROM cart WHERE user_no = ?)',
+            'SELECT c.cart_item_no, c.cart_no, c.product_no, c.quantity, c.selected_size, c.selected_color, p.price, p.name , p.img_url FROM cartitem c LEFT OUTER JOIN product p ON c.product_no = p.product_no WHERE c.cart_no = (SELECT cart_no FROM cart WHERE user_no = ?)',
             [user_no]
         );
         return res.status(200).json(results);
@@ -56,7 +56,7 @@ const cartInsert =  async (req, res) => {
     }
 };
 
-const cartDelete = async (req, res) => {
+const cartOneDelete = async (req, res) => {
     const { cart_item_no } = req.params;
     try {
         await db.get().execute('DELETE FROM cartitem WHERE cart_item_no = ?', [cart_item_no]);
@@ -67,11 +67,22 @@ const cartDelete = async (req, res) => {
     }
 };
 
+const cartAllDelete = async (req, res) => {
+    const { cart_no } = req.params;
+    try {
+        await db.get().execute('DELETE FROM cartitem WHERE cart_no = ?', [cart_no]);
+        return res.status(200).json({ message: '장바구니가 비워졌습니다.' });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: '장바구니 비우기 중 오류가 발생했습니다.' });
+    }
+}
 
 
 
 module.exports = {
     cartList,
     cartInsert,
-    cartDelete,
+    cartOneDelete,
+    cartAllDelete,
 }

@@ -36,6 +36,7 @@ app.get("/", (req, res) => {
 });
 
 
+
 async function startServer() {
   try {
     await db.connect();

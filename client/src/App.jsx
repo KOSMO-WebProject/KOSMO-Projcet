@@ -17,6 +17,9 @@ import SignupPage from "./pages/auth/SignupPage";
 import BackpackPage from "./pages/shop/BackpackPage";
 import ProductDetail from "./pages/product/ProductDetail";
 import CartPage from "./pages/cart/CartPage";
+import {WidgetCheckoutPage} from "./pages/payment/WidgetCheckout";
+import {WidgetSuccessPage} from "./pages/payment/WidgetSuccess";
+import {WidgetFail} from "./pages/payment/WidgetFail";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -43,6 +46,9 @@ const App = () => {
         <Route path="/login" exact={true} element={<LoginPage />} />
         <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
         <Route path="/auth/naver/callback" element={<NaverCallback />} />
+        <Route path="/widget/checkout" element={<WidgetCheckoutPage />} />
+        <Route path="/widget/success" element={<WidgetSuccessPage />} />
+        <Route path="/widget/fail" element={<WidgetFail />} />
       </Routes>
     </>
   );
