@@ -202,7 +202,7 @@ const NoticeList = () => {
           </thead>
           <tbody>
             {notices.map((notice) => (
-              <NoticeItem notice={notice} />
+              <NoticeItem key={notice.notice_no} notice={notice} />
             ))}
           </tbody>
         </table>

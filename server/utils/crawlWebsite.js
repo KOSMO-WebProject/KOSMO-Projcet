@@ -14,7 +14,7 @@ const iconv = require("iconv-lite");
     height: 768,
   });
   const url =
-    "https://www.musinsa.com/main/musinsa/ranking?storeCode=musinsa&sectionId=200&categoryCode=002012&gf=F";
+    "https://www.musinsa.com/main/musinsa/ranking?storeCode=musinsa&sectionId=200&categoryCode=004003&gf=A";
   await page.goto(url, {
     waitUntil: "domcontentloaded", // DOM이 로드될 때까지 대기
   });
@@ -48,7 +48,7 @@ const iconv = require("iconv-lite");
   // .sc-1y072n9-0.jdzDMq 태그 내부의 제품명, 가격, 이미지 추출
   const products = [];
   let productCount = 0;
-  let count = 64;
+  let count = 608;
   $(".sc-1y072n9-0.jdzDMq").each((index, element) => {
     if (productCount >= 30) return false; // 30개 제품 정보 제한
     // 제품명 리스트 추출
@@ -88,7 +88,7 @@ const iconv = require("iconv-lite");
         price,
         stock: 50,
         img_url,
-        category_no: 24,
+        category_no: 27,
       });
       count++;
       productCount++;
@@ -96,7 +96,7 @@ const iconv = require("iconv-lite");
   });
 
   // JSON 파일로 저장
-  const jsonPath = "남성긴팔.json";
+  const jsonPath = "숄더백.json";
   fs.writeFileSync(jsonPath, JSON.stringify(products, null, 2), "utf8");
 
   console.log("JSON 파일 생성 완료");

@@ -69,6 +69,7 @@ const register = async (req, res) => {
 
 // 로그인
 const login = async (req, res) => {
+  const { password } = req.body
   try {
     const [rows] = await db
       .get()
@@ -78,7 +79,7 @@ const login = async (req, res) => {
     }
 
     const checkPassword = await bcrypt.compare(
-      req.body.password,
+      password,
       rows[0].user_pw
     );
     if (!checkPassword) {
@@ -267,7 +268,6 @@ const naverCallback = async (req, res) => {
     res.status(500).json({ error: "네이버 인증 실패" });
   }
 };
-
 
 
 

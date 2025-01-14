@@ -1,0 +1,101 @@
+.cart-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+
+.cart-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.quantity-control button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.quantity-control button:hover {
+    background-color: #ccc;
+}
+
+.remove-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.remove-button:hover {
+    background-color: #d32f2f;
+}
+
+.cart-footer {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.total-amount {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.payment-button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.payment-button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+.clear-cart-button {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.cart-item .item-checkbox {
+    width: 30px; /* 체크박스의 너비 */
+    height: 20px; /* 체크박스의 높이 */
+    cursor: pointer; /* 클릭 가능한 커서 표시 */
+    margin-right: 10px; /* 체크박스와 이미지 간 여백 */
+
+}
+
+.cart-item .cart-item-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
