@@ -1,5 +1,5 @@
 import React from 'react';
-import './Pagination.css'; // Import the Pagination styles
+import './Pagination.css';
 
 const Pagination = ({ totalPages, currentPage, onPageChange }) => {
   const generatePageNumbers = () => {
@@ -10,77 +10,40 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     return pages;
   };
 
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1);
-    }
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
-    }
-  };
-
-  const handleFirstPage = () => {
-    if (currentPage !== 1) {
-      onPageChange(1);
-    }
-  };
-
-  const handleLastPage = () => {
-    if (currentPage !== totalPages) {
-      onPageChange(totalPages);
-    }
-  };
-
   return (
     <div className="pagination">
-      {/* First Page Arrow */}
       <button
-        className={`arrow-btn ${currentPage === 1 ? 'disabled' : ''}`}
-        onClick={handleFirstPage}
         disabled={currentPage === 1}
+        onClick={() => onPageChange(1)}
       >
-        &#8656; {/* Double Left Arrow */}
+        &#8656;
       </button>
-
-      {/* Previous Arrow */}
       <button
-        className={`arrow-btn ${currentPage === 1 ? 'disabled' : ''}`}
-        onClick={handlePrevPage}
         disabled={currentPage === 1}
+        onClick={() => onPageChange(currentPage - 1)}
       >
-        &#8592; {/* Left Arrow */}
+        &#8592;
       </button>
-
-      {/* Page Numbers */}
       {generatePageNumbers().map((page) => (
         <button
           key={page}
-          className={`btn btn-secondary ${currentPage === page ? 'active' : ''}`}
+          className={currentPage === page ? 'active' : ''}
           onClick={() => onPageChange(page)}
         >
           {page}
         </button>
       ))}
-
-      {/* Next Arrow */}
       <button
-        className={`arrow-btn ${currentPage === totalPages ? 'disabled' : ''}`}
-        onClick={handleNextPage}
         disabled={currentPage === totalPages}
+        onClick={() => onPageChange(currentPage + 1)}
       >
-        &#8594; {/* Right Arrow */}
+        &#8594;
       </button>
-
-      {/* Last Page Arrow */}
       <button
-        className={`arrow-btn ${currentPage === totalPages ? 'disabled' : ''}`}
-        onClick={handleLastPage}
         disabled={currentPage === totalPages}
+        onClick={() => onPageChange(totalPages)}
       >
-        &#8658; {/* Double Right Arrow */}
+        &#8658;
       </button>
     </div>
   );

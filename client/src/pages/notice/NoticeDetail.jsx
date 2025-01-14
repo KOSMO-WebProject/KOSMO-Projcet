@@ -1,10 +1,9 @@
-// NoticeDetail.jsx
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { Card, Button, Modal, ListGroup, Form } from "react-bootstrap";
-import Comment from "../comment/Comment";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Card, Button, Modal, ListGroup, Form } from 'react-bootstrap';
+import Comment from '../comment/Comment';
+import { useSelector } from 'react-redux';
 
 const NoticeDetail = () => {
   const { currentUser } = useSelector((state) => state.auth);
@@ -12,9 +11,9 @@ const NoticeDetail = () => {
   const navigate = useNavigate();
   const [notice, setNotice] = useState({
     notice_id: 0,
-    title: "",
-    content: "",
-    nickname: "",
+    title: '',
+    content: '',
+    nickname: '',
   });
   const [show, setShow] = useState(false);
 
@@ -24,7 +23,7 @@ const NoticeDetail = () => {
         const res = await axios.get(`/notices/${id}`);
         setNotice(res.data);
       } catch (error) {
-        console.error("Error fetching notice data:", error);
+        console.error('Error fetching notice data:', error);
       }
     };
     fetchData();
@@ -40,20 +39,20 @@ const NoticeDetail = () => {
   const noticeDelete = async () => {
     try {
       await axios.delete(`/notices/${id}`);
-      alert("게시글이 삭제되었습니다.");
-      navigate("/notice");
+      alert('게시글이 삭제되었습니다.');
+      navigate('/notice');
     } catch (error) {
-      console.error("Error deleting the notice:", error);
+      console.error('Error deleting the notice:', error);
     }
   };
 
   const noticeUpdate = async () => {
     try {
       await axios.put(`/notices/${id}`, notice);
-      alert("게시글이 수정되었습니다.");
+      alert('게시글이 수정되었습니다.');
       handleClose();
     } catch (error) {
-      console.error("Error updating the notice:", error);
+      console.error('Error updating the notice:', error);
     }
   };
 
@@ -86,7 +85,6 @@ const NoticeDetail = () => {
               목록
             </Button>
           </div>
-          {/* <CommentInput userId={currentUser?.user_id} noticeId={notice.notice_id} /> */}
           <Comment
             userNo={currentUser ? currentUser.user_no : null}
             noticeNo={notice.notice_no}

@@ -16,6 +16,7 @@ const NoticeWrite = () => {
     title: "",
     content: "",
   });
+  const [isLoading, setIsLoading] = useState(false);  // 로딩 상태
 
   const quillRef = useRef(null);  // Quill 에디터를 바인딩할 참조
 
@@ -35,6 +36,15 @@ const NoticeWrite = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // 데이터 유효성 검사
+    if (!formData.title || !formData.content) {
+      alert("제목과 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    setIsLoading(true);  // 로딩 시작
+
     try {
       await axios.post("/notices/write", formData);
       alert("글등록이 완료되었습니다.");
@@ -42,6 +52,8 @@ const NoticeWrite = () => {
     } catch (error) {
       console.error("Error posting data:", error);
       alert("글 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsLoading(false);  // 로딩 종료
     }
   };
 
@@ -82,8 +94,8 @@ const NoticeWrite = () => {
             <div ref={quillRef} className="notice-content-input ql-container ql-snow" />
 
             <div className="form-buttons">
-              <button type="submit" className="submit-button">
-                글쓰기
+              <button type="submit" className="submit-button" disabled={isLoading}>
+                {isLoading ? "작성 중..." : "글쓰기"}
               </button>
               <button type="button" className="cancel-button" onClick={handleCancel}>
                 취소
