@@ -1,13 +1,16 @@
+// controller/comments.js
 const db = require("../database/db");
 const { getCurrentFormattedDate } = require("../utils/currentyear");
 
 const getCommentByNotice = async (req, res) => {
   const { id } = req.params;
   const query = `
-    SELECT c.*, u.nick_name FROM comment c LEFT OUTER JOIN user u on c.user_no = u.user_no
+    SELECT c.*, u.nick_name 
+    FROM comment c 
+    LEFT OUTER JOIN user u ON c.user_no = u.user_no
     WHERE notice_no = ?
-    ORDER BY created_at DESC`;
-  
+    ORDER BY parent_no ASC, created_at DESC`;
+
   try {
     const [results] = await db.get().execute(query, [id]);
     if (results.length === 0) return res.status(400).json("조회된 댓글이 없습니다.");
@@ -53,15 +56,30 @@ const postReplyById = async (req, res) => {
     const created_at = getCurrentFormattedDate("datetime");
     const q = "INSERT INTO comment(parent_no, user_no, notice_no, content, created_at) VALUES (?, ?, ?, ?, ?)";
     await db.get().execute(q, [parent_no, user_no, notice_no, content, created_at]);
-    return res.status(200).json("댓글이 입력되었습니다.");
+    return res.status(200).json("대댓글이 입력되었습니다.");
   } catch (err) {
     console.error('Error posting reply: ' + err);
     return res.status(500).json(err);
   }
 };
 
+/* const likeCommentById = async (req, res) => {
+  const { comment_id } = req.params;
+
+  try {
+    const q = "UPDATE comment SET likes = likes + 1 WHERE comment_id = ?";
+    const [results] = await db.get().execute(q, [comment_id]);
+    if (results.affectedRows === 0) return res.status(400).json("해당 댓글이 존재하지 않습니다.");
+    return res.status(200).json("좋아요가 반영되었습니다.");
+  } catch (err) {
+    console.error('Error liking comment: ' + err);
+    return res.status(500).json(err);
+  }
+}; */
+
 module.exports = {
   postCommentById,
   getCommentByNotice,
   postReplyById,
+/*   likeCommentById, */
 };

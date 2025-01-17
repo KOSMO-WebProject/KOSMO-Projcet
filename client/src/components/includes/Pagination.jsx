@@ -1,89 +1,52 @@
 import React from 'react';
-import './styles/Pagination.css'; // Import the Pagination styles
+import './styles/Pagination.css';
 
 const Pagination = ({ totalPages, currentPage, onPageChange }) => {
-    const generatePageNumbers = () => {
-        let pages = [];
-        for (let i = 1; i <= totalPages; i++) {
-            pages.push(i);
-        }
-        return pages;
-    };
+  const generatePageNumbers = () => {
+    let pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(i);
+    }
+    return pages;
+  };
 
-    const handlePrevPage = () => {
-        if (currentPage > 1) {
-            onPageChange(currentPage - 1);
-        }
-    };
-
-    const handleNextPage = () => {
-        if (currentPage < totalPages) {
-            onPageChange(currentPage + 1);
-        }
-    };
-
-    const handleFirstPage = () => {
-        if (currentPage !== 1) {
-            onPageChange(1);
-        }
-    };
-
-    const handleLastPage = () => {
-        if (currentPage !== totalPages) {
-            onPageChange(totalPages);
-        }
-    };
-
-    return (
-        <div className="pagination">
-            {/* First Page Arrow */}
-            <button
-                className={`arrow-btn ${currentPage === 1 ? 'disabled' : ''}`}
-                onClick={handleFirstPage}
-                disabled={currentPage === 1}
-            >
-                &#8656; {/* Double Left Arrow */}
-            </button>
-
-            {/* Previous Arrow */}
-            <button
-                className={`arrow-btn ${currentPage === 1 ? 'disabled' : ''}`}
-                onClick={handlePrevPage}
-                disabled={currentPage === 1}
-            >
-                &#8592; {/* Left Arrow */}
-            </button>
-
-            {/* Page Numbers */}
-            {generatePageNumbers().map((page) => (
-                <button
-                    key={page}
-                    className={`btn btn-secondary ${currentPage === page ? 'active' : ''}`}
-                    onClick={() => onPageChange(page)}
-                >
-                    {page}
-                </button>
-            ))}
-
-            {/* Next Arrow */}
-            <button
-                className={`arrow-btn ${currentPage === totalPages ? 'disabled' : ''}`}
-                onClick={handleNextPage}
-                disabled={currentPage === totalPages}
-            >
-                &#8594; {/* Right Arrow */}
-            </button>
-
-            {/* Last Page Arrow */}
-            <button
-                className={`arrow-btn ${currentPage === totalPages ? 'disabled' : ''}`}
-                onClick={handleLastPage}
-                disabled={currentPage === totalPages}
-            >
-                &#8658; {/* Double Right Arrow */}
-            </button>
-        </div>
-    );
+  return (
+    <div className="pagination">
+      <button
+        disabled={currentPage === 1}
+        onClick={() => onPageChange(1)}
+      >
+        &#8656;
+      </button>
+      <button
+        disabled={currentPage === 1}
+        onClick={() => onPageChange(currentPage - 1)}
+      >
+        &#8592;
+      </button>
+      {generatePageNumbers().map((page) => (
+        <button
+          key={page}
+          className={currentPage === page ? 'active' : ''}
+          onClick={() => onPageChange(page)}
+        >
+          {page}
+        </button>
+      ))}
+      <button
+        disabled={currentPage === totalPages}
+        onClick={() => onPageChange(currentPage + 1)}
+      >
+        &#8594;
+      </button>
+      <button
+        disabled={currentPage === totalPages}
+        onClick={() => onPageChange(totalPages)}
+      >
+        &#8658;
+      </button>
+    </div>
+  );
 };
 
 export default Pagination;

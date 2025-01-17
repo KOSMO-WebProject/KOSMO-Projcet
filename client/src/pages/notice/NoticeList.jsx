@@ -3,14 +3,14 @@ import "./NoticeList.css";
 import axios from "axios";
 import Footer from "../../components/includes/Footer";
 import Header from "../../components/includes/Header";
-import Pagination from "./Pagination";
+import Pagination from "../../components/includes/Pagination";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import NoticeItem from "./NoticeItem";
 
 const NoticeList = () => {
-  const { currentUser } = useSelector((state) => state.auth); // Redux 상태에서 currentUser 가져오기
+  const { currentUser } = useSelector((state) => state.auth);
   const nav = useNavigate();
   const [notices, setNotices] = useState([]);
   const [searchVisible, setSearchVisible] = useState(false);
@@ -26,7 +26,6 @@ const NoticeList = () => {
 
   const [localKeyword, setLocalKeyword] = useState(keyword);
 
-  // 공지사항 목록 가져오기
   const fetchNotices = async () => {
     setLoading(true);
     setError(null);
@@ -37,17 +36,15 @@ const NoticeList = () => {
       setNotices(response.data.content);
       setTotalPages(response.data.totalPages);
     } catch (error) {
-      setError("공지사항을 불러오는 데 실패했습니다.");
-      console.error(
-        "Error fetching notices:",
-        error.response?.data || error.message
-      );
+      const errorMessage =
+        error.response?.data?.message || "공지사항을 불러오는 데 실패했습니다.";
+      setError(errorMessage);
+      console.error("Error fetching notices:", errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
-  // 공지 클릭 시 읽음 처리
   const handleNoticeClick = async (noticeNo) => {
     if (!currentUser) {
       alert("로그인이 필요합니다.");
@@ -56,47 +53,32 @@ const NoticeList = () => {
 
     const userId = currentUser?.id;
 
-    console.log("Debug: noticeNo:", noticeNo); // noticeNo 확인
-    console.log("Debug: userId:", userId); // userId 확인
-    console.log("Debug: currentUser:", currentUser); // currentUser 전체 확인
-
-    // if (!noticeNo || !userId) {
-    //   console.error('Invalid data:', { noticeNo, userId });
-    //   alert('유효하지 않은 데이터입니다.');
-    //   return;
-    // }
-
-    // try {
-    //   console.log('읽음 처리 요청 데이터:', { noticeNo, userId });
-
-    //   const response = await axios.post('/notices/read', { noticeNo, userId });
-
-    //   if (response.status === 200) {
-    //     console.log('읽음 처리 성공:', response.data);
-    //     setNotices((prevNotices) =>
-    //       prevNotices.map((notice) =>
-    //         notice.notice_no === noticeNo ? { ...notice, isRead: true } : notice
-    //       )
-    //     );
-    //   } else {
-    //     console.error('Unexpected server response:', response);
-    //     alert('읽음 처리에 실패했습니다.');
-    //   }
-    // } catch (error) {
-    //   console.error('Error marking notice as read:', error.response?.data || error.message);
-    //   alert('읽음 처리에 실패했습니다.');
-    // }
+    try {
+      const response = await axios.post("/notices/read", { noticeNo, userId });
+      if (response.status === 200) {
+        setNotices((prevNotices) =>
+          prevNotices.map((notice) =>
+            notice.notice_no === noticeNo ? { ...notice, isRead: true } : notice
+          )
+        );
+      }
+    } catch (error) {
+      console.error("읽음 처리에 실패했습니다.", error);
+      alert("읽음 처리에 실패했습니다.");
+    }
   };
 
-  // 검색 토글 처리
   const toggleSearch = () => setSearchVisible(!searchVisible);
 
-  // 검색 실행
   const handleSearch = () => {
     setSearchParams({ gubun, keyword: localKeyword, page: 1 });
   };
 
-  // 검색 조건 변경 핸들러
+  const handleResetSearch = () => {
+    setSearchParams({});
+    setLocalKeyword("");
+  };
+
   const handleGubunChange = (event) => {
     setSearchParams({ gubun: event.target.value, keyword: "", page: 1 });
     setLocalKeyword("");
@@ -112,17 +94,16 @@ const NoticeList = () => {
     }
   };
 
-  // 페이지네이션 처리
   const handlePageChange = (page) => {
     setSearchParams({ gubun, keyword, page });
   };
 
-  // 글쓰기 버튼 클릭
   const onClickWrite = () => {
     if (currentUser) {
       nav("/notice/write");
     } else {
-      alert("회원가입이 필요합니다.");
+      alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+      nav("/login");
     }
   };
 
@@ -184,11 +165,25 @@ const NoticeList = () => {
           >
             검색
           </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={handleResetSearch}
+          >
+            초기화
+          </button>
         </div>
       )}
 
       {loading && <p className="loading">로딩 중...</p>}
-      {error && <p className="error">{error}</p>}
+      {error && (
+        <div className="error-message">
+          <p>{error}</p>
+          <button className="btn btn-secondary" onClick={fetchNotices}>
+            다시 시도
+          </button>
+        </div>
+      )}
 
       {!loading && !error && (
         <table className="table table-hover">
@@ -213,6 +208,7 @@ const NoticeList = () => {
         currentPage={currentPage}
         onPageChange={handlePageChange}
       />
+      <div style={{ height: "50px" }}></div>
       <Footer />
     </>
   );

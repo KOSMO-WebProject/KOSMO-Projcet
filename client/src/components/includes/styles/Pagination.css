@@ -1,55 +1,60 @@
-/* Pagination.css */
-
-/* Centering the pagination container */
+/* Center the pagination container */
 .pagination {
     display: flex;
-    justify-content: center; /* Centers the items horizontally */
-    align-items: center; /* Centers the items vertically */
-    margin-top: 20px; /* Adds some space at the top */
-}
-
-.pagination button {
-    margin: 0 5px; /* Adds space between buttons */
-    padding: 8px 15px; /* Padding inside the button */
-    font-size: 14px; /* Font size */
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 20px; /* Space above the pagination */
+  }
+  
+  /* Style for all buttons */
+  .pagination button {
+    margin: 0 5px; /* Space between buttons */
+    padding: 8px 15px; /* Inner padding for the button */
+    font-size: 14px; /* Button font size */
     background-color: #f8f9fa; /* Light background color */
     border: 1px solid #ccc; /* Light border */
     cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
-}
-
-.pagination button:hover {
-    background-color: #007bff; /* Blue background on hover */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+  }
+  
+  /* Hover effect for buttons */
+  .pagination button:hover {
+    background-color: #000000aa; /* Dark background on hover */
     color: white; /* White text on hover */
-}
-
-.pagination button.active {
-    background-color: #007bff; /* Blue background for the active page */
-    color: white; /* White text for the active page */
-}
-
-.pagination button:focus {
-    outline: none; /* Removes the outline when focused */
-}
-
-/* Style for the arrow buttons */
-.pagination .arrow-btn {
+  }
+  
+  /* Active page button style */
+  .pagination button.active {
+    background-color: #000000aa; /* Active background color */
+    color: white; /* White text for active button */
+  }
+  
+  /* Remove outline for focused buttons */
+  .pagination button:focus {
+    outline: none; /* Removes the default outline */
+  }
+  
+  /* Arrow button styles */
+  .pagination .arrow-btn {
     background-color: #f8f9fa; /* Light background color */
-    border: none; /* Remove border */
+    border: none; /* No border for arrow buttons */
     cursor: pointer; /* Pointer cursor on hover */
-    font-size: 18px; /* Bigger font for arrows */
-    padding: 8px 12px; /* Padding for the arrow buttons */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
-}
-
-.pagination .arrow-btn:hover {
-    background-color: #007bff; /* Blue background on hover */
-    color: white; /* White color on hover */
-}
-
-/* Disable the arrow button when it's not applicable */
-.pagination .disabled {
-    background-color: #e9ecef; /* Grey background when disabled */
-    cursor: not-allowed; /* Change cursor to indicate it's disabled */
-    color: #6c757d; /* Grey text */
-}
+    font-size: 18px; /* Larger font for arrows */
+    padding: 8px 12px; /* Padding for arrow buttons */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+  }
+  
+  /* Hover effect for arrow buttons */
+  .pagination .arrow-btn:hover {
+    background-color: #000000aa; /* Dark background on hover */
+    color: white; /* White text on hover */
+  }
+  
+  /* Disabled arrow button style */
+  .pagination .disabled {
+    background-color: #e0e0e0; /* Grey background for disabled buttons */
+    cursor: not-allowed; /* Not-allowed cursor for disabled buttons */
+    color: #9e9e9e; /* Light grey text for disabled buttons */
+  }
+  

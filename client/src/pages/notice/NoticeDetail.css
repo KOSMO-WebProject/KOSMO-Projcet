@@ -1,0 +1,126 @@
+.notice-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #f4f4f9;
+  box-sizing: border-box;
+}
+
+.notice-detail-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
+  background-color: #525252;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.notice-detail-title {
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.notice-card {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 120px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  box-sizing: border-box;
+  transition: transform 0.2s ease-in-out;
+}
+
+.notice-card:hover {
+  transform: translateY(-5px);
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.list-group-item:last-child {
+  border-bottom: none;
+}
+
+.row-structure {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.row-structure strong {
+  flex: 0 0 20%;
+  font-size: 14px;
+  color: #333;
+  text-align: left;
+}
+
+.row-structure div {
+  flex: 1;
+  font-size: 16px;
+  color: #555;
+  word-break: break-word;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+textarea {
+  width: 100%;
+  font-size: 16px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: vertical;
+  min-height: 150px;
+}
+
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+
+.comment-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+.comment-actions {
+  font-size: 0.9em;
+  color: gray;
+}
+
+.reply-input {
+  margin-top: 10px;
+}
+
+.new-comment textarea {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+footer {
+  position: relative; /* 위치를 상대적으로 변경하여 하단 고정 제거 */
+  width: 100%; /* 전체 너비를 유지 */
+  background-color: #f9f9f9; /* 배경색 조정 가능 */
+}

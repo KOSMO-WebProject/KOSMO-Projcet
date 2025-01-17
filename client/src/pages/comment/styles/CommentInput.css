@@ -1,0 +1,50 @@
+/* 댓글 입력 영역 */
+.comment-input-container {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 댓글 입력 필드 */
+.comment-input-field {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* 댓글 추가 버튼 */
+.comment-submit-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.comment-submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* 댓글 입력 상자 */
+.comment-input-container {
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 댓글 추가 버튼 */
+.comment-submit-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}

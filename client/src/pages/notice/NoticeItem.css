@@ -168,3 +168,23 @@ footer p {
 .modal-content {
   background-color: #f0f0f0;
 }
+
+.notice-title-link {
+  all: unset;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.notice-title-link.read {
+  font-weight: normal;
+  color: #555;
+  text-decoration: line-through;
+}
+
+.notice-title-link:hover {
+  color: #000000;
+  text-decoration: underline;
+}

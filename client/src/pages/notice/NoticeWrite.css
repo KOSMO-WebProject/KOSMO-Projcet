@@ -170,3 +170,33 @@ footer {
       align-items: flex-start;
   }
 }
+
+
+.notice-content-input {
+  text-align: left !important; /* 왼쪽 정렬 강제 설정 */
+}
+
+.ql-editor {
+  text-align: left !important; /* Quill 에디터 기본 영역 왼쪽 정렬 */
+  min-height: 300px; /* 충분한 높이 확보 */
+  cursor: text; /* 클릭하면 바로 입력 가능하게 설정 */
+}
+
+/* Quill 에디터 전체 영역이 클릭 가능하도록 설정 */
+.ql-container {
+  position: relative;
+  min-height: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.ql-container:hover {
+  cursor: text; /* Hover 시 입력 가능하도록 커서 설정 */
+}
+
+footer {
+  position: relative; /* 위치를 상대적으로 변경하여 하단 고정 제거 */
+  width: 100%; /* 전체 너비를 유지 */
+  background-color: #f9f9f9; /* 배경색 조정 가능 */
+}
