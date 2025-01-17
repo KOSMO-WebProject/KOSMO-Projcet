@@ -1,101 +1,179 @@
+/* CartPage.css */
+
 .cart-container {
-    padding: 20px;
+    font-family: Pretendard;
     max-width: 800px;
-    margin: auto;
+    margin: 100px auto; /* 좌우 가운데 정렬 */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
 }
+
+.cart-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
 
 .cart-item {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 20px;
+    justify-content: space-between;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: transform 0.2s ease;
+    margin-top: 10px;
+}
+
+.cart-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .cart-item img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin-right: 20px;
+    width: 140px;
+    height: auto;
+    border-radius: 8px;
 }
 
 .cart-item-details {
-    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.cart-item-details h2 {
+    font-size: 1rem;
+    color: #151515;
+    margin-bottom: 20px;
+}
+
+.cart-item-details p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 2px 0;
+}
+
+.quantity-control-container {
+    margin-top: 6em;
+    display: flex;
+    align-items: center; /* 요소를 수직으로 가운데 정렬 */
+    gap: 10px; /* 요소 간 간격 */
 }
 
 .quantity-control {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    border: 1px solid #151515;
+    border-radius: 4px;
+    overflow: hidden; /* 내부 요소가 둥근 테두리 안에 들어가게 처리 */
+    height: 36px; /* 모든 버튼과 숫자 높이를 동일하게 */
 }
 
 .quantity-control button {
-    padding: 5px 10px;
-    margin: 0 5px;
-    background-color: #ddd;
-    border: 1px solid #ccc;
+    border: none;
+    background-color: #fff;
+    padding: 0 1em;
+    font-size: 16px;
     cursor: pointer;
+    height: 100%; /* 부모 높이와 동일하게 */
 }
 
-.quantity-control button:hover {
-    background-color: #ccc;
+.quantity-control input {
+    width: 50px;
+    text-align: center;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    height: 100%; /* 부모 높이와 동일하게 */
 }
 
 .remove-button {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 10px;
+    border: 1px solid #151515;
+    padding: 0 15px;
+    border-radius: 4px;
+    background-color: #151515;
+    color: #f9f9f9;
     cursor: pointer;
-}
-
-.remove-button:hover {
-    background-color: #d32f2f;
-}
-
-.cart-footer {
-    margin-top: 20px;
-    text-align: right;
-}
-
-.total-amount {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.payment-button {
-    padding: 10px 20px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.payment-button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-}
-
-.clear-cart-button {
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
-}
-
-.cart-item .item-checkbox {
-    width: 30px; /* 체크박스의 너비 */
-    height: 20px; /* 체크박스의 높이 */
-    cursor: pointer; /* 클릭 가능한 커서 표시 */
-    margin-right: 10px; /* 체크박스와 이미지 간 여백 */
-
-}
-
-.cart-item .cart-item-details {
+    height: 36px; /* 모든 버튼 높이를 동일하게 */
     display: flex;
-    flex-direction: column;
+    align-items: center; /* 텍스트를 수직 가운데 정렬 */
     justify-content: center;
 }
 
+.remove-button:hover {
+    border: 1px solid #151515;
+    background-color: #f9f9f9;
+    color: #151515;
+}
+
+
+.cart-footer {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding-top: 20px;
+}
+
+.total-amount {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: right;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.footer-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.clear-cart-button,
+.payment-button {
+    flex: 1;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.clear-cart-button {
+    background-color: #151515;
+    text-align: center;
+}
+
+.clear-cart-button:hover {
+    background-color: #3d3d3d;
+}
+
+.payment-button {
+    background-color: #ff5733;
+    text-align: center;
+}
+
+.payment-button:hover {
+    background-color: #ff7253;
+}
+
+.payment-button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.empty-cart {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #888;
+    padding: 20px;
+    border: 1px dashed #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}

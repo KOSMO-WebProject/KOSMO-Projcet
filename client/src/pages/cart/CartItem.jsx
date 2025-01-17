@@ -31,6 +31,7 @@ const CartItem = ({
                 <p>가격: {Number(item.price).toLocaleString()} 원</p>
             </div>
             <div className="cart-item-actions">
+            <div class="quantity-control-container">
                 <div className="quantity-control">
                     <button onClick={() => onQuantityChange(index, item.quantity - 1)}>-</button>
                     <span>{item.quantity}</span>
@@ -40,6 +41,7 @@ const CartItem = ({
                     삭제
                 </button>
             </div>
+        </div>
         </div>
     );
 };

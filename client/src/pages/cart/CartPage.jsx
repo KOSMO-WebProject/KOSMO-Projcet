@@ -67,7 +67,6 @@ const CartPage = () => {
         <>
             <Header />
             <div className="cart-container">
-                <h1>장바구니</h1>
                 {cartItems.length === 0 ? (
                     <p className="empty-cart">장바구니가 비어 있습니다.</p>
                 ) : (

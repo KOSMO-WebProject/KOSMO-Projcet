@@ -5,7 +5,8 @@ import { addToCartAsync } from '../../redux/slice/cartSlice';
 import './ProductDetail.css';
 import Header from "../../components/includes/Header";
 import Footer from "../../components/includes/Footer";
-import {productDetail} from "../../api/product";
+import { productDetail } from "../../api/product";
+import ReviewSection from './ReviewSection';
 
 const ProductDetail = () => {
     const params = useParams(); // URL에서 상품 ID 가져오기
@@ -13,7 +14,6 @@ const ProductDetail = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const [item, setItem] = useState([]);
     const [product, setProduct] = useState([]); // 상품 데이터 상태 관리
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedColor, setSelectedColor] = useState(null);
@@ -27,7 +27,6 @@ const ProductDetail = () => {
     const qnaContentRef = useRef(null);
     const tabsRef = useRef(null);
 
-
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -39,6 +38,7 @@ const ProductDetail = () => {
         };
         fetchProduct();
     }, [params.no]);
+
     useEffect(() => {
         const header = document.querySelector('header');
         const handleScroll = () => {
@@ -60,20 +60,22 @@ const ProductDetail = () => {
     }, []);
 
     const handleAddToCart = () => {
+        if (!currentUser) {
+            alert('로그인이 필요한 서비스입니다.');
+            return;
+        }
+
         const item = {
             product_no: product.product_no,
-            user_no : currentUser.user_no,
-            quantity : 1,
+            user_no: currentUser.user_no,
+            quantity: 1,
             selectedSize: selectedSize || "프리사이즈",
             selectedColor: selectedColor || "기본 컬러",
         };
-        if(currentUser) {
-            dispatch(addToCartAsync(item));
-            alert('상품이 장바구니에 추가되었습니다.');
-        }
-        else {
-            alert('로그인이 필요한 서비스입니다.');
-        }
+
+        dispatch(addToCartAsync(item));
+        alert('상품이 장바구니에 추가되었습니다.');
+        navigate('/cart');
     };
 
     const handleBuyNow = () => {
@@ -133,22 +135,36 @@ const ProductDetail = () => {
 
                     <div className="color-options">
                         <span>컬러 선택: </span>
-                        {["#D6D6D6", "black", "white"].map((color) => (
+                        {['#D6D6D6', 'black', 'white'].map((color) => (
                             <button
                                 key={color}
                                 className={`color-button ${selectedColor === color ? "selected" : ""}`}
-                                style={{ backgroundColor: color }}
+                                style={{
+                                    backgroundColor: color,
+                                    width: "14px",
+                                    height: "14px",
+                                    borderRadius: "50%",
+                                    margin: "6px",
+                                }}
                                 onClick={() => setSelectedColor(color)}
                             ></button>
                         ))}
                     </div>
+
                     <div className="size-options">
                         <span>사이즈 선택: </span>
-                        {["S", "M", "L", "XL"].map((size) => (
+                        {['S', 'M', 'L', 'XL'].map((size) => (
                             <button
                                 key={size}
                                 className={`size-button ${selectedSize === size ? "selected" : ""}`}
                                 onClick={() => setSelectedSize(size)}
+                                style={{
+                                    width: "64px",
+                                    height: "26px",
+                                    margin: "2px",
+                                    textAlign: 'center',
+                                    borderRadius: "10px",
+                                }}
                             >
                                 {size}
                             </button>
@@ -161,6 +177,7 @@ const ProductDetail = () => {
                     <button className="buy-now-button" onClick={handleBuyNow}>구매하기</button>
                 </div>
             </div>
+
             <div className="product-details">
                 <ul className="tabs" ref={tabsRef}>
                     <li onClick={() => handleTabClick('정보')} className={activeTab === '정보' ? 'active' : ''}>정보</li>
@@ -168,6 +185,7 @@ const ProductDetail = () => {
                     <li onClick={() => handleTabClick('리뷰')} className={activeTab === '리뷰' ? 'active' : ''}>리뷰</li>
                     <li onClick={() => handleTabClick('Q&A')} className={activeTab === 'Q&A' ? 'active' : ''}>Q&A</li>
                 </ul>
+
                 <div ref={detailsContentRef} className="details-content">
                     <img src={product.img_url} alt="detail" />
                 </div>
@@ -176,31 +194,14 @@ const ProductDetail = () => {
                     <p>사이즈에 대한 상세 정보가 여기에 표시됩니다.</p>
                 </div>
                 <div ref={reviewContentRef} className="reviews-content">
-                    <h2>리뷰</h2>
-                    <textarea
-                        value={reviewText}
-                        onChange={(e) => setReviewText(e.target.value)}
-                        placeholder="리뷰를 작성해주세요..."
-                    />
-                    <button onClick={handleReviewSubmit} className="submit-button">리뷰 작성</button>
-                    {reviews.length === 0 ? (
-                        <p>리뷰가 아직 없습니다.</p>
-                    ) : (
-                        <ul className="reviews-list">
-                            {reviews.map((review) => (
-                                <li key={review.id}>
-                                    <p>{review.text}</p>
-                                    <small>{review.date}</small>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+                    <ReviewSection />
                 </div>
                 <div ref={qnaContentRef} className="details-content">
                     <h2>Q&A 정보</h2>
                     <p>Q&A에 대한 상세 정보가 여기에 표시됩니다.</p>
                 </div>
             </div>
+
             <Footer />
         </>
     );
