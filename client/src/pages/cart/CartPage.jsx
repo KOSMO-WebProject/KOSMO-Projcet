@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {
     updateQuantity,
     fetchCartItemsAsync, DeleteAllCartItemAsync,
@@ -11,13 +11,12 @@ import './CartPage.css';
 import {useNavigate} from "react-router-dom";
 
 
-
 const CartPage = () => {
     const cartItems = useSelector((state) => state.cart.items);
     const loading = useSelector((state) => state.cart.loading);
     const error = useSelector((state) => state.cart.error);
     const navigate = useNavigate();
-    const { currentUser } = useSelector((state) => state.auth);
+    const {currentUser} = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
     const [selectedItems, setSelectedItems] = useState([]);
@@ -30,7 +29,7 @@ const CartPage = () => {
 
     const handleQuantityChange = (index, newQuantity) => {
         if (newQuantity < 1) return;
-        dispatch(updateQuantity({ index, quantity: newQuantity }));
+        dispatch(updateQuantity({index, quantity: newQuantity}));
     };
     const handleClearCart = () => {
         if (window.confirm("장바구니를 비우시겠습니까?")) {
@@ -54,9 +53,13 @@ const CartPage = () => {
 
     const handlePayment = () => {
         const selectedProducts = selectedItems.map((index) => cartItems[index]);
-        console.log("결제할 상품:", selectedProducts);
-        console.log("총 금액:", totalAmount);
-        navigate('/widget/checkout', { state: { selectedProducts, totalAmount, currentUser } });
+        navigate('/widget/checkout', {
+            state: {
+                selectedProducts, //선택한 상품 정보
+                totalAmount, //총 금액
+                currentUser // 현재 로그인한 사용자 정보
+            }
+        });
         alert("결제 페이지로 이동합니다.")
     };
 
@@ -65,7 +68,7 @@ const CartPage = () => {
 
     return (
         <>
-            <Header />
+            <Header/>
             <div className="cart-container">
                 <h1>장바구니</h1>
                 {cartItems.length === 0 ? (
@@ -100,7 +103,7 @@ const CartPage = () => {
                     </>
                 )}
             </div>
-            <Footer />
+            <Footer/>
         </>
     );
 };

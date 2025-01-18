@@ -23,3 +23,17 @@ export const getCurrentFormattedDate = (type) => {
 
   }
 };
+
+export const generateOrderNo = () => {
+    const now = new Date();
+    const timestamp = now.getFullYear().toString().slice(-2) + // 연도 2자리
+        (now.getMonth() + 1).toString().padStart(2, "0") + // 월 2자리
+        now.getDate().toString().padStart(2, "0") + // 일 2자리
+        now.getHours().toString().padStart(2, "0") + // 시 2자리
+        now.getMinutes().toString().padStart(2, "0") + // 분 2자리
+        now.getSeconds().toString().padStart(2, "0"); // 초 2자리
+    const randomPart = Math.random().toString(36).substr(2, 2).toUpperCase(); // 랜덤 2자리 (영문/숫자)
+    return timestamp + randomPart; // 예: "240115123012X3"
+};
+
+
