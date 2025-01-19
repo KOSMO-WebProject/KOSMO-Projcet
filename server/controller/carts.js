@@ -77,17 +77,6 @@ const cartAllDelete = async (req, res) => {
 }
 
 
-export async function clearCartAfterPayment(connection, orderId) {
-    const query = `
-        DELETE ci
-        FROM cartitem ci
-        JOIN cart c ON ci.cart_no = c.cart_no
-        WHERE c.user_no = (SELECT user_no FROM \`order\` WHERE order_no = ?)
-          AND ci.product_no IN (SELECT product_no FROM orderdetail WHERE order_no = ?)
-    `;
-    const [result] = await connection.execute(query, [orderId, orderId]);
-    return result.affectedRows > 0;
-}
 
 
 module.exports = {

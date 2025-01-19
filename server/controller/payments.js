@@ -24,8 +24,7 @@ const db = require('../database/db');
 //         console.error(error.response.data.message);
 //         res.status(500).send(error.response.data.message);
 //     }
-// };
-
+// }
 
 // @docs https://docs.tosspayments.com/reference/using-api/api-keys
 const widgetSecretKey = process.env.TOSS_WIDGET_SECRET_KEY;
@@ -38,78 +37,22 @@ const paymentWidget = async (req, res) => {
     const { paymentKey, orderId, amount } = req.body;
 
     const connection = await db.get().getConnection();
+
     try {
         await connection.beginTransaction();
 
         // 1. Toss Payments 결제 승인 API 호출
         const paymentApprovalResult = await confirmPayment(paymentKey, orderId, amount);
-        if (!paymentApprovalResult) {
-            throw new Error("Failed to approve payment via Toss API.");
-        }
 
         // 2. 주문 정보 업데이트
-        const isOrderUpdated = await updateOrderStatus(connection, orderId, 'COMPLETED');
-        if (!isOrderUpdated) {
-            throw new Error("Failed to update order status.");
-        }
+        await updateOrderStatus(connection, orderId, 'COMPLETED');
 
         // 3. 결제 정보 저장
-        const isPaymentSaved = await savePaymentInfo(connection, orderId, amount, paymentKey);
-        if (!isPaymentSaved) {
-            throw new Error("Failed to save payment information.");
-        }
+        await savePaymentInfo(connection, orderId, amount, paymentKey);
 
         // 4. 결제 성공 시 장바구니 정리 (옵션)
-        const isCartCleared = await clearCartAfterPayment(connection, orderId);
-        if (!isCartCleared) {
-            console.warn("Failed to clear cart items. Proceeding without error.");
-        }
+        await clearCartAfterPayment(connection, orderId);
 
-        // 5. 트랜잭션 커밋 및 응답
-        await connection.commit();
-        res.status(200).json({
-            message: "Payment approved successfully.",
-            paymentDetails: paymentApprovalResult,
-        });
-    } catch (error) {
-        await connection.rollback();
-        console.error("Error during payment approval:", error);
-        res.status(500).json({ message: error.message || "Failed to process payment." });
-    } finally {
-        connection.release();
-    }
-};
-
-const paymentWidget = async (req, res) => {
-    const { paymentKey, orderId, amount } = req.body;
-
-    const connection = await db.get().getConnection();
-    try {
-        await connection.beginTransaction();
-
-        // 1. Toss Payments 결제 승인 API 호출
-        const paymentApprovalResult = await confirmPayment(paymentKey, orderId, amount);
-        if (!paymentApprovalResult) {
-            throw new Error("Failed to approve payment via Toss API.");
-        }
-
-        // 2. 주문 정보 업데이트
-        const isOrderUpdated = await updateOrderStatus(connection, orderId, 'COMPLETED');
-        if (!isOrderUpdated) {
-            throw new Error("Failed to update order status.");
-        }
-
-        // 3. 결제 정보 저장
-        const isPaymentSaved = await savePaymentInfo(connection, orderId, amount, paymentKey);
-        if (!isPaymentSaved) {
-            throw new Error("Failed to save payment information.");
-        }
-
-        // 4. 결제 성공 시 장바구니 정리 (옵션)
-        const isCartCleared = await clearCartAfterPayment(connection, orderId);
-        if (!isCartCleared) {
-            console.warn("Failed to clear cart items. Proceeding without error.");
-        }
 
         // 5. 트랜잭션 커밋 및 응답
         await connection.commit();
@@ -153,6 +96,13 @@ async function confirmPayment(paymentKey, orderId, amount) {
         throw error;
     }
 }
+async function updateOrderStatus(connection, orderId, completed) {
+    const [result] = await connection.execute(
+        `UPDATE \`order\` SET payment_status = ? WHERE order_no = ?`,
+        [completed, orderId]
+    );
+    return result.affectedRows > 0;
+}
 
 
 async function savePaymentInfo(connection, orderId, amount, paymentKey) {
@@ -161,6 +111,20 @@ async function savePaymentInfo(connection, orderId, amount, paymentKey) {
          VALUES (?, ?, 'COMPLETED', NOW(), ?)`,
         [orderId, amount, paymentKey]
     );
+    return result.affectedRows > 0;
+}
+
+
+
+async function clearCartAfterPayment(connection, orderId) {
+    const query = `
+        DELETE ci
+        FROM cartitem ci
+        JOIN cart c ON ci.cart_no = c.cart_no
+        WHERE c.user_no = (SELECT user_no FROM \`order\` WHERE order_no = ?)
+          AND ci.product_no IN (SELECT product_no FROM orderdetail WHERE order_no = ?)
+    `;
+    const [result] = await connection.execute(query, [orderId, orderId]);
     return result.affectedRows > 0;
 }
 

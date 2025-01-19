@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d9b17d76-6e91-46c7-987b-67794279d877" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/client/src/pages/auth/UserProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/auth/UserProfile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controller/carts.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controller/carts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controller/orders.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controller/orders.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controller/payments.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controller/payments.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controller/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controller/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/router/orders.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/orders.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JSX File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Songbeom1023&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/KOSMO-WebProject/KOSMO-Projcet.git&quot;,
+    &quot;accountId&quot;: &quot;a6745ad1-5aae-4103-9652-ab0bd8dcec06&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2rCndo0GnE0VY4QIrEfFMiw1Ypy" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "jongbeom",
+    "ignore.virus.scanning.warn.message": "true",
+    "ignore_missing_gitignore": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/kjb00/projects/www-semi",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.19885057",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql_aurora",
+      "mysql"
+    ],
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
+      "MySQL"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\kjb00\projects\www\client\src\assets" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d9b17d76-6e91-46c7-987b-67794279d877" name="Changes" comment="" />
+      <created>1736072013326</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1736072013326</updated>
+      <workItem from="1736072014583" duration="3515000" />
+      <workItem from="1736256501534" duration="1157000" />
+      <workItem from="1736257704179" duration="5718000" />
+      <workItem from="1736503549688" duration="16976000" />
+      <workItem from="1736575357015" duration="32540000" />
+      <workItem from="1736768950175" duration="57000" />
+      <workItem from="1737016272348" duration="5455000" />
+      <workItem from="1737103229620" duration="8232000" />
+      <workItem from="1737169864759" duration="12691000" />
+      <workItem from="1737186442912" duration="63000" />
+      <workItem from="1737186843875" duration="2426000" />
+      <workItem from="1737189299195" duration="725000" />
+      <workItem from="1737190062411" duration="8288000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
