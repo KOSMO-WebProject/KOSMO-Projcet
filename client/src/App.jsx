@@ -18,9 +18,12 @@ import NoticeCenter from "./pages/notice/NoticeCenter";
 import BackpackPage from "./pages/shop/BackpackPage";
 import ProductDetail from "./pages/product/ProductDetail";
 import CartPage from "./pages/cart/CartPage";
-import {WidgetCheckoutPage} from "./pages/payment/WidgetCheckout";
-import {WidgetSuccessPage} from "./pages/payment/WidgetSuccess";
-import {WidgetFail} from "./pages/payment/WidgetFail";
+import { WidgetCheckoutPage } from "./pages/payment/WidgetCheckout";
+import { WidgetSuccessPage } from "./pages/payment/WidgetSuccess";
+import { WidgetFail } from "./pages/payment/WidgetFail";
+import QnaList from "./pages/qna/QnaList";
+import QnaDetail from "./pages/qna/QnaDetail";
+import QnaWrite from "./pages/qna/QnaWrite";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -42,10 +45,17 @@ const App = () => {
         <Route path="/backpack" exact={true} element={<BackpackPage />} />
         <Route path="/cart" exact={true} element={<CartPage />} />
         <Route path="/backpack/:no" exact={true} element={<ProductDetail />} />
-        <Route path="/clothing/product/:no" exact={true} element={<ProductDetail />} />
+        <Route
+          path="/clothing/product/:no"
+          exact={true}
+          element={<ProductDetail />}
+        />
         <Route path="/notice" exact={true} element={<NoticeList />} />
         <Route path="/notice/write" exact={true} element={<NoticeWrite />} />
+        <Route path="/qna" exact={true} element={<QnaList />} />
+        <Route path="/qna/write" exact={true} element={<QnaWrite />} />
         <Route path="/notice/:id" exact={true} element={<NoticeDetail />} />
+        <Route path="/qna/:id" exact={true} element={<QnaDetail />} />
         <Route path="/login" exact={true} element={<LoginPage />} />
         <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
         <Route path="/auth/naver/callback" element={<NaverCallback />} />

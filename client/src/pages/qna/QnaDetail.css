@@ -1,4 +1,4 @@
-.notice-detail-container {
+.qna-detail-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-.notice-detail-header {
+.qna-detail-header {
   position: fixed;
   top: 0;
   left: 0;
@@ -21,13 +21,13 @@
   z-index: 1000;
 }
 
-.notice-detail-title {
+.qna-detail-title {
   font-size: 26px;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
-.notice-card {
+.qna-card {
   width: 1500px; /* 고정 너비 */
   height: 900px; /* 고정 높이 */
   margin-top: 120px;
@@ -40,7 +40,7 @@
   transition: box-shadow 0.2s ease-in-out; /* hover 효과 부드럽게 */
 }
 
-.notice-card:hover {
+.qna-card:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* hover 시 더 강한 그림자 */
 }
 

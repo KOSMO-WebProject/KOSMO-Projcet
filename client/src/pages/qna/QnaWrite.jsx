@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import "./NoticeWrite.css";
+import "./QnaWrite.css";
 import "quill/dist/quill.snow.css";
 import Footer from "../../components/includes/Footer";
 import Header from "../../components/includes/Header";
 import Quill from "quill";
 
-const NoticeWrite = () => {
+const QnaWrite = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -85,9 +85,9 @@ const NoticeWrite = () => {
 
       console.log("Submitting data:", dataToSubmit); // 디버깅용
 
-      await axios.post("/notices/write", dataToSubmit);
+      await axios.post("/qnas/write", dataToSubmit);
       alert("글등록이 완료되었습니다.");
-      navigate("/notice");
+      navigate("/qna");
     } catch (error) {
       console.error(
         "Error posting data:",
@@ -103,36 +103,38 @@ const NoticeWrite = () => {
   };
 
   const handleCancel = () => {
-    navigate("/notice");
+    navigate("/qna");
   };
 
   useEffect(() => {
-    document.querySelector(".notice-title-input")?.focus();
+    document.querySelector(".qna-title-input")?.focus();
   }, []);
 
   return (
-    <div className="notice-write-container">
+    <div className="qna-write-container">
       <Header />
-      <div className="notice-write-content">
-        <h1 className="notice-write-title">글쓰기</h1>
-        <div className="notice-write-content-container">
-          <form className="notice-write-form" onSubmit={handleSubmit}>
+      <div className="qna-write-content">
+        <h1 className="qna-write-title">글쓰기</h1>
+        <div className="qna-write-content-container">
+          <form className="qna-write-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <select
                 name="category"
-                className="notice-category"
+                className="qna-category"
                 onChange={handleChange}
                 value={formData.category || ""}
               >
                 <option value="">분류</option>
-                <option value="공지사항">공지사항</option>
-                <option value="이벤트">이벤트</option>
-                <option value="안내">안내</option>
+                <option value="배송문의">배송문의</option>
+                <option value="교환반품">교환반품</option>
+                <option value="취소변경">취소변경</option>
+                <option value="입금문의">입금문의</option>
+                <option value="기타문의">기타문의</option>
               </select>
               <input
                 type="text"
                 name="title"
-                className="notice-title-input"
+                className="qna-title-input"
                 placeholder="제목을 입력해주세요."
                 onChange={handleChange}
                 value={formData.title}
@@ -142,7 +144,7 @@ const NoticeWrite = () => {
             {/* Quill 에디터 영역 */}
             <div
               ref={quillRef}
-              className="notice-content-input ql-container ql-snow"
+              className="qna-content-input ql-container ql-snow"
             />
 
             <div className="form-buttons">
@@ -170,4 +172,4 @@ const NoticeWrite = () => {
   );
 };
 
-export default NoticeWrite;
+export default QnaWrite;

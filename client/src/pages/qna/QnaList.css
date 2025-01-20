@@ -142,13 +142,13 @@
 }
 
 /* 링크 스타일 */
-.notice-title-link {
+.qna-title-link {
   text-decoration: none;
   color: black;
   font-weight: bold;
 }
 
-.notice-title-link.read {
+.qna-title-link.read {
   color: gray;
   font-weight: normal;
 }

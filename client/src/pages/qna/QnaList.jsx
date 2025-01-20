@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./NoticeList.css";
+import "./QnaList.css";
 import axios from "axios";
 import Footer from "../../components/includes/Footer";
 import Header from "../../components/includes/Header";
@@ -7,12 +7,12 @@ import Pagination from "../../components/includes/Pagination";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import NoticeItem from "./NoticeItem";
+import QnaItem from "./QnaItem";
 
-const NoticeList = () => {
+const QnaList = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const nav = useNavigate();
-  const [notices, setNotices] = useState([]);
+  const [qnas, setQnas] = useState([]);
   const [searchVisible, setSearchVisible] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -26,26 +26,26 @@ const NoticeList = () => {
 
   const [localKeyword, setLocalKeyword] = useState(keyword);
 
-  const fetchNotices = async () => {
+  const fetchQnas = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("/notices", {
+      const response = await axios.get("/qnas", {
         params: { page: currentPage, size, gubun, keyword },
       });
-      setNotices(response.data.content);
+      setQnas(response.data.content);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       const errorMessage =
-        error.response?.data?.message || "공지사항을 불러오는 데 실패했습니다.";
+        error.response?.data?.message || "Q&A를 불러오는 데 실패했습니다.";
       setError(errorMessage);
-      console.error("Error fetching notices:", errorMessage);
+      console.error("Error fetching qnas:", errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleNoticeClick = async (noticeNo) => {
+  const handleQnaClick = async (qnaNo) => {
     if (!currentUser) {
       alert("로그인이 필요합니다.");
       return;
@@ -54,11 +54,11 @@ const NoticeList = () => {
     const userId = currentUser?.id;
 
     try {
-      const response = await axios.post("/notices/read", { noticeNo, userId });
+      const response = await axios.post("/qnas/read", { qnaNo, userId });
       if (response.status === 200) {
-        setNotices((prevNotices) =>
-          prevNotices.map((notice) =>
-            notice.notice_no === noticeNo ? { ...notice, isRead: true } : notice
+        setQnas((prevQnas) =>
+          prevQnas.map((qna) =>
+            qna.qna_no === qnaNo ? { ...qna, isRead: true } : qna
           )
         );
       }
@@ -100,7 +100,7 @@ const NoticeList = () => {
 
   const onClickWrite = () => {
     if (currentUser) {
-      nav("/notice/write");
+      nav("/qna/write");
     } else {
       alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
       nav("/login");
@@ -108,7 +108,7 @@ const NoticeList = () => {
   };
 
   useEffect(() => {
-    fetchNotices();
+    fetchQnas();
   }, [currentPage, size, gubun, keyword]);
 
   return (
@@ -116,7 +116,7 @@ const NoticeList = () => {
       <Header />
       <div className="new-container">
         <div className="page-header">
-          <h2>공지사항</h2>
+          <h2>Q & A</h2>
           <hr />
         </div>
       </div>
@@ -182,7 +182,7 @@ const NoticeList = () => {
       {error && (
         <div className="error-message">
           <p>{error}</p>
-          <button className="btn btn-secondary" onClick={fetchNotices}>
+          <button className="btn btn-secondary" onClick={fetchQnas}>
             다시 시도
           </button>
         </div>
@@ -199,8 +199,8 @@ const NoticeList = () => {
             </tr>
           </thead>
           <tbody>
-            {notices.map((notice) => (
-              <NoticeItem key={notice.notice_no} notice={notice} />
+            {qnas.map((qna) => (
+              <QnaItem key={qna.qna_no} qna={qna} />
             ))}
           </tbody>
         </table>
@@ -217,4 +217,4 @@ const NoticeList = () => {
   );
 };
 
-export default NoticeList;
+export default QnaList;

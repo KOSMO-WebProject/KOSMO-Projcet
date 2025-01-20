@@ -11,7 +11,7 @@
 }
 
 /* 공지사항 섹션 스타일 (Header 밑으로 내려주기) */
-.notice-section {
+.qna-section {
   margin-top: 80px; /* Header 높이만큼 내려주기 */
   padding-bottom: 10px;
   border-bottom: 2px solid #ddd;
@@ -124,13 +124,13 @@
 }
 
 /* 링크 스타일 */
-.notice-title-link {
+.qna-title-link {
   text-decoration: none;
   color: black;
   font-weight: bold;
 }
 
-.notice-title-link.read {
+.qna-title-link.read {
   color: gray;
   font-weight: normal;
 }
@@ -169,7 +169,7 @@ footer p {
   background-color: #f0f0f0;
 }
 
-.notice-title-link {
+.qna-title-link {
   all: unset;
   color: #000;
   font-weight: bold;
@@ -178,13 +178,13 @@ footer p {
   transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-.notice-title-link.read {
+.qna-title-link.read {
   font-weight: normal;
   color: #555;
   text-decoration: line-through;
 }
 
-.notice-title-link:hover {
+.qna-title-link:hover {
   color: #000000;
   text-decoration: underline;
 }

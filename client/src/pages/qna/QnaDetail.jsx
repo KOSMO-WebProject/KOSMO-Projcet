@@ -1,4 +1,4 @@
-// React: NoticeDetail.jsx
+// React: QnaDetail.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -7,15 +7,15 @@ import { useSelector } from "react-redux";
 import Comment from "../comment/Comment";
 import Header from "../../components/includes/Header";
 import Footer from "../../components/includes/Footer";
-import "./NoticeDetail.css";
+import "./QnaDetail.css";
 
-const NoticeDetail = () => {
+const QnaDetail = () => {
   const { currentUser } = useSelector((state) => state.auth);
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [notice, setNotice] = useState({
-    notice_no: 0,
+  const [qna, setQna] = useState({
+    qna_no: 0,
     title: "",
     content: "",
     nick_name: "",
@@ -32,8 +32,8 @@ const NoticeDetail = () => {
     setLoading(true);
     setErrorMessage("");
     try {
-      const res = await axios.get(`/notices/${id}`);
-      setNotice(res.data);
+      const res = await axios.get(`/qnas/${id}`);
+      setQna(res.data);
       setEditContent(res.data.content);
     } catch (error) {
       setErrorMessage("게시글 정보를 불러오는 데 실패했습니다.");
@@ -53,24 +53,24 @@ const NoticeDetail = () => {
     setEditContent(e.target.value);
   };
 
-  const noticeDelete = async () => {
+  const qnaDelete = async () => {
     try {
-      const response = await axios.delete(`/notices/${id}`);
+      const response = await axios.delete(`/qnas/${id}`);
       alert(response.data);
-      navigate("/notice");
+      navigate("/qna");
     } catch (error) {
       alert(error.response?.data || "알 수 없는 오류가 발생했습니다.");
     }
   };
 
-  const noticeUpdate = async () => {
-    if (!notice.title.trim() || !editContent.trim()) {
+  const qnaUpdate = async () => {
+    if (!qna.title.trim() || !editContent.trim()) {
       alert("제목과 내용을 모두 입력해주세요.");
       return;
     }
     try {
-      const response = await axios.put(`/notices/${id}`, {
-        title: notice.title,
+      const response = await axios.put(`/qnas/${id}`, {
+        title: qna.title,
         content: editContent,
       });
       alert(response.data);
@@ -83,20 +83,20 @@ const NoticeDetail = () => {
 
   const handleLike = async () => {
     try {
-      const response = await axios.post(`/notices/${id}/like`);
-      setNotice((prev) => ({ ...prev, likes: prev.likes + 1 }));
+      const response = await axios.post(`/qnas/${id}/like`);
+      setQna((prev) => ({ ...prev, likes: prev.likes + 1 }));
     } catch (error) {
-      console.error("Error liking notice:", error);
+      console.error("Error liking qna:", error);
     }
   };
 
-  console.log(notice);
+  console.log(qna);
   console.log(currentUser);
 
   return (
     <>
       <Header />
-      <div className="notice-detail-container">
+      <div className="qna-detail-container">
         {loading ? (
           <div className="loading-spinner">
             <Spinner animation="border" />
@@ -104,25 +104,25 @@ const NoticeDetail = () => {
         ) : errorMessage ? (
           <div className="error-message">{errorMessage}</div>
         ) : (
-          <div className="notice-detail-content-container">
-            <Card className="notice-card">
+          <div className="qna-detail-content-container">
+            <Card className="qna-card">
               <ListGroup className="list-group-flush">
                 <ListGroup.Item>
                   <div className="row-structure">
                     <strong>제목</strong>
-                    <div>{notice.title}</div>
+                    <div>{qna.title}</div>
                   </div>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <div className="row-structure">
                     <strong>작성자</strong>
-                    <div>{notice.nick_name}</div>
+                    <div>{qna.nick_name}</div>
                   </div>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <div className="row-structure">
                     <strong>작성 날짜</strong>
-                    <div>{notice.create_at}</div>
+                    <div>{qna.create_at}</div>
                   </div>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -130,32 +130,26 @@ const NoticeDetail = () => {
                     <strong>내용</strong>
                     <div
                       style={{ minHeight: "200px", textAlign: "left" }}
-                      dangerouslySetInnerHTML={{ __html: notice.content }}
+                      dangerouslySetInnerHTML={{ __html: qna.content }}
                     />
                   </div>
                 </ListGroup.Item>
               </ListGroup>
-              {currentUser && currentUser.user_no === notice.userno ? (
+              {currentUser && currentUser.user_no === qna.userno ? (
                 <div className="button-group">
                   <Button variant="primary" onClick={handleShow}>
                     수정
                   </Button>
-                  <Button variant="danger" onClick={noticeDelete}>
+                  <Button variant="danger" onClick={qnaDelete}>
                     삭제
                   </Button>
-                  <Button
-                    variant="secondary"
-                    onClick={() => navigate("/notice")}
-                  >
+                  <Button variant="secondary" onClick={() => navigate("/qna")}>
                     목록
                   </Button>
                 </div>
               ) : (
                 <div className="button-group">
-                  <Button
-                    variant="secondary"
-                    onClick={() => navigate("/notice")}
-                  >
+                  <Button variant="secondary" onClick={() => navigate("/qna")}>
                     목록
                   </Button>
                 </div>
@@ -163,7 +157,7 @@ const NoticeDetail = () => {
 
               <Comment
                 userNo={currentUser ? currentUser.user_no : null}
-                noticeNo={notice.notice_no}
+                qnaNo={qna.qna_no}
               />
             </Card>
           </div>
@@ -179,10 +173,8 @@ const NoticeDetail = () => {
                 <input
                   type="text"
                   name="title"
-                  value={notice.title}
-                  onChange={(e) =>
-                    setNotice({ ...notice, title: e.target.value })
-                  }
+                  value={qna.title}
+                  onChange={(e) => setQna({ ...qna, title: e.target.value })}
                   placeholder="제목을 입력해주세요."
                 />
               </div>
@@ -198,7 +190,7 @@ const NoticeDetail = () => {
             <Button variant="secondary" onClick={handleClose}>
               닫기
             </Button>
-            <Button variant="primary" onClick={noticeUpdate}>
+            <Button variant="primary" onClick={qnaUpdate}>
               저장
             </Button>
           </Modal.Footer>
@@ -209,4 +201,4 @@ const NoticeDetail = () => {
   );
 };
 
-export default NoticeDetail;
+export default QnaDetail;
