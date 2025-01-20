@@ -14,7 +14,7 @@ const getAllAddresses = async (req, res) => {
 
 // 특정 사용자 주소 조회
 const getAddressByUserId = async (req, res) => {
-    const query = "SELECT * FROM address WHERE user_no = ?";
+    const query = "SELECT * FROM shopping.address WHERE user_no = ?";
     try {
         const [results] = await db.get().execute(query, [req.params.userId]);
         if (results.length === 0) {

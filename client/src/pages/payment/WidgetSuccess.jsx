@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {Link, useLocation, useNavigate, useSearchParams} from "react-router-dom";
 
 export function WidgetSuccessPage() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const [responseData, setResponseData] = useState(null);
+
 
     useEffect(() => {
         async function confirm() {
@@ -12,9 +13,10 @@ export function WidgetSuccessPage() {
                 orderId: searchParams.get("orderId"),
                 amount: searchParams.get("amount"),
                 paymentKey: searchParams.get("paymentKey"),
+
             };
 
-            const response = await fetch("/api/confirm/widget", {
+            const response = await fetch("/payments/confirm", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -70,8 +72,8 @@ export function WidgetSuccessPage() {
                     </div>
                 </div>
                 <div className="p-grid-col">
-                    <Link to="https://docs.tosspayments.com/guides/v2/payment-widget/integration">
-                        <button className="button p-grid-col5">연동 문서</button>
+                    <Link to="/">
+                        <button className="button p-grid-col5">홈으로</button>
                     </Link>
                     <Link to="https://discord.gg/A4fRFXQhRu">
                         <button className="button p-grid-col5" style={{ backgroundColor: "#e8f3ff", color: "#1b64da" }}>
