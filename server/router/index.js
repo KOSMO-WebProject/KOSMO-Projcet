@@ -9,6 +9,7 @@ const commentsRouter = require("./comments")
 const addressRouter = require("./address")
 const cartsRouter = require('./carts')
 const paymentsRouter = require("./payments")
+const ordersRouter = require("./orders")
 
 //index.js (중앙 라우터 모듈)
 // 라우터 등록: usersRouter와 productsRouter를 각각 /users, /products 경로에 연결합니다. 
@@ -24,7 +25,8 @@ router.use('/notices', noticesRouter); //공지사항
 router.use('/comments', commentsRouter); //댓글
 router.use('/address',addressRouter) //주소
 router.use('/carts', cartsRouter); //장바구니
-router.use('/api', paymentsRouter); //결제
+router.use('/payments', paymentsRouter); //결제
+router.use('/orders',ordersRouter) //주문
 
 
 module.exports = router;

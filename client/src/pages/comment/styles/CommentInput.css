@@ -1,0 +1,14 @@
+/* 댓글 입력 컨테이너 스타일 */
+.comment-input-container {
+  margin-top: 10px; /* 컨테이너와 위 요소 간 간격 */
+}
+
+/* 버튼 기본 스타일 */
+button {
+  margin-left: 10px; /* 버튼 간 간격 */
+}
+
+/* 댓글 입력 컨테이너 내 버튼 스타일 */
+.comment-input-container button {
+  margin-left: 5px; /* 입력 필드와 버튼 간 간격 */
+}

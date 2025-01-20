@@ -1,81 +1,172 @@
-import React, { useState } from 'react';
-import { Container, Button, Row, Col, Form, FormControl } from 'react-bootstrap';
-import ReactQuill from 'react-quill-new'; // 라이브러리 이름 확인 및 수정
-import { useNavigate } from 'react-router';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import "./NoticeWrite.css";
+import "quill/dist/quill.snow.css";
+import Footer from "../../components/includes/Footer";
+import Header from "../../components/includes/Header";
+import Quill from "quill";
 
 const NoticeWrite = () => {
-    const { currentUser } = useSelector((state) => state.auth);
+  const { currentUser } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-      user_no : currentUser ? currentUser.user_no : null,
-      title: "",
-      content: "",
+    user_no: currentUser?.user_no || null, // 백엔드에서 필요한 user_no
+    title: "", // 공지사항 제목
+    content: "", // 공지사항 내용
+    category: "", // 분류 선택
   });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const quillRef = useRef(null); // Quill 에디터 DOM 요소
+  const quillInstance = useRef(null); // Quill 인스턴스
+
+  useEffect(() => {
+    if (!quillInstance.current) {
+      quillInstance.current = new Quill(quillRef.current, {
+        theme: "snow",
+        modules: {
+          toolbar: [
+            ["bold", "italic", "underline"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image"],
+            [{ align: [] }],
+          ],
+        },
+      });
+
+      // Quill 에디터 기본 정렬 설정: 왼쪽 정렬
+      quillInstance.current.format("align", "left");
+
+      // Quill에서 텍스트 변경 시 formData와 동기화
+      quillInstance.current.on("text-change", () => {
+        setFormData((prev) => ({
+          ...prev,
+          content: quillInstance.current.root.innerHTML,
+        }));
+      });
+    }
+
+    // 기존 내용이 있으면 Quill 에디터에 로드
+    if (formData.content) {
+      quillInstance.current.root.innerHTML = formData.content;
+    }
+  }, [formData.content]);
 
   const handleChange = (e) => {
-      const name = e.target ? e.target.name : 'content';
-      const value = e.target ? e.target.value : e;
-
-      setFormData(prev => ({
-          ...prev,
-          [name]: value
-      }));
-
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
-    console.log(formData)
-      e.preventDefault();
-      try {
-          const response = await axios.post("/notices/write", formData);
-          alert("글등록이 완료되었습니다.");
-          navigate("/notice");
-      } catch (error) {
-          console.error('Error posting data:', error);
-      }
+    e.preventDefault();
+
+    // 분류 및 필수 입력값 확인
+    if (!formData.category) {
+      alert("게시글 분류를 선택하세요.");
+      return;
+    }
+    if (!formData.title || !formData.content) {
+      alert("제목과 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // 제목에 분류 추가
+      const modifiedTitle = `[${formData.category}] ${formData.title}`;
+      const dataToSubmit = {
+        title: modifiedTitle,
+        content: formData.content,
+        user_no: formData.user_no, // 백엔드에서 필요한 user_no 필드
+      };
+
+      console.log("Submitting data:", dataToSubmit); // 디버깅용
+
+      await axios.post("/notices/write", dataToSubmit);
+      alert("글등록이 완료되었습니다.");
+      navigate("/notice");
+    } catch (error) {
+      console.error(
+        "Error posting data:",
+        error.response?.data || error.message
+      );
+      const errorMessage =
+        error.response?.data?.message ||
+        "글 등록 중 오류가 발생했습니다. 다시 시도해주세요.";
+      alert(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleCancel = () => {
-      navigate("/notice");
+    navigate("/notice");
   };
 
+  useEffect(() => {
+    document.querySelector(".notice-title-input")?.focus();
+  }, []);
+
   return (
-      <Container className="my-5">
-          <Row className="justify-content-md-center">
-              <Col md={12}>
-                  <Form onSubmit={handleSubmit}>
-                      <h1 className="text-center mb-4">게시판 작성</h1>
-                      <Form.Group className="mb-3">
-                          <Form.Label>제목</Form.Label>
-                          <FormControl
-                              type="text"
-                              placeholder="제목을 입력하세요"
-                              name="title"
-                              onChange={handleChange}
-                          />
-                      </Form.Group>
-                      <Form.Group className="mb-3">
-                          <ReactQuill
-                              theme="snow"
-                              value={formData.content}
-                              onChange={handleChange}
-                              style={{ height: '400px', marginBottom: '20px' }}
-                          />
-                      </Form.Group>
-                      <Row className="mt-5">
-                          <Col md={6}>
-                              <Button type="submit" size="lg" className="w-100">글 등록</Button>
-                          </Col>
-                          <Col md={6}>
-                              <Button variant="secondary" size="lg" className="w-100" onClick={handleCancel}>목록</Button>
-                          </Col>
-                      </Row>
-                  </Form>
-              </Col>
-          </Row>
-      </Container>
+    <div className="notice-write-container">
+      <Header />
+      <div className="notice-write-content">
+        <h1 className="notice-write-title">글쓰기</h1>
+        <div className="notice-write-content-container">
+          <form className="notice-write-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <select
+                name="category"
+                className="notice-category"
+                onChange={handleChange}
+                value={formData.category || ""}
+              >
+                <option value="">분류</option>
+                <option value="공지사항">공지사항</option>
+                <option value="이벤트">이벤트</option>
+                <option value="안내">안내</option>
+              </select>
+              <input
+                type="text"
+                name="title"
+                className="notice-title-input"
+                placeholder="제목을 입력해주세요."
+                onChange={handleChange}
+                value={formData.title}
+              />
+            </div>
+
+            {/* Quill 에디터 영역 */}
+            <div
+              ref={quillRef}
+              className="notice-content-input ql-container ql-snow"
+            />
+
+            <div className="form-buttons">
+              <button
+                type="submit"
+                className="submit-button"
+                disabled={isLoading}
+              >
+                {isLoading ? "작성 중..." : "글쓰기"}
+              </button>
+              <button
+                type="button"
+                className="cancel-button"
+                onClick={handleCancel}
+              >
+                취소
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div style={{ height: "50px" }}></div>
+      <Footer />
+    </div>
   );
 };
 
