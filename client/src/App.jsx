@@ -40,6 +40,7 @@ const App = () => {
         <Route path="/clothing/product/:no" exact={true} element={<ProductDetail />} />
 
         <Route path="/clothing" exact ={true} element={<ShopLandingPage />}/>
+        
         <Route path="/notice" exact={true} element={<NoticeList />} />
         <Route path="/notice/write" exact={true} element={<NoticeWrite />} />
         <Route path="/notice/:id" exact={true} element={<NoticeDetail />} />

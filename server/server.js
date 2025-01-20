@@ -42,7 +42,7 @@ async function startServer() {
     await db.connect();
     const port = process.env.SERVER_PORT;
     app.listen(port, () => {
-      console.log(`서버가 http://localhost:${port}에서 실행 중입니다.`);
+      console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);
     });
   } catch (error) {
     console.error("서버 시작 중 오류 발생:", error);
