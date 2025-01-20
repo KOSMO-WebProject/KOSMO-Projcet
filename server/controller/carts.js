@@ -20,10 +20,9 @@ const cartInsert =  async (req, res) => {
 
     try {
         let cart_no;
-        const [existingCart] = await db.get().execute('SELECT * FROM cart WHERE user_no = ?', [user_no]);
+        const [existingCart] = await db.get().execute('SELECT cart_no FROM cart WHERE user_no = ?', [user_no]);
         console.log(existingCart)
-        if (existingCart.length === 0 ) {
-
+        if (existingCart.length === 0) {
             const [result] = await db.get().execute('INSERT INTO cart (user_no, create_at) VALUES (?, NOW())', [user_no]);
             cart_no = result[0].insertId;
         } else {

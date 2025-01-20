@@ -38,7 +38,7 @@ const getOrdersList = async (req, res) => {
         `;
         const [rows] = await db.get().execute(q, [user_no]);
 
-        // Group orders by order_no and attach product details
+
         const groupedOrders = rows.reduce((acc, row) => {
             const { order_no, product_no, quantity, price, product_name, img_url, ...orderDetails } = row;
 
@@ -60,7 +60,6 @@ const getOrdersList = async (req, res) => {
             return acc;
         }, {});
 
-        // Convert grouped orders to an array
         const ordersArray = Object.values(groupedOrders);
 
         res.status(200).json(ordersArray);

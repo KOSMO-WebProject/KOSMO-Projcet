@@ -72,8 +72,8 @@ export function WidgetSuccessPage() {
                     </div>
                 </div>
                 <div className="p-grid-col">
-                    <Link to="https://docs.tosspayments.com/guides/v2/payment-widget/integration">
-                        <button className="button p-grid-col5">연동 문서</button>
+                    <Link to="/">
+                        <button className="button p-grid-col5">홈으로</button>
                     </Link>
                     <Link to="https://discord.gg/A4fRFXQhRu">
                         <button className="button p-grid-col5" style={{ backgroundColor: "#e8f3ff", color: "#1b64da" }}>

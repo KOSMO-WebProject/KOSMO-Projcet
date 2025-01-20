@@ -10,7 +10,7 @@ import ShopLandingPage from "./pages/shop/ShopLandingPage";
 import LoginPage from "./pages/auth/LoginPage";
 import NaverCallback from "./pages/auth/social/NaverCallback";
 import KakaoCallback from "./pages/auth/social/KaKaoCallback";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {loadUser} from "./redux/slice/authSlice";
 import SignupPage from "./pages/auth/SignupPage";
@@ -24,8 +24,7 @@ import {WidgetFail} from "./pages/payment/WidgetFail";
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    // 애플리케이션 초기화 시 사용자 정보를 불러옴
-    dispatch(loadUser())
+    dispatch(loadUser());
   }, [dispatch]);
   return (
     <>
