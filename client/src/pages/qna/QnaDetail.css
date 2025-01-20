@@ -1,0 +1,138 @@
+.qna-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #f4f4f9;
+  box-sizing: border-box;
+}
+
+.qna-detail-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
+  background-color: #525252;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.qna-detail-title {
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.qna-card {
+  width: 1500px; /* 고정 너비 */
+  height: 900px; /* 고정 높이 */
+  margin-top: 120px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  box-sizing: border-box;
+  overflow: auto; /* 내용이 넘칠 경우 잘리도록 설정 */
+  transition: box-shadow 0.2s ease-in-out; /* hover 효과 부드럽게 */
+}
+
+.qna-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* hover 시 더 강한 그림자 */
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* 부모 컨테이너 크기와 동일하게 설정 */
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.list-group-item:last-child {
+  border-bottom: none;
+}
+
+.row-structure {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.row-structure strong {
+  flex: 0 0 20%;
+  font-size: 14px;
+  color: #333;
+  text-align: left;
+}
+
+.row-structure div {
+  flex: 1;
+  font-size: 16px;
+  color: #555;
+  word-break: break-word;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end !important;
+  align-items: center; /* 세로 중앙 정렬 */
+  gap: 10px;
+  margin-top: 20px;
+  padding: 0 20px;
+  height: auto; /* 높이를 자동으로 조정 */
+  min-height: 40px; /* 최소 높이를 설정하여 너무 커지지 않도록 함 */
+}
+
+textarea {
+  width: 100%;
+  font-size: 16px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: vertical;
+  min-height: 150px;
+}
+
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.comment-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+.comment-actions {
+  font-size: 0.9em;
+  color: gray;
+}
+
+.reply-input {
+  margin-top: 10px;
+}
+
+.new-comment textarea {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+footer {
+  position: relative; /* 위치를 상대적으로 변경하여 하단 고정 제거 */
+  width: 100%; /* 전체 너비를 유지 */
+  background-color: #f9f9f9; /* 배경색 조정 가능 */
+}
+
+@media (max-width: 768px) {
+  .comment-container {
+    max-height: 200px; /* 모바일 화면에서 더 작게 설정 */
+  }
+}

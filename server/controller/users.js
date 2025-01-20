@@ -50,7 +50,7 @@ const updatePassword = async (req, res) => {
 
 
 const getAllUsers = async (req, res) => {
-    const q = "SELECT * FROM users";
+    const q = "SELECT * FROM performance_schema.users";
     try {
         const [results] = await db.get().execute(q);
         res.status(200).json(results);
@@ -62,7 +62,7 @@ const getAllUsers = async (req, res) => {
 
 
 const getUserById = async (req, res) => {
-    const q = 'SELECT * FROM users WHERE id = ?';
+    const q = 'SELECT * FROM performance_schema.users WHERE id = ?';
     try {
         const [results] = await db.get().execute(q, [req.params.id]);
         if (results.length === 0) {
