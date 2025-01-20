@@ -1,6 +1,13 @@
 // React와 필요한 Bootstrap 컴포넌트를 import
 import React, { useState } from "react";
-import { Form, InputGroup, ListGroup, ListGroupItem, Button, Spinner } from "react-bootstrap";
+import {
+  Form,
+  InputGroup,
+  ListGroup,
+  ListGroupItem,
+  Button,
+  Spinner,
+} from "react-bootstrap";
 import "./styles/CommentList.css"; // 스타일 파일 import
 
 // CommentList 컴포넌트 정의
@@ -20,7 +27,12 @@ const CommentList = ({ comments, addReply }) => {
   // 날짜 포맷을 지정하는 함수
   const formatDate = (dateString) => {
     const date = new Date(dateString); // 문자열을 Date 객체로 변환
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")} ${String(
+      date.getHours()
+    ).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
   };
 
   // 대댓글 입력 변경 핸들러
@@ -33,7 +45,8 @@ const CommentList = ({ comments, addReply }) => {
 
   // 대댓글 추가 버튼 클릭 핸들러
   const handleOnClick = () => {
-    if (!reply.content.trim()) { // 내용이 없으면 경고
+    if (!reply.content.trim()) {
+      // 내용이 없으면 경고
       alert("대댓글 내용을 입력해주세요.");
       return;
     }
@@ -66,12 +79,17 @@ const CommentList = ({ comments, addReply }) => {
     comments
       .filter((comment) => comment.parent_no === parentNo) // 부모 번호가 일치하는 대댓글만 필터링
       .map((reply) => (
-        <ListGroupItem key={reply.comment_no} className="reply-item"> {/* 대댓글 항목 */}
+        <ListGroupItem key={reply.comment_no} className="reply-item">
+          {" "}
+          {/* 대댓글 항목 */}
           <div className="reply-content">
-            <span className="reply-nickname">{reply.nick_name}</span> {/* 작성자 닉네임 */}
-            <span className="reply-text">{reply.content}</span> {/* 대댓글 내용 */}
+            <span className="reply-nickname">{reply.nick_name}</span>{" "}
+            {/* 작성자 닉네임 */}
+            <span className="reply-text">{reply.content}</span>{" "}
+            {/* 대댓글 내용 */}
           </div>
-          <div className="reply-meta">{formatDate(reply.created_at)}</div> {/* 작성 시간 */}
+          <div className="reply-meta">{formatDate(reply.created_at)}</div>{" "}
+          {/* 작성 시간 */}
         </ListGroupItem>
       ));
 
@@ -81,21 +99,51 @@ const CommentList = ({ comments, addReply }) => {
       {comments
         .filter((comment) => comment.parent_no === null) // 부모가 없는 댓글만 필터링
         .map((comment) => (
-          <ListGroupItem key={comment.comment_no} id={`comment-${comment.comment_no}`} className="comment-item"> {/* 댓글 항목 */}
+          <ListGroupItem
+            key={comment.comment_no}
+            id={`comment-${comment.comment_no}`}
+            className="comment-item"
+          >
+            {" "}
+            {/* 댓글 항목 */}
             <div className="comment-header">
-              <div className="user-nickname">{comment.nick_name}</div> {/* 작성자 닉네임 */}
-              <div className="comment-content">{comment.content}</div> {/* 댓글 내용 */}
-              <div className="comment-meta">{formatDate(comment.created_at)}</div> {/* 작성 시간 */}
+              <div className="user-nickname">{comment.nick_name}</div>{" "}
+              {/* 작성자 닉네임 */}
+              <div className="comment-content">{comment.content}</div>{" "}
+              {/* 댓글 내용 */}
+              <div className="comment-meta">
+                {formatDate(comment.created_at)}
+              </div>{" "}
+              {/* 작성 시간 */}
             </div>
-            <InputGroup className="reply-input"> {/* 대댓글 입력 필드 */}
+            <InputGroup className="reply-input">
+              {" "}
+              {/* 대댓글 입력 필드 */}
               <Form.Control
                 type="text"
                 placeholder="대댓글을 입력하세요"
-                value={reply.parent_no === comment.comment_no ? reply.content : ""}
+                value={
+                  reply.parent_no === comment.comment_no ? reply.content : ""
+                }
                 onChange={(e) => handleOnChange(e, comment.comment_no)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    // 엔터 키 감지 (Shift+Enter는 제외)
+                    e.preventDefault(); // 기본 동작 방지
+                    handleOnClick(); // "답글 추가" 버튼 동작 호출
+                  }
+                }}
               />
-              <Button onClick={handleOnClick} disabled={isReplying}> {/* 대댓글 추가 버튼 */}
-                {isReplying ? <Spinner animation="border" size="sm" /> : "답글 추가"}
+              <Button
+                className="btn btn-primary" // 버튼 클래스 추가
+                onClick={handleOnClick}
+                disabled={isReplying}
+              >
+                {isReplying ? (
+                  <Spinner animation="border" size="sm" />
+                ) : (
+                  "답글 추가"
+                )}
               </Button>
             </InputGroup>
             <Button
@@ -105,9 +153,14 @@ const CommentList = ({ comments, addReply }) => {
             >
               {openReplies[comment.comment_no]
                 ? "댓글 닫기"
-                : `댓글 열기 (${comments.filter((c) => c.parent_no === comment.comment_no).length})`}
+                : `댓글 열기 (${
+                    comments.filter((c) => c.parent_no === comment.comment_no)
+                      .length
+                  })`}
             </Button>
-            {openReplies[comment.comment_no] && renderReplies(comment.comment_no)} {/* 대댓글 표시 */}
+            {openReplies[comment.comment_no] &&
+              renderReplies(comment.comment_no)}{" "}
+            {/* 대댓글 표시 */}
           </ListGroupItem>
         ))}
     </ListGroup>

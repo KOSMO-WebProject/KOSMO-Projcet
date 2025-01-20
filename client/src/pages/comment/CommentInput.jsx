@@ -37,6 +37,14 @@ const CommentInput = ({ userNo, noticeNo, fetchComments }) => {
     }
   };
 
+  // 엔터 키 입력 핸들러
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { // 엔터 키를 감지 (Shift+Enter는 제외)
+      e.preventDefault(); // 기본 엔터 동작 방지
+      handleCommentSubmit(e); // 댓글 등록 핸들러 호출
+    }
+  };
+
   // 컴포넌트 렌더링
   return (
     <Form onSubmit={handleCommentSubmit} className="comment-input-container"> {/* 댓글 입력 폼 */}
@@ -46,6 +54,7 @@ const CommentInput = ({ userNo, noticeNo, fetchComments }) => {
           placeholder="댓글을 입력하세요" // 기본 안내 텍스트
           value={comment} // 입력 필드의 값
           onChange={handleCommentChange} // 입력 변경 시 호출되는 핸들러
+          onKeyDown={handleKeyPress} // 키 입력 시 호출되는 핸들러
         />
         <Button variant="outline-secondary" type="submit"> {/* 등록 버튼 */}
           등록
