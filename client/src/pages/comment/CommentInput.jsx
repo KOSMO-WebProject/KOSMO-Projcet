@@ -5,7 +5,7 @@ import axios from "axios"; // HTTP 요청을 위한 axios import
 import "./styles/CommentInput.css"; // 스타일 파일 import
 
 // CommentInput 컴포넌트 정의
-const CommentInput = ({ userNo, noticeNo, fetchComments }) => {
+const CommentInput = ({ userNo, qnaNo, fetchComments }) => {
   const [comment, setComment] = useState(""); // 댓글 내용 상태 관리
 
   // 댓글 입력 변경 핸들러
@@ -26,7 +26,7 @@ const CommentInput = ({ userNo, noticeNo, fetchComments }) => {
       // 서버로 댓글 데이터 전송
       await axios.post(`/comments/write`, {
         user_no: userNo, // 사용자 번호
-        notice_no: noticeNo, // 공지 번호
+        qna_no: qnaNo, // 공지 번호
         content: comment.trim(), // 댓글 내용
       });
 

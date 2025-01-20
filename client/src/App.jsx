@@ -45,18 +45,11 @@ const App = () => {
         <Route path="/backpack" exact={true} element={<BackpackPage />} />
         <Route path="/cart" exact={true} element={<CartPage />} />
         <Route path="/backpack/:no" exact={true} element={<ProductDetail />} />
-<<<<<<< HEAD
-        <Route path="/clothing/product/:no" exact={true} element={<ProductDetail />} />
-
-        <Route path="/clothing" exact ={true} element={<ShopLandingPage />}/>
-        
-=======
         <Route
           path="/clothing/product/:no"
           exact={true}
           element={<ProductDetail />}
         />
->>>>>>> refs/remotes/origin/develop
         <Route path="/notice" exact={true} element={<NoticeList />} />
         <Route path="/notice/write" exact={true} element={<NoticeWrite />} />
         <Route path="/qna" exact={true} element={<QnaList />} />

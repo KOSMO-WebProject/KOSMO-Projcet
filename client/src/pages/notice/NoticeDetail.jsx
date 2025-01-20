@@ -21,7 +21,6 @@ const NoticeDetail = () => {
     nick_name: "",
     user_no: 0,
     create_at: "",
-    likes: 0,
   });
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -81,14 +80,6 @@ const NoticeDetail = () => {
     }
   };
 
-  const handleLike = async () => {
-    try {
-      const response = await axios.post(`/notices/${id}/like`);
-      setNotice((prev) => ({ ...prev, likes: prev.likes + 1 }));
-    } catch (error) {
-      console.error("Error liking notice:", error);
-    }
-  };
 
   console.log(notice);
   console.log(currentUser);

@@ -5,6 +5,7 @@ const usersRouter = require('./users');
 const productsRouter = require('./products');
 const authRouter = require("./auth")
 const noticesRouter = require("./notices")
+const qnasRouter = require("./qnas")
 const commentsRouter = require("./comments")
 const addressRouter = require("./address")
 const cartsRouter = require('./carts')
@@ -22,6 +23,7 @@ router.use('/auth', authRouter); //인증
 router.use('/users', usersRouter); //유저정보들 (관리자 추가 예정)
 router.use('/products', productsRouter); // 상품
 router.use('/notices', noticesRouter); //공지사항
+router.use('/qnas', qnasRouter); //QnA
 router.use('/comments', commentsRouter); //댓글
 router.use('/address',addressRouter) //주소
 router.use('/carts', cartsRouter); //장바구니

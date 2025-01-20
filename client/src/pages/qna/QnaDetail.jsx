@@ -21,7 +21,6 @@ const QnaDetail = () => {
     nick_name: "",
     user_no: 0,
     create_at: "",
-    likes: 0,
   });
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -81,15 +80,6 @@ const QnaDetail = () => {
     }
   };
 
-  const handleLike = async () => {
-    try {
-      const response = await axios.post(`/qnas/${id}/like`);
-      setQna((prev) => ({ ...prev, likes: prev.likes + 1 }));
-    } catch (error) {
-      console.error("Error liking qna:", error);
-    }
-  };
-
   console.log(qna);
   console.log(currentUser);
 
@@ -122,7 +112,7 @@ const QnaDetail = () => {
                 <ListGroup.Item>
                   <div className="row-structure">
                     <strong>작성 날짜</strong>
-                    <div>{qna.create_at}</div>
+                    <div>{qna.create_at.substring(0, 10)}</div>
                   </div>
                 </ListGroup.Item>
                 <ListGroup.Item>
