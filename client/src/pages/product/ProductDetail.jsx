@@ -60,20 +60,21 @@ const ProductDetail = () => {
     }, []);
 
     const handleAddToCart = () => {
-        const item = {
-            product_no: product.product_no,
-            user_no : currentUser.user_no,
-            quantity : 1,
-            selectedSize: selectedSize || "프리사이즈",
-            selectedColor: selectedColor || "기본 컬러",
-        };
         if(currentUser) {
+            const item = {
+                product_no: product.product_no,
+                user_no : currentUser.user_no,
+                quantity : 1,
+                selectedSize: selectedSize || "프리사이즈",
+                selectedColor: selectedColor || "기본 컬러",
+            };
             dispatch(addToCartAsync(item));
             alert('상품이 장바구니에 추가되었습니다.');
         }
         else {
             alert('로그인이 필요한 서비스입니다.');
         }
+
     };
 
     const handleBuyNow = () => {

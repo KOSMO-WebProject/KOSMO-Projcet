@@ -34,7 +34,6 @@ const ShopLandingPage = () => {
     const maleClothing = products[22] || []; // 남성 의류 (카테고리 번호 2)
     const femaleClothing = products[24] || []; // 여성 의류 (카테고리 번호 4)
 
-    console.log(products)
 
     const randomMaleClothing = getRandomItems(maleClothing, 10);
     const randomFemaleClothing = getRandomItems(femaleClothing, 10);

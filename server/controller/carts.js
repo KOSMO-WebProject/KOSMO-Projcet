@@ -15,41 +15,56 @@ const cartList = async (req, res) => {
 }
 
 //상품을 추가할 때 장바구니 생성 만약에 상품이 있다면 장바구니 번호를 가져와서 상품을 추가
-const cartInsert =  async (req, res) => {
+const cartInsert = async (req, res) => {
     const { user_no, product_no, quantity, selectedSize, selectedColor } = req.body;
 
+    const connection = await db.get().getConnection(); // 트랜잭션을 위한 연결 가져오기
+
     try {
+        await connection.beginTransaction();  // 트랜잭션 시작
+
         let cart_no;
-        const [existingCart] = await db.get().execute('SELECT cart_no FROM cart WHERE user_no = ?', [user_no]);
-        console.log(existingCart)
+        const [existingCart] = await connection.execute(
+            'SELECT cart_no FROM cart WHERE user_no = ?',
+            [user_no]
+        );
+
         if (existingCart.length === 0) {
-            const [result] = await db.get().execute('INSERT INTO cart (user_no, create_at) VALUES (?, NOW())', [user_no]);
-            cart_no = result[0].insertId;
+            const [result] = await connection.execute(
+                'INSERT INTO cart (user_no, create_at) VALUES (?, NOW())',
+                [user_no]
+            );
+            cart_no = result.insertId;
         } else {
             cart_no = existingCart[0].cart_no;
         }
-        console.log(cart_no)
 
-        const [existingItem] = await db.get().execute(
-            'SELECT * FROM cartitem WHERE cart_no = ? AND product_no = ?',
+        const [existingItem] = await connection.execute(
+            'SELECT cart_item_no FROM cartitem WHERE cart_no = ? AND product_no = ?',
             [cart_no, product_no]
         );
+
         if (existingItem.length > 0) {
-            await db.get().execute(
+            await connection.execute(
                 'UPDATE cartitem SET quantity = quantity + ? WHERE cart_item_no = ?',
                 [quantity, existingItem[0].cart_item_no]
             );
         } else {
-            await db.get().execute(
-                'INSERT INTO cartitem (cart_no, product_no, quantity, selected_size, selected_color, create_at ) VALUES (?, ?, ?, ?, ? ,NOW())',
+            await connection.execute(
+                'INSERT INTO cartitem (cart_no, product_no, quantity, selected_size, selected_color, create_at) VALUES (?, ?, ?, ?, ?, NOW())',
                 [cart_no, product_no, quantity, selectedSize, selectedColor]
             );
         }
 
-        return res.status(201).json({ message: '장바구니에 상품이 추가되었습니다.' });
+        await connection.commit();  // 트랜잭션 커밋 (모든 작업 적용)
+
+        res.status(201).json({ message: '장바구니에 상품이 추가되었습니다.' });
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: '장바구니 추가 중 오류가 발생했습니다.' });
+        await connection.rollback();  // 오류 발생 시 롤백
+        console.error('장바구니 추가 중 오류:', error);
+        res.status(500).json({ message: '장바구니 추가 중 오류가 발생했습니다.' });
+    } finally {
+        connection.release();
     }
 };
 
