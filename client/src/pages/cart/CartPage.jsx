@@ -48,7 +48,7 @@ const CartPage = () => {
 
     const totalAmount = selectedItems.reduce((sum, index) => {
         const item = cartItems[index];
-        return sum + item.price * item.quantity;
+        return item? sum + item.price * item.quantity : sum;
     }, 0);
 
     const handlePayment = () => {
