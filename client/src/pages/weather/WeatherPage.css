@@ -1,0 +1,180 @@
+.weather-section,
+.weather-graph-section,
+.weekly-weather-section,
+.outfit-recommendations {
+    margin-bottom: 30px; /* 각 섹션 아래 간격 증가 */
+    padding-top: 70px; /* 상단 패딩 추가 */
+}
+
+/* 섹션 제목 스타일 추가 */
+.weather-graph-section h2,
+.weekly-weather-section h2,
+.outfit-recommendations h2 {
+margin-bottom: 50px; /* 제목과 내용 사이 간격 */
+font-size: 24px; /* 제목 크기 */
+}
+
+/* 기존 스타일 유지 */
+.weather-icon-container img {
+width: 50px;
+height: 50px;
+}
+
+.weather-graph-section {
+margin: 20px;
+text-align: center;
+}
+
+.weekly-weather-section {
+margin: 20px;
+}
+
+.weekly-weather-container {
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+gap: 20px;
+}
+
+.daily-weather {
+background-color: #f0f0f0;
+border-radius: 30px;
+padding: 15px;
+width: 150px;
+height: 250px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.daily-weather p {
+margin: 5px 0;
+font-weight: normal;
+}
+
+.daily-weather img {
+width: 50px;
+height: 50px;
+}
+
+.weather-container {
+font-family: Arial, sans-serif;
+padding: 20px;
+}
+
+.current-weather {
+text-align: center;
+margin-bottom: 20px;
+}
+
+.weekly-weather-grid {
+display: grid;
+grid-template-columns: repeat(7, 1fr);
+gap: 10px;
+}
+
+.weather-day {
+text-align: center;
+background-color: #f1f1f1;
+padding: 10px;
+border-radius: 8px;
+}
+
+.outfit-recommendations {
+margin-top: 30px;
+text-align: center;
+}
+
+.outfit-grid {
+display: flex;
+justify-content: space-around;
+gap: 20px;
+}
+
+.outfit-item {
+position: relative;
+width: 250px;
+height: 350px;
+background-color: #fff;
+border: 4px solid #ddd;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+overflow: hidden;
+padding: 15px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.outfit-item img {
+width: 100%;
+height: 250px;
+object-fit: cover;
+border-bottom: 3px solid #ddd;
+margin-bottom: 5px;
+}
+
+.outfit-item h3 {
+font-size: 18px;
+font-weight: bold;
+margin: 0;
+padding: 10px 0;
+text-align: center;
+color: #333;
+}
+
+.outfit-item:after {
+content: "";
+position: absolute;
+top: 15px;
+left: 50%;
+transform: translateX(-50%);
+width: 50px;
+height: 5px;
+background-color: #ddd;
+}
+
+/* 추가된 스타일 */
+/* 날씨 정보를 버튼 형식으로 표시 */
+.weather-buttons {
+display: flex;
+flex-wrap: wrap; /* 버튼이 줄바꿈될 수 있도록 */
+justify-content: center; /* 버튼 가운데 정렬 */
+gap: 10px; /* 버튼 간격 */
+margin-top: 15px;
+}
+
+.weather-button {
+padding: 10px 15px;
+font-size: 14px;
+font-weight: bold;
+color: #fff;
+background-color: rgb(101, 101, 101); /* 기본 버튼 색상 */
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+.weather-button:hover {
+background-color: #333; /* 호버 시 색상 */
+}
+
+.ai-recommendation {
+display: inline-block;
+padding: 10px 20px;
+font-size: 16px;
+color: #fff;
+background-color: rgb(107, 179, 255);
+border: none;
+border-radius: 5px;
+cursor: pointer;
+margin-top: 20px;
+transition: background-color 0.3s ease;
+}
+
+.ai-recommendation:hover {
+background-color: #1c1c1c;
+}

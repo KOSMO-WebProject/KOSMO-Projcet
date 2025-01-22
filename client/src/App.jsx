@@ -24,6 +24,8 @@ import { WidgetFail } from "./pages/payment/WidgetFail";
 import QnaList from "./pages/qna/QnaList";
 import QnaDetail from "./pages/qna/QnaDetail";
 import QnaWrite from "./pages/qna/QnaWrite";
+import WeatherPage from "./pages/weather/WeatherPage";
+import Mypage from './pages/mypage/Mypage';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -62,6 +64,8 @@ const App = () => {
         <Route path="/widget/checkout" element={<WidgetCheckoutPage />} />
         <Route path="/widget/success" element={<WidgetSuccessPage />} />
         <Route path="/widget/fail" element={<WidgetFail />} />
+        <Route path="/weather" element={<WeatherPage />} />
+        <Route path="/mypage" element={<Mypage />} />
       </Routes>
     </>
   );

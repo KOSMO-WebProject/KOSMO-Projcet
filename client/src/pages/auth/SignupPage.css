@@ -1,309 +1,175 @@
 /* Container Styling */
-.login-main {
+.signup-main {
     color: #000000;
     text-decoration: none;
     font-size: 30px;
     font-weight: bold;
-}
-
-.signup-container {
-    display: flex;
-    height: 100vh;
-    background-color: #f4f4f4;
-}
-.signup-form {
-    width: 100%;
-    max-width: 600px; /* 최대 너비를 설정 */
-    margin: 0 auto; /* 폼을 중앙 정렬 */
-}
-/* Image Section Styling */
-.image-section {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #000;
-}
-.signup-video {
-    width: 60%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Form Section Styling */
-.form-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-
-.password-input-container {
-    position: relative;
-}
-
-.password-field {
-    display: flex;
-    align-items: center;
-}
-
-.password-toggle {
-    position: absolute;
-    right: 10px;
-    top: 20%; /* 아이콘의 위치 조정 */
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    font-size: 1.2rem;
-    color: #888;
-}
-
-.date-input-wrapper {
+  }
+  
+  .signup-container {
+      display: flex;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+    
+    /* Image Section Styling */
+    .image-section {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+    }
+    .signup-video {
+      width: 60%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Form Section Styling */
+    .form-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+  
+    
+    .password-input-container {
+      position: relative;
+  }
+  
+    .password-field {
+      display: flex;
+      align-items: center;
+    }
+  
+  .password-toggle {
+      position: absolute;
+      right: 10px;
+      top: 20%; /* 아이콘의 위치 조정 */
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-size: 1.2rem;
+      color: #888;
+  }
+  
+  .date-input-wrapper {
     position: relative;
     width: 100%;
-}
-
-.date-input {
+  }
+  
+  .date-input {
     width: 100%;
     padding-right: 30px; /* 아이콘을 위한 공간 */
     font-weight: normal;
-}
-
-.date-input::-webkit-calendar-picker-indicator {
+  }
+  
+  .date-input::-webkit-calendar-picker-indicator {
     position: absolute;
     right: 10px;
     top: 40%;
     transform: translateY(-50%);
     cursor: pointer;
-}
-
-.address-input-wrapper {
+  }
+  
+  .address-input-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 20px; /* 우편번호 입력 필드와 버튼 사이 간격 */
-    width: 100%;
-}
-
-
-.address-input {
-    flex: 1; /* 우편번호 입력 필드가 가능한 공간을 차지 */
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-.address-search-button {
-    padding: 8px 14px;
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #555;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-left: -500px;
+  }
+  
+  .address-input {
+    padding-right: 40px; /* 아이콘을 위한 공간 */
+  }
+  
+  .address-search-button {
+    position: absolute;
+    right: 10px;
+    top: 40%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.address-search-button:hover {
-    background-color: #555;
-    border-color: #777;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.address-search-button:active {
-    background-color: #222;
-    border-color: #444;
-    transform: scale(0.95);
-}
-.address-search-icon {
+    padding: 0;
+    font-size: 1rem;
     color: #888;
-}
-
-/* 필수 입력 메시지 스타일 */
-.error {
-    font-size: 12px; /* 글자 크기 축소 */
-    color: #ff0000; /* 빨간색 */
-    margin-top: 5px; /* 입력 필드와 메시지 사이 간격 */
-    word-wrap: break-word; /* 메시지가 길 경우 줄바꿈 */
-    white-space: normal; /* 메시지를 여러 줄로 표시 */
-}
-
-
-/* 반응형 웹 */
-@media (max-width: 768px) {
-    .form-section {
-        padding: 10px;
-        width: 90%; /* 좁은 화면에서는 폭 줄임 */
-    }
-    .error {
-        font-size: 10px; /* 작은 화면에서는 글자 크기 더 축소 */
-    }
-
-    .signup-form {
-        padding: 10px; /* 좁은 화면에서는 여백 축소 */
-    }
-
-    .address-input-wrapper {
-        flex-direction: column; /* 좁은 화면에서는 세로 정렬 */
-    }
-
-    .address-search-button {
-        margin-top: 10px; /* 버튼에 여백 추가 */
-        width: 100%; /* 버튼 너비 전체 사용 */
-    }
-}
-
-@media (max-width: 480px) {
-    .form-input,
-    .form-button {
-        font-size: 14px; /* 폰트 크기 축소 */
-        padding: 8px; /* 여백 조정 */
-    }
-
-    .address-search-button {
-        font-size: 14px;
-        padding: 8px;
-    }
-    .error {
-        font-size: 10px; /* 작은 화면에서는 글자 크기 더 축소 */
-    }
-
-    .signup-form {
-        padding: 10px; /* 좁은 화면에서는 여백 축소 */
-    }
-}
-
-
-/* 선택된 옵션은 검정색으로 */
-.form-input:focus option {
+  }
+  
+  .address-search-icon {
+    color: #888;
+  }
+  
+  
+  /* 선택된 옵션은 검정색으로 */
+  .form-input:focus option {
     color: black;
-}
-
-/* 사용자가 선택한 옵션 시 검정색으로 변경 */
-.form-input:focus {
+  }
+  
+  /* 사용자가 선택한 옵션 시 검정색으로 변경 */
+  .form-input:focus {
     color: black;
-}
-
-/* 플레이스홀더는 회색 */
-.form-input::placeholder {
+  }
+  
+  /* 플레이스홀더는 회색 */
+  .form-input::placeholder {
     color: #ccc;
-}
-
-.form-input {
-    margin-bottom: 15px;
-    padding: 10px;
-    padding-right: 40px; /* 아이콘과 텍스트 간의 간격 */
-    width: 100%;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-
-}
-
-.form-label{
+  }
+  
+  .form-input {
+      margin-bottom: 15px;
+      padding: 10px;
+      padding-right: 40px; /* 아이콘과 텍스트 간의 간격 */
+      width: 100%;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+  
+  }
+  
+  .form-label{
     font-size: 12px;
     padding: 5px;
-}
-
-.signup-form {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-}
-
-
-.form-button {
-    padding: 10px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    background-color: #333;
-    color: #fff;
-    cursor: pointer;
-    margin-bottom: 15px;
-}
-
-.form-button:hover {
-    background-color: #555;
-}
-
-.form-button.KAKAO {
-    background-color: #f7e600;
-    color: #000;
-}
-
-.form-button.KAKAO:hover {
-    background-color: #d9c500;
-}
-
-.form-button.NAVER {
-    background-color: #00c503;
-    color: #000;
-}
-
-.form-button.NAVER:hover {
-    background-color: #009e03;
-}
-
-.login-link {
-    margin-top: 10px;
-    font-size: 0.9rem;
-}
-
-.login-link a {
-    color: #333;
-    text-decoration: none;
-}
-
-.login-link a:hover {
-    text-decoration: underline;
-}
-
-.zipcode-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.zipcode-popup {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    width: 600px; /* 팝업 너비 */
-    max-width: 90%; /* 화면 크기에 따라 너비 제한 */
-    text-align: center;
-}
-
-.close-popup-button {
-    display: block;
-    margin: 0 auto 10px auto; /* 가운데 정렬 및 아래 간격 추가 */
-    padding: 8px 16px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.close-popup-button:hover {
-    background-color: #555;
-}
+  }
+  
+    .signup-form {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+  
+    .form-button {
+      padding: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #333;
+      color: #fff;
+      cursor: pointer;
+      margin-bottom: 15px;
+      text-align: center
+    }
+    
+    .login-link {
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+    
+    .login-link a {
+      color: #333;
+      text-decoration: none;
+    }
+    
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+  
