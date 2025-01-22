@@ -5,29 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9b17d76-6e91-46c7-987b-67794279d877" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/pages/HomePage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/pages/product/ReviewSection.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/pages/product/ReviewSection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3c50436d-0e11-45c4-94c3-3e8e767d36f6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3c50436d-0e11-45c4-94c3-3e8e767d36f6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-01-15__12_30__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-01-15_오후_12_30_[Changes]/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-01-15_오후_12_30_[Changes]/logo.56c1657fbf364088c716.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-01-15_오후_12_30_[Changes]/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-01-15_오후_12_30_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/includes/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/includes/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/includes/styles/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/includes/styles/Header.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/auth/LoginPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/product/ProductCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/product/ProductCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/product/ProductDetail.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/product/ProductDetail.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/shop/ShopLandingPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/shop/ShopLandingPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/shop/ShopLandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/shop/ShopLandingPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/redux/slice/cartSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/redux/slice/cartSlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controller/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controller/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/router/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/users.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +134,7 @@
       <workItem from="1737357717971" duration="2103000" />
       <workItem from="1737436361757" duration="9921000" />
       <workItem from="1737504514078" duration="6034000" />
-      <workItem from="1737522444778" duration="7687000" />
+      <workItem from="1737522444778" duration="8971000" />
     </task>
     <servers />
   </component>
