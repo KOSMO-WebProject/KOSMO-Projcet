@@ -71,46 +71,72 @@ https://files.slack.com/files-pri/T01PVTUGG94-F0850SKRDGX/image.png?is_viewed=1
 |  | 푸터             | main/SignupComponents.jsx | 회원가입페이지 form |
 
 
-- auth
+- auth API 개요
 
-| App       | URL                                        | Views Function    | HTML File Name                        | Note           |
-|-----------|--------------------------------------------|-------------------|---------------------------------------|----------------|
-| accounts  | 'register/'                                | register          | accounts/register.jsx                |회원가입         |
-| accounts  | 'login/'                                   | login             | accounts/login.jsx                   |로그인           |
-| accounts  | 'logout/'                                  | logout            | accounts/logout.jsx                  |로그아웃         |
-| accounts  | 'profile/'                                 | profile           | accounts/profile.jsx                 | 비밀번호변경기능 / <br>프로필 수정/ 닉네임추가 |
+| 기능          | HTTP 메서드 | URL 경로               | 설명                       | 상태     |
+|:-------------:|:-----------:|:----------------------:|:--------------------------:|:-------:|
+| 회원가입      | POST        | /auth/register        | 새로운 사용자 등록         | ✅ 구현 완료 |
+| 로그인        | POST        | /auth/login           | JWT 기반 사용자 인증        | ✅ 구현 완료 |
+| 로그아웃      | POST        | /auth/logout          | JWT 토큰 기반 로그아웃 처리 | ✅ 구현 완료 |
+| JWT 회원 인증 | GET         | /auth/accesstoken     | JWT 기반 사용자 정보 조회   | ✅ 구현 완료 |
+| 카카오 로그인 | GET         | /auth/kakao/login     | 카카오 API를 통한 로그인   | ✅ 구현 완료 |
+| 카카오 콜백   | POST        | /auth/kakao/callback  | 카카오 API 로그인 콜백     | ✅ 구현 완료 |
+| 네이버 로그인 | GET         | /auth/naver/login     | 네이버 API를 통한 로그인   | ✅ 구현 완료 |
+| 네이버 콜백   | POST        | /auth/naver/callback  | 네이버 API 로그인 콜백     | ✅ 구현 완료 |
+
+- notice API 개요
+
+| 기능             | HTTP 메서드 | URL 경로          | 설명                        | 상태       |
+|:---------------:|:-----------:|:----------------:|:--------------------------:|:---------:|
+| 게시글 조회      | GET         | /notice          | 게시글 목록 조회 (n건)      | ✅ 구현 완료 |
+| 게시글 상세조회  | GET         | /notice/:no      | 특정 게시글 조회 (1건)      | ✅ 구현 완료 |
+| 게시글 등록      | POST        | /notice          | 게시글 등록                 | ✅ 구현 완료 |
+| 게시글 삭제      | DELETE      | /notice/:no      | 특정 게시글 삭제 (1건)      | ✅ 구현 완료 |
+| 게시글 수정      | PUT         | /notice/:no      | 특정 게시글 수정 (1건)      | ✅ 구현 완료 |
+
+- cart API 개요
+
+| 기능                             | HTTP 메서드 | URL 경로                | 설명                                    | 상태   |
+|----------------------------------|-------------|-------------------------|-----------------------------------------|--------|
+| 장바구니 조회 (사용자)            | GET         | /item/:user_no           | 특정 사용자의 장바구니 조회             | ✅ 구현 완료 |
+| 장바구니에 상품 추가              | POST        | /item                    | 장바구니에 상품 추가                    | ✅ 구현 완료 |
+| 특정 상품 장바구니에서 삭제      | DELETE      | /item/:cart_item_no       | 특정 상품 장바구니에서 삭제             | ✅ 구현 완료 |
+| 특정 장바구니의 모든 상품 삭제  | DELETE      | /:cart_no                 | 특정 장바구니의 모든 상품 삭제          | ✅ 구현 완료 |
+
+- Order API 개요
+| 기능                           | HTTP 메서드 | URL 경로                  | 설명                                    | 상태   |
+|--------------------------------|-------------|---------------------------|-----------------------------------------|--------|
+| 주문 목록 조회                 | GET         | /orders                   | 모든 주문 목록 조회                    | ✅ 구현 완료 |
+| 특정 사용자 주문 조회         | GET         | /orders/:user_no           | 특정 사용자의 주문 목록 조회          | ❌ 미구현   |
+| 주문 상세 조회                 | GET         | /orders/:order_no          | 특정 주문의 상세 정보 조회             | ✅ 구현 완료 |
+| 주문 생성                       | POST        | /orders                    | 새로운 주문 생성                       | ✅ 구현 완료 |
+| 주문 취소                       | DELETE      | /orders/:order_no          | 특정 주문 취소                         | ❌ 미구현   |
+| 주문 상태 변경                 | PATCH       | /orders/:order_no/status   | 주문 상태 업데이트                     | ❌ 미구현   |
+
+- QnA API 개요
+| 기능                         | HTTP 메서드 | URL 경로          | 설명                                    | 상태   |
+|------------------------------|-------------|-------------------|-----------------------------------------|--------|
+| 문의 목록 조회               | GET         | /qnqs             | 모든 문의 목록 조회                    | ✅ 구현 완료 |
+| 문의 상세 조회               | GET         | /qnqs/:id         | 특정 문의의 상세 정보 조회             | ✅ 구현 완료 |
+| 문의 등록                     | POST        | /qnqs             | 새로운 문의 등록                       | ✅ 구현 완료 |
+| 문의 삭제                     | DELETE      | /qnqs/:id         | 특정 문의 삭제                         | ✅ 구현 완료 |
+| 문의 수정                     | PATCH       | /qnqs/:id         | 특정 문의 내용 수정                    | ✅ 구현 완료 |
+| 공지사항 읽음 처리 (인증 필요) | POST        | /qnqs/read        | 공지사항 읽음 처리 (인증 필요)          | ✅ 구현 완료 |
 
 
-- boardapp
+- 결제 API 개요
 
-| App       | URL                                        | Views Function    | HTML File Name                        | Note           |
-|-----------|--------------------------------------------|-------------------|---------------------------------------|----------------|
-| board     | 'board/'                                   | board             | boardapp/post_list.jsx               | 게시판 목록 |
-| board     | 'board/<int:pk>/'                          | post_detail       | boardapp/post_detail.jsx            | 게시글 상세보기 |
-| board     | 'board/write/'                             | post_write        | boardapp/post_write.jsx             | 게시글 작성 |
-| board     | 'board/edit/<int:pk>/'                     | post_edit         | boardapp/post_edit.jsx              | 게시글 수정 |
-| board     | 'board/delete/<int:pk>/'                   | post_delete       | boardapp/post_delete.jsx            | 게시글 삭제 |
-| board     | 'board/<int:pk>/comment/'                  | comment_create    | boardapp/comment_form.jsx           | 댓글 작성 |
-| board     | 'board/<int:pk>/comment/<br><int:comment_pk>/edit/' | comment_edit | boardapp/comment_form.jsx           | 댓글 수정 |
-| board     | 'board/<int:pk>/comment/<br><int:comment_pk>/delete/' | comment_delete | boardapp/comment_<br>confirm_delete.jsx| 댓글 삭제 |
+| 기능                           | HTTP 메서드 | URL 경로                    | 설명                                    | 상태   |
+|--------------------------------|-------------|-----------------------------|-----------------------------------------|--------|
+| 결제 승인                      | POST        | /payments/confirm            | 결제 위젯 승인 처리                     | ✅ 구현 완료 |
+| 결제 취소                      | POST        | /payments/cancel             | 결제 취소 요청                         | ❌ 미구현   |
+| 결제 상태 조회                 | GET         | /payments/status/:payment_no | 특정 결제 상태 조회                    | ❌ 미구현   |
+| 결제 내역 조회                 | GET         | /payments                    | 모든 결제 내역 조회                    | ❌ 미구현   |
+| 결제 상세 조회                 | GET         | /payments/:payment_no        | 특정 결제의 상세 정보 조회             | ❌ 미구현   |
 
 
-- blog
 
 
-| App       | URL                                        | Views Function    | HTML File Name                        | Note           |
-|-----------|--------------------------------------------|-------------------|---------------------------------------|----------------|
-| blog      | 'blog/'                                    | blog              | blog/blog.jsx                        |갤러리형 게시판 메인 화면  |
-| blog      | 'blog/<int:pk>/'                           | post              | blog/post.jsx                        |상세 포스트 화면    |
-| blog      | 'blog/write/'                              | write             | blog/write.jsx                       | 카테고리 지정, 사진업로드,<br> 게시글 조회수 반영|
-| blog      | 'blog/edit/<int:pk>/'                      | edit              | blog/edit.jsx                        | 게시물목록보기 |
-| blog      | 'blog/delete/<int:pk>/'                    | delete            | blog/delete.jsx                      | 삭제 화면      |
-| blog      | 'blog/search/'                             | search            | blog/search.jsx                      | 주제와 카테고리에 따라 검색,<br> 시간순에 따라 정렬|
-| blog      | 'post/<int:post_pk>/comment/'              | comment_new       | blog/comment_form.jsx                | 댓글 입력 폼     |
-| blog      | 'post/<int:post_pk>/comment/<br><int:parent_pk>/' | reply_new    | blog/comment_form.jsx                | 대댓글 폼      |
-| blog      | 'post/<int:pk>/like/'                      | like_post         | blog/post.jsx                        |좋아요를 누르면 blog/post로 Redirect됨|
-| blog      | 'comment/<int:pk>/update/'                 | comment_update    | blog/comment_form.jsx                |댓글 업데이터 경로   |
-| blog      | 'comment/<int:pk>/delete/'                 | comment_delete    | blog/comment_<br>confirm_delete.jsx  
 
 ## 5. 와이퍼프레임 / UI / BM(비지니스 모델)
 5.1 <img src="" width="60%"> (작성중)
