@@ -117,7 +117,7 @@ const QnaDetail = () => {
                 <ListGroup.Item>
                   <div className="row-structure">
                     <strong>작성 날짜</strong>
-                    <div>{qna.create_at.substring(0, 10)}</div>
+                    <div>{new Date(qna.create_at).toLocaleDateString()}</div>
                   </div>
                 </ListGroup.Item>
                 <ListGroup.Item>
