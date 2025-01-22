@@ -31,7 +31,6 @@ const App = () => {
   useEffect(() => {
     // 애플리케이션 초기화 시 사용자 정보를 불러옴
     dispatch(loadUser());
-    console.log("API URL:", process.env.REACT_APP_API_URL); // 환경 변수 사용 예시
   }, [dispatch]);
 
   return (

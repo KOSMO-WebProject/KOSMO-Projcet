@@ -6,13 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/slice/authSlice";
-import { colors } from "@mui/material";
-// import Sidebar from './SideBar'; // Sidebar 임포트
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.auth);
+  const cartItems = useSelector((state) => state.cart.items); // 장바구니 아이템 가져오기
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 상태
 
@@ -26,8 +25,7 @@ const Header = () => {
   };
 
   const toggleSearch = () => {
-    setIsSearchOpen((prevState) => !prevState); // 상태 반전
-    console.log("Search Open:", !isSearchOpen); // 상태 변화 확인
+    setIsSearchOpen((prevState) => !prevState);
   };
 
   return (
@@ -78,9 +76,19 @@ const Header = () => {
                 placeholder="검색어를 입력해주세요"
               />
             </div>
-            <div className="cart-icon" onClick={() => navigate("/cart")}>
+
+            {/* 장바구니 아이콘 (마우스 오버 시 포인터 적용, 수량 표시) */}
+            <div
+              className="cart-icon"
+              onClick={() => navigate("/cart")}
+              style={{ cursor: "pointer", position: "relative" }}
+            >
               <i className="fa fa-shopping-cart"></i>
+              {cartItems.length > 0 && (
+                <span className="cart-count">{cartItems.length}</span>
+              )}
             </div>
+
             {currentUser ? (
               <>
                 <span>{currentUser.nick_name}님</span>
@@ -111,7 +119,8 @@ const Header = () => {
           </div>
         </div>
       </header>
-      {/* Sidebar 컴포넌트 추가 */}
+
+      {/* Sidebar */}
       <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
         <Link to="/weather" className="sidebar-link">
           의류

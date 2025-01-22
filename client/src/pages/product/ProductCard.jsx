@@ -10,7 +10,7 @@ const ProductCard = ({ product }) => {
                 className="product-image"
             />
             <h3 className="product-name">{product.name}</h3>
-            <p className="product-price">{Number(product.price)}원</p></Link>
+            <p className="product-price">{Number(product.price).toLocaleString()}원</p></Link>
         </div>
     );
 };

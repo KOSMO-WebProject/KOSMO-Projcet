@@ -1,0 +1,269 @@
+/* 기존 .weather-section */
+.weather-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 20px;
+    margin-top: 70px;
+}
+
+/* .weather-content */
+.weather-content {
+    display: flex;
+    justify-content: space-between; /* 이미지와 날씨 정보 양쪽에 배치 */
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* .weather-image */
+.weather-image {
+    flex: 2;
+    max-width: 100%;
+    padding-right: 20px;
+}
+
+.weather-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* .weather-details */
+.weather-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* 기본적으로 세로로 배치 */
+    align-items: center; /* 가운데 정렬 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.weather-icon-container {
+    margin-bottom: 20px;
+}
+
+.weather-icon {
+    width: 50px;
+    height: 50px;
+}
+
+/* 날씨 정보 */
+.weather-info h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.temperature {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.feels-like {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.ai-recommendation {
+    padding: 10px 20px;
+    background-color: #252525;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.ai-recommendation:hover {
+    background-color: #000000;
+}
+
+/* 반응형 */
+
+/* 큰 화면에서 .weather-image 크기 조정 */
+@media (min-width: 1024px) {
+    .weather-image {
+        max-width: 100%; /* 화면이 크면 70%로 확장 */
+    }
+}
+
+@media (max-width: 768px) {
+    .weather-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .weather-image, .weather-details {
+        max-width: 100%;
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .weather-details {
+        flex: 1; /* 비율 유지 */
+        display: flex;
+        align-items: flex-start; /* 텍스트 정렬 */
+        justify-content: flex-end; /* 오른쪽 정렬 */
+        flex-direction: column; /* 세로로 배치 */
+    }
+}
+
+/* 이미지 배너 섹션 */
+.banner-section {
+    position: relative;
+    margin: 20px auto;
+    padding: 0 10%;
+    overflow: hidden;
+    z-index: 1; /* 다른 섹션과 겹치지 않도록 z-index 추가 */
+}
+
+.image-slider {
+    position: relative;
+    width: 100%;
+    height: 400px; /* 슬라이더 높이를 좀 더 키움 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* 슬라이더 밖의 콘텐츠를 숨김 */
+}
+
+.banner-container {
+    position: relative;
+    width: 100%;
+    padding-top: 70%;
+    overflow: hidden;
+}
+
+.banner-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: contain; /* 이미지를 컨테이너에 맞게 확장 */
+    background-position: center; /* 이미지 가운데 정렬 */
+}
+
+.slider-button {
+    background: none;
+    border: none;
+    color: rgb(56, 56, 56);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.slider-button.left {
+    left: 10px;
+}
+
+.slider-button.right {
+    right: 10px;
+}
+
+/* 카테고리 섹션 스타일 */
+.category-section {
+    padding: 40px;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.category-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    width: 100%;
+    gap: 20px;
+    padding: 20px;
+}
+
+.category-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+    margin-top: 50px;
+}
+
+.category-buttons button {
+    margin-top: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 15px; /* 크기 조정 */
+    font-size: 14px; /* 텍스트 크기 축소 */
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex; /* 아이콘과 텍스트를 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+    gap: 10px; /* 아이콘과 텍스트 간격 */
+    transition: background-color 0.3s ease;
+}
+
+.button-icon-hp {
+    width: 16px;
+    height: 16px;
+}
+
+.category-buttons button:hover {
+    background-color: #333; /* 버튼 호버 시 색 변경 */
+}
+
+.polaroid-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 2;
+    max-width: 350px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 폴라로이드 느낌의 그림자 */
+}
+
+.polaroid-image img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.polaroid-caption {
+    margin-top: 5px;
+    padding: 5px;
+    background-color: #fff;
+    color: #000; /* 검정 텍스트 */
+    text-align: center;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .category-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .category-buttons {
+        align-items: center;
+    }
+
+    .polaroid-board {
+        max-width: 100%;
+    }
+}
