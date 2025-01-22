@@ -8,7 +8,7 @@ const getCommentByNotice = async (req, res) => {
     SELECT c.*, u.nick_name 
     FROM comment c 
     LEFT OUTER JOIN user u ON c.user_no = u.user_no
-    WHERE notice_no = ?
+    WHERE qna_no = ?
     ORDER BY parent_no ASC, created_at DESC`;
 
   try {
@@ -23,9 +23,9 @@ const getCommentByNotice = async (req, res) => {
 };
 
 const postCommentById = async (req, res) => {
-  const { notice_no, user_no, content } = req.body;
+  const { qna_no, user_no, content } = req.body;
 
-  if (!user_no || !notice_no || !content) {
+  if (!user_no || !qna_no || !content) {
     return res.status(400).json("유저 또는 게시판 또는 댓글 내용이 없습니다.");
   }
 
@@ -38,8 +38,8 @@ const postCommentById = async (req, res) => {
 
     const created_at = getCurrentFormattedDate("datetime");
     const q =
-      "INSERT INTO comment(user_no, notice_no, content, created_at) VALUES (?, ?, ?, ?)";
-    await db.get().execute(q, [user_no, notice_no, content, created_at]);
+      "INSERT INTO comment(user_no, qna_no, content, created_at) VALUES (?, ?, ?, ?)";
+    await db.get().execute(q, [user_no, qna_no, content, created_at]);
     return res.status(200).json("댓글이 입력되었습니다.");
   } catch (err) {
     console.error("Error posting comment: " + err);
@@ -48,9 +48,9 @@ const postCommentById = async (req, res) => {
 };
 
 const postReplyById = async (req, res) => {
-  const { parent_no, notice_no, content, user_no } = req.body;
+  const { parent_no, qna_no, content, user_no } = req.body;
 
-  if (!parent_no || !user_no || !notice_no || !content) {
+  if (!parent_no || !user_no || !qna_no || !content) {
     return res.status(400).json("유저 또는 게시판 또는 댓글 내용이 없습니다.");
   }
 
@@ -63,10 +63,10 @@ const postReplyById = async (req, res) => {
 
     const created_at = getCurrentFormattedDate("datetime");
     const q =
-      "INSERT INTO comment(parent_no, user_no, notice_no, content, created_at) VALUES (?, ?, ?, ?, ?)";
+      "INSERT INTO comment(parent_no, user_no, qna_no, content, created_at) VALUES (?, ?, ?, ?, ?)";
     await db
       .get()
-      .execute(q, [parent_no, user_no, notice_no, content, created_at]);
+      .execute(q, [parent_no, user_no, qna_no, content, created_at]);
     return res.status(200).json("대댓글이 입력되었습니다.");
   } catch (err) {
     console.error("Error posting reply: " + err);

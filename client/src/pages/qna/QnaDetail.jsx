@@ -21,7 +21,6 @@ const QnaDetail = () => {
     nick_name: "",
     user_no: 0,
     create_at: "",
-    likes: 0,
   });
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -56,8 +55,13 @@ const QnaDetail = () => {
   const qnaDelete = async () => {
     try {
       const response = await axios.delete(`/qnas/${id}`);
-      alert(response.data);
-      navigate("/qna");
+      if(response.status === 200){
+        alert("글 삭제가 완료 되었습니다.");
+        navigate("/qna");
+      }
+      else {
+        alert("글 삭제에 실패했습니다.")
+      }
     } catch (error) {
       alert(error.response?.data || "알 수 없는 오류가 발생했습니다.");
     }
@@ -78,15 +82,6 @@ const QnaDetail = () => {
       handleClose();
     } catch (error) {
       alert(error.response?.data || "알 수 없는 오류가 발생했습니다.");
-    }
-  };
-
-  const handleLike = async () => {
-    try {
-      const response = await axios.post(`/qnas/${id}/like`);
-      setQna((prev) => ({ ...prev, likes: prev.likes + 1 }));
-    } catch (error) {
-      console.error("Error liking qna:", error);
     }
   };
 
@@ -122,7 +117,7 @@ const QnaDetail = () => {
                 <ListGroup.Item>
                   <div className="row-structure">
                     <strong>작성 날짜</strong>
-                    <div>{qna.create_at}</div>
+                    <div>{qna.create_at.substring(0, 10)}</div>
                   </div>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -135,7 +130,7 @@ const QnaDetail = () => {
                   </div>
                 </ListGroup.Item>
               </ListGroup>
-              {currentUser && currentUser.user_no === qna.userno ? (
+              {currentUser && currentUser.user_no === qna.user_no ? (
                 <div className="button-group">
                   <Button variant="primary" onClick={handleShow}>
                     수정

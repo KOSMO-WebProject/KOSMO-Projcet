@@ -6,7 +6,7 @@ import axios from "axios"; // HTTP 요청을 위한 axios import
 import "./styles/Comment.css"; // 스타일 파일 import
 
 // Comment 컴포넌트 정의
-const Comment = ({ userNo, noticeNo }) => {
+const Comment = ({ userNo, qnaNo }) => {
   const [comments, setComments] = useState([]); // 댓글 데이터를 관리하는 상태
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태 관리
   const [error, setError] = useState(null); // 에러 메시지 관리
@@ -14,7 +14,7 @@ const Comment = ({ userNo, noticeNo }) => {
   // 컴포넌트가 처음 렌더링될 때와 noticeNo가 변경될 때 실행
   useEffect(() => {
     fetchComments(); // 댓글 데이터 가져오기 함수 호출
-  }, [noticeNo]);
+  }, [qnaNo]);
 
   // 요청 처리 헬퍼 함수
   const handleRequest = async (requestFn) => {
@@ -33,7 +33,7 @@ const Comment = ({ userNo, noticeNo }) => {
   // 댓글 데이터를 서버에서 가져오는 함수
   const fetchComments = async () => {
     await handleRequest(async () => {
-      const response = await axios.get(`/comments/${noticeNo}`); // 서버로부터 댓글 데이터 가져오기
+      const response = await axios.get(`/comments/${qnaNo}`); // 서버로부터 댓글 데이터 가져오기
       setComments(response.data); // 가져온 댓글 데이터를 상태에 저장
     });
   };
@@ -47,7 +47,7 @@ const Comment = ({ userNo, noticeNo }) => {
     await handleRequest(async () => {
       await axios.post("/comments/reply", {
         parent_no: parentNo, // 부모 댓글 번호
-        notice_no: noticeNo, // 공지 번호
+        qna_no: qnaNo, // 공지 번호
         content: content.trim(), // 대댓글 내용
         user_no: userNo, // 사용자 번호
       });
@@ -61,7 +61,7 @@ const Comment = ({ userNo, noticeNo }) => {
       {error && <p className="error-message">{error}</p>} {/* 에러 메시지 표시 */}
       <CommentInput
         userNo={userNo} // 사용자 번호 전달
-        noticeNo={noticeNo} // 공지 번호 전달
+        qnaNo={qnaNo} // 공지 번호 전달
         fetchComments={fetchComments} // 댓글 목록 갱신 함수 전달
       />
       <CommentList

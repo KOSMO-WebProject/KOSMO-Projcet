@@ -9,9 +9,9 @@ const getQnasList = async (req, res) => {
   let condition = "";
   if (gubun && keyword) {
     const fieldMapping = {
-      n_title: "n.title",
-      n_writer: "u.nick_name",
-      n_content: "n.content",
+      qna_title: "q.title",
+      qna_writer: "u.nick_name",
+      qna_content: "q.content",
     };
     const field = fieldMapping[gubun];
     if (field) {
@@ -21,15 +21,15 @@ const getQnasList = async (req, res) => {
 
   const q = `
     SELECT 
-      n.qna_no, 
-      n.title, 
+      q.qna_no, 
+      q.title, 
       u.nick_name, 
-      n.content, 
-      n.create_at
-    FROM qna n
-    LEFT OUTER JOIN user u ON n.userno = u.user_no
+      q.content, 
+      q.create_at
+    FROM qna q
+    LEFT OUTER JOIN user u ON q.user_no = u.user_no
     ${condition}
-    ORDER BY n.qna_no DESC
+    ORDER BY q.qna_no DESC
     LIMIT ${Number(size)} OFFSET ${Number(offset)}
   `;
 
@@ -38,8 +38,8 @@ const getQnasList = async (req, res) => {
 
     const countQ = `
       SELECT COUNT(*) as totalCount
-      FROM qna n
-      LEFT OUTER JOIN user u ON n.userno = u.user_no
+      FROM qna q
+      LEFT OUTER JOIN user u ON q.user_no = u.user_no
       ${condition}
     `;
     const [countRows] = await db
@@ -55,28 +55,28 @@ const getQnasList = async (req, res) => {
       totalCount,
     });
   } catch (error) {
-    console.error("Error fetching qnas:", error);
+    console.error("Error fetching notices:", error);
     return res
       .status(500)
       .json({ message: "게시글을 조회할 수 없습니다.", error: error.message });
   }
 };
 
-// 공지사항 읽음 처리
-const markQnaAsRead = async (req, res) => {
-  const { qnaNo, userId } = req.body;
+// 공지사항 읽음 처리 -- QNA로 수정 전
+const markNoticeAsRead = async (req, res) => {
+  const { noticeNo, userId } = req.body;
 
-  if (!qnaNo || !userId) {
+  if (!noticeNo || !userId) {
     return res.status(400).json({ message: "필수 파라미터가 누락되었습니다." });
   }
 
   const query = `
-    INSERT INTO user_qnas (user_id, qna_no, is_read)
+    INSERT INTO user_notices (user_id, notice_no, is_read)
     VALUES (?, ?, TRUE)
     ON DUPLICATE KEY UPDATE is_read = TRUE
   `;
   try {
-    await db.get().execute(query, [userId, qnaNo]);
+    await db.get().execute(query, [userId, noticeNo]);
     return res
       .status(200)
       .json({ message: "읽음 상태가 성공적으로 업데이트되었습니다." });
@@ -92,15 +92,15 @@ const getQnasById = async (req, res) => {
   const postId = req.params.id;
   const q = `
     SELECT 
-      n.qna_no, 
-      n.title, 
-      n.content, 
-      n.create_at, 
+      q.qna_no, 
+      q.title, 
+      q.content, 
+      q.create_at, 
       u.nick_name, 
-      n.userno
-    FROM qna n 
-    INNER JOIN user u ON n.userno = u.user_no 
-    WHERE n.qna_no = ?`;
+      q.user_no
+    FROM qna q 
+    INNER JOIN user u ON q.user_no = u.user_no 
+    WHERE q.qna_no = ?`;
 
   try {
     const [results] = await db.get().execute(q, [postId]);
@@ -119,7 +119,7 @@ const postQnaById = async (req, res) => {
   const { title, content, user_no } = req.body;
   const create_at = getCurrentFormattedDate("date");
   const q =
-    "INSERT INTO qna(title, content, create_at, userno) VALUES (?, ?, ?, ?)";
+    "INSERT INTO qna(title, content, create_at, user_no) VALUES (?, ?, ?, ?)";
 
   try {
     await db.get().execute(q, [title, content, create_at, user_no]);
@@ -161,7 +161,7 @@ const updateQnaById = async (req, res) => {
 
 module.exports = {
   getQnasList,
-  markQnaAsRead,
+  markNoticeAsRead,
   getQnasById,
   postQnaById,
   deleteQnaById,
