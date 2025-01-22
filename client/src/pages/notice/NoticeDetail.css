@@ -28,8 +28,8 @@
 }
 
 .notice-card {
-  width: 1500px; /* 고정 너비 */
-  height: 900px; /* 고정 높이 */
+  width: 900px; /* 고정 너비 */
+  height: 540px; /* 고정 높이 */
   margin-top: 120px;
   background-color: #fff;
   border-radius: 12px;

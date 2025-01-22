@@ -53,13 +53,16 @@ const LoginPage = () => {
             </h1>
             <p>로그인을 해주세요</p>
             <main className="login-main">
-                <form className='login-form' onSubmit={(e) => e.preventDefault()}>
+                <form className='login-form' onSubmit={(e) => {
+                    e.preventDefault();
+                    handleLogin();
+                }}>
                     <input
                         className='input'
-                        type="email"
+                        type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Email"
+                        placeholder="ID"
                     />
                     <input
                         className='input'
@@ -70,8 +73,7 @@ const LoginPage = () => {
                     />
                     <button
                         className='btn black'
-                        type="button"
-                        onClick={handleLogin}
+                        type="submit"
                     >
                         로그인
                     </button>

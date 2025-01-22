@@ -4,7 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Card, Button, Modal, ListGroup, Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import Comment from "../comment/Comment";
 import Header from "../../components/includes/Header";
 import Footer from "../../components/includes/Footer";
 import "./NoticeDetail.css";
@@ -161,10 +160,6 @@ const NoticeDetail = () => {
                 </div>
               )}
 
-              <Comment
-                userNo={currentUser ? currentUser.user_no : null}
-                noticeNo={notice.notice_no}
-              />
             </Card>
           </div>
         )}

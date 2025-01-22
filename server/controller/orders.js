@@ -42,8 +42,11 @@ const getOrdersList = async (req, res) => {
         const groupedOrders = rows.reduce((acc, row) => {
             const { order_no, product_no, quantity, price, product_name, img_url, ...orderDetails } = row;
 
+            const orderId = row.order_no;
+
             if (!acc[order_no]) {
                 acc[order_no] = {
+                    order_no : orderId,
                     ...orderDetails,
                     products: [],
                 };

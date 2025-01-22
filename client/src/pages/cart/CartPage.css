@@ -1,101 +1,185 @@
+/* 전체 컨테이너 스타일 */
 .cart-container {
+    max-width: 1200px;
+    margin: 80px auto 40px; /* 상단 여백 추가 */
     padding: 20px;
-    max-width: 800px;
-    margin: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 스타일 */
+.cart-container h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* 장바구니 비었을 때 스타일 */
+.empty-cart {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+}
+
+/* 개별 항목 스타일 */
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .cart-item {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    justify-content: space-between;
     border-bottom: 1px solid #ddd;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
 }
 
+/* 상품 이미지 크기 조정 */
 .cart-item img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin-right: 20px;
+    width: 120px;  /* 기존보다 크기를 키움 */
+    height: auto;
+    border-radius: 10px; /* 모서리 둥글게 */
 }
 
-.cart-item-details {
-    flex-grow: 1;
+/* 체크박스 크기 조정 */
+.cart-item input[type="checkbox"] {
+    width: 24px;  /* 체크박스 크기 증가 */
+    height: 24px;
+    cursor: pointer;
 }
 
+.cart-item .item-info {
+    flex: 1;
+    padding-left: 15px;
+}
+
+.cart-item .item-info h2 {
+    font-size: 18px;
+    margin: 0;
+    color: #333;
+}
+
+.cart-item .item-info p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 수량 조절 버튼 스타일 */
 .quantity-control {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    gap: 10px;
 }
 
 .quantity-control button {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
     padding: 5px 10px;
-    margin: 0 5px;
-    background-color: #ddd;
-    border: 1px solid #ccc;
     cursor: pointer;
 }
 
 .quantity-control button:hover {
-    background-color: #ccc;
+    background-color: #ddd;
 }
 
-.remove-button {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.remove-button:hover {
-    background-color: #d32f2f;
-}
-
+/* 하단 총 금액 및 버튼 스타일 */
 .cart-footer {
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: right;
+    border-top: 2px solid #333;
+    padding-top: 20px;
 }
 
 .total-amount {
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
 }
 
-.payment-button {
-    padding: 10px 20px;
-    background-color: #4caf50;
-    color: white;
+/* 버튼 스타일 */
+.footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.clear-cart-button, .payment-button {
+    padding: 12px 25px;
+    font-size: 16px;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-}
-
-.payment-button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
+    font-weight: bold;
 }
 
 .clear-cart-button {
-    padding: 10px 20px;
-    background-color: #f44336;
+    background-color: #ff4d4f;
+    color: white;
+}
+
+.clear-cart-button:hover {
+    background-color: #d9363e;
+}
+
+.payment-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.payment-button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+.payment-button:hover:not(:disabled) {
+    background-color: #45a049;
+}
+
+
+/* 삭제 버튼 스타일 */
+.remove-button {
+    background-color: #ff4d4f; /* 더 진한 빨간색 */
     color: white;
     border: none;
+    padding: 7px 13px;  /* 버튼 크기 증가 */
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
+    transition: background-color 0.3s;
 }
 
-.cart-item .item-checkbox {
-    width: 30px; /* 체크박스의 너비 */
-    height: 20px; /* 체크박스의 높이 */
-    cursor: pointer; /* 클릭 가능한 커서 표시 */
-    margin-right: 10px; /* 체크박스와 이미지 간 여백 */
-
+.remove-button:hover {
+    background-color: #d9363e; /* 호버 시 더 진한 색상 */
 }
 
-.cart-item .cart-item-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.remove-button:active {
+    background-color: #b02a27; /* 클릭 시 색상 */
 }
 
+@media (max-width: 768px) {
+    .cart-container {
+        padding: 15px;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cart-item img {
+        width: 100%;
+        height: auto;
+    }
+
+    .footer-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+}
