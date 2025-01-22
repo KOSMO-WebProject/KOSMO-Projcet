@@ -70,6 +70,7 @@ https://files.slack.com/files-pri/T01PVTUGG94-F0850SKRDGX/image.png?is_viewed=1
 | include | 헤더             | main/Header.jsx           | 회원가입페이지 form |
 |  | 푸터             | main/SignupComponents.jsx | 회원가입페이지 form |
 
+</br>
 
 - auth API 개요
 
@@ -84,6 +85,8 @@ https://files.slack.com/files-pri/T01PVTUGG94-F0850SKRDGX/image.png?is_viewed=1
 | 네이버 로그인 | GET         | /auth/naver/login     | 네이버 API를 통한 로그인   | ✅ 구현 완료 |
 | 네이버 콜백   | POST        | /auth/naver/callback  | 네이버 API 로그인 콜백     | ✅ 구현 완료 |
 
+</br>
+
 - notice API 개요
 
 | 기능             | HTTP 메서드 | URL 경로          | 설명                        | 상태       |
@@ -94,6 +97,8 @@ https://files.slack.com/files-pri/T01PVTUGG94-F0850SKRDGX/image.png?is_viewed=1
 | 게시글 삭제      | DELETE      | /notice/:no      | 특정 게시글 삭제 (1건)      | ✅ 구현 완료 |
 | 게시글 수정      | PUT         | /notice/:no      | 특정 게시글 수정 (1건)      | ✅ 구현 완료 |
 
+</br>
+
 - cart API 개요
 
 | 기능                             | HTTP 메서드 | URL 경로                | 설명                                    | 상태   |
@@ -103,8 +108,9 @@ https://files.slack.com/files-pri/T01PVTUGG94-F0850SKRDGX/image.png?is_viewed=1
 | 특정 상품 장바구니에서 삭제      | DELETE      | /item/:cart_item_no       | 특정 상품 장바구니에서 삭제             | ✅ 구현 완료 |
 | 특정 장바구니의 모든 상품 삭제  | DELETE      | /:cart_no                 | 특정 장바구니의 모든 상품 삭제          | ✅ 구현 완료 |
 
-- Order API 개요
- 
+</br>
+
+- Order API 개요 
 
 | 기능                           | HTTP 메서드 | URL 경로                  | 설명                                    | 상태   |
 |--------------------------------|-------------|---------------------------|-----------------------------------------|--------|
@@ -115,8 +121,9 @@ https://files.slack.com/files-pri/T01PVTUGG94-F0850SKRDGX/image.png?is_viewed=1
 | 주문 취소                       | DELETE      | /orders/:order_no          | 특정 주문 취소                         | ❌ 미구현   |
 | 주문 상태 변경                 | PATCH       | /orders/:order_no/status   | 주문 상태 업데이트                     | ❌ 미구현   |
 
+</br>
+
 - QnA API 개요
-  
 
 | 기능                         | HTTP 메서드 | URL 경로          | 설명                                    | 상태   |
 |------------------------------|-------------|-------------------|-----------------------------------------|--------|
@@ -127,6 +134,7 @@ https://files.slack.com/files-pri/T01PVTUGG94-F0850SKRDGX/image.png?is_viewed=1
 | 문의 수정                     | PATCH       | /qnqs/:id         | 특정 문의 내용 수정                    | ✅ 구현 완료 |
 | 공지사항 읽음 처리 (인증 필요) | POST        | /qnqs/read        | 공지사항 읽음 처리 (인증 필요)          | ✅ 구현 완료 |
 
+</br>
 
 - 결제 API 개요
 
