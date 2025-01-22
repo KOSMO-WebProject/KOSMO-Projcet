@@ -256,3 +256,30 @@ button {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1050;
 }
+
+.cart-icon {
+  position: relative;
+  cursor: pointer;
+  font-size: 24px;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.cart-icon:hover {
+  color: #007bff;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 4px 8px;
+  line-height: 1;
+  min-width: 20px;
+  text-align: center;
+}

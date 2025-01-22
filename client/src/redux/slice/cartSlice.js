@@ -4,6 +4,7 @@ import axios from 'axios';
 // 초기 상태
 const initialState = {
     items: [],
+    totalQuantity: 0,
     loading: false,
     error: null,
 };
@@ -116,7 +117,7 @@ const cartSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchCartItemsAsync.fulfilled, (state, action) => {
-                state.items = action.payload; // 서버에서 받아온 장바구니 데이터로 업데이트
+                state.items = action.payload;
                 state.loading = false;
             })
             .addCase(fetchCartItemsAsync.rejected, (state, action) => {

@@ -1,0 +1,151 @@
+.helpful{
+    cursor: pointer;
+}
+
+.review-section {
+    margin-top: 100px;
+    font-family: Pretendard;
+}
+
+.review-carousel {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.carousel-card {
+    width: 100vh;
+    height: 460px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 70%;
+    background-color: #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.carousel-content {
+    width: 100%;
+    text-align: left;
+}
+
+.carousel-content h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.see-more {
+    color: #151515;
+    cursor: pointer;
+    font-size: smaller;
+}
+
+.see-more:hover {
+    font-weight: bold;
+}
+
+.review-list {
+    margin-top: 40px;
+}
+
+.review-item {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review-user {
+    font-weight: bolder;
+}
+
+.review-date {
+    color: #888;
+    margin-left: 20px;
+    font-size: smaller;
+}
+
+.review-rating {
+    font-size: 18px;
+    color: #f39c12;
+}
+
+.review-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.review-footer button {
+    background: none;
+    border: none;
+    color: #3498db;
+    cursor: pointer;
+}
+
+.review-footer button:hover {
+    text-decoration: underline;
+}
+
+.review-input {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.review-input input,
+.review-input textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.review-input input[type="file"] {
+    padding: 5px 0;
+}
+
+.review-input .rating {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: #ccc;
+}
+
+.star.selected {
+    color: #f39c12;
+}
+
+.review-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
