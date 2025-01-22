@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./QnaItem.css";
 
 const QnaItem = ({ qna }) => {
+  
   return (
     <tr>
       <td>{qna.qna_no}</td>
