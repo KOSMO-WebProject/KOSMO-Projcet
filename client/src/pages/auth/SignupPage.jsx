@@ -64,7 +64,7 @@ const SignupPage = () => {
                 <source src="/images/home.mp4" type="video/mp4" />
             </video>
             <div className="form-section">
-                <p className="login-main">Create an Account</p>
+                <p className="signup-main">Create an Account</p>
                 <form className="signup-form" onSubmit={handleSubmit(onSubmit)}>
                     <SignupComponent
                         control={control}

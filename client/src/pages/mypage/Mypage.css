@@ -1,0 +1,140 @@
+/* 전체 컨테이너 */
+.mypage-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  /* 프로필 섹션 */
+  .profile {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-picture {
+    width: 80px;
+    height: 80px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .profile-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .profile-details p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  /* 구매 내역 섹션 */
+  .purchase-history {
+    margin-top: 20px;
+  }
+  
+  .purchase-history h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #444;
+    text-align: left;
+  }
+  
+  /* 구매 내역 리스트 */
+  .purchase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* 구매 항목 */
+  .purchase-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .item-image {
+    width: 60px;
+    height: 60px;
+    background-color: #f0f0f0;
+    margin-right: 15px;
+    border-radius: 5px;
+    object-fit: cover;
+  }
+  
+  .item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .item-name {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .btn {
+    background-color: #1c1c1c;
+    color: white;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    text-align: center;
+    display: inline-block;
+    width: 90px;
+  }
+  
+  .btn:hover {
+    background-color: #1c1c1c;
+  }
+  
+  /* 구매 버튼 배치 */
+  .btn-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  /* 반응형 스타일 */
+  @media (max-width: 600px) {
+    .profile {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .profile-picture {
+      margin-bottom: 15px;
+    }
+  
+    .purchase-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .btn-container {
+      justify-content: center;
+    }
+  }
+  
