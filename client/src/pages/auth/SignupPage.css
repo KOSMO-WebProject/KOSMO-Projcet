@@ -1,175 +1,213 @@
 /* Container Styling */
 .signup-main {
-    color: #000000;
-    text-decoration: none;
-    font-size: 30px;
-    font-weight: bold;
-  }
-  
-  .signup-container {
-      display: flex;
-      height: 100vh;
-      background-color: #f4f4f4;
-    }
-    
-    /* Image Section Styling */
-    .image-section {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #000;
-    }
-    .signup-video {
-      width: 60%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-    /* Form Section Styling */
-    .form-section {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: #fff;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-  
-    
-    .password-input-container {
-      position: relative;
-  }
-  
-    .password-field {
-      display: flex;
-      align-items: center;
-    }
-  
-  .password-toggle {
-      position: absolute;
-      right: 10px;
-      top: 20%; /* 아이콘의 위치 조정 */
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      font-size: 1.2rem;
-      color: #888;
-  }
-  
-  .date-input-wrapper {
-    position: relative;
-    width: 100%;
-  }
-  
-  .date-input {
-    width: 100%;
-    padding-right: 30px; /* 아이콘을 위한 공간 */
-    font-weight: normal;
-  }
-  
-  .date-input::-webkit-calendar-picker-indicator {
-    position: absolute;
-    right: 10px;
-    top: 40%;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
-  
-  .address-input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-  
-  .address-input {
-    padding-right: 40px; /* 아이콘을 위한 공간 */
-  }
-  
-  .address-search-button {
-    position: absolute;
-    right: 10px;
-    top: 40%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    font-size: 1rem;
-    color: #888;
-  }
-  
-  .address-search-icon {
-    color: #888;
-  }
-  
-  
-  /* 선택된 옵션은 검정색으로 */
-  .form-input:focus option {
-    color: black;
-  }
-  
-  /* 사용자가 선택한 옵션 시 검정색으로 변경 */
-  .form-input:focus {
-    color: black;
-  }
-  
-  /* 플레이스홀더는 회색 */
-  .form-input::placeholder {
-    color: #ccc;
-  }
-  
-  .form-input {
-      margin-bottom: 15px;
-      padding: 10px;
-      padding-right: 40px; /* 아이콘과 텍스트 간의 간격 */
-      width: 100%;
-      font-size: 16px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-  
-  }
-  
-  .form-label{
-    font-size: 12px;
-    padding: 5px;
-  }
-  
-    .signup-form {
-      width: 100%;
-      max-width: 400px;
-      display: flex;
-      flex-direction: column;
-    }
-    
-  
-    .form-button {
-      padding: 10px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 5px;
-      background-color: #333;
-      color: #fff;
-      cursor: pointer;
-      margin-bottom: 15px;
-      text-align: center
-    }
-    
-    .login-link {
-      margin-top: 10px;
-      font-size: 0.9rem;
-    }
-    
-    .login-link a {
-      color: #333;
-      text-decoration: none;
-    }
-    
-    .login-link a:hover {
-      text-decoration: underline;
-    }
-  
+  color: #000000;
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.signup-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* Image Section Styling */
+.image-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+}
+.signup-video {
+  width: 60%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Form Section Styling */
+.form-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-field {
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 20%; /* 아이콘의 위치 조정 */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.date-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.date-input {
+  width: 100%;
+  padding-right: 30px; /* 아이콘을 위한 공간 */
+  font-weight: normal;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.address-input-wrapper {
+  display: flex;
+  flex-direction: column; /* 버튼과 필드를 세로로 정렬 */
+  gap: 14px; /* 버튼과 필드 사이의 간격 */
+  width: 100%;
+}
+
+.address-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.address-search-button {
+  background-color: #656565;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 15px; /* 버튼 아래 간격 */
+}
+
+.address-search-icon {
+  color: #888;
+}
+
+/* 선택된 옵션은 검정색으로 */
+.form-input:focus option {
+  color: black;
+}
+
+/* 사용자가 선택한 옵션 시 검정색으로 변경 */
+.form-input:focus {
+  color: black;
+}
+
+/* 플레이스홀더는 회색 */
+.form-input::placeholder {
+  color: #ccc;
+}
+
+.form-input {
+  margin-bottom: 15px;
+  padding: 10px;
+  padding-right: 40px; /* 아이콘과 텍스트 간의 간격 */
+  width: 100%;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.form-label {
+  font-size: 12px;
+  padding: 5px;
+}
+
+.signup-form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-button {
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.login-link {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.login-link a {
+  color: #333;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* 팝업 배경 (화면 중앙 고정) */
+.zipcode-popup-overlay {
+  position: fixed; /* 화면 전체를 덮는 고정 위치 */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 */
+  display: flex;
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: center; /* 수평 중앙 정렬 */
+  z-index: 1000; /* 다른 요소 위로 표시 */
+}
+
+/* 팝업 창 */
+.zipcode-popup {
+  background: #fff;
+  padding: 20px;
+  width: 90%; /* 모바일 환경에서도 적절히 보이도록 설정 */
+  max-width: 400px; /* 최대 너비 제한 */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  position: relative;
+  text-align: center;
+}
+
+/* 닫기 버튼 */
+.close-popup-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}

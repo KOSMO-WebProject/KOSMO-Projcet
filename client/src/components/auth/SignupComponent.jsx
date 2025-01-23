@@ -7,7 +7,6 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordCheck, setShowPasswordCheck] = useState(false);
-
     return (
         <>
             {/* Full Name */}
@@ -20,7 +19,7 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
                     <input
                         {...field}
                         type="text"
-                        placeholder="이름을 입력해주세요"
+                        placeholder="Full Name"
                         className="form-input"
                     />
                 )}
@@ -37,7 +36,7 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
                     <input
                         {...field}
                         type="text"
-                        placeholder="닉네임을 입력해주세요"
+                        placeholder="Nickname"
                         className="form-input"
                     />
                 )}
@@ -60,7 +59,7 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
                     <input
                         {...field}
                         type="email"
-                        placeholder="이메일을 입력해주세요"
+                        placeholder="Email"
                         className="form-input"
                     />
                 )}
@@ -83,7 +82,7 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
                     <input
                         {...field}
                         type="text"
-                        placeholder="아이디를 입력해주세요"
+                        placeholder="ID"
                         className="form-input"
                     />
                 )}
@@ -101,7 +100,7 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
                         <input
                             {...field}
                             type={showPassword ? "text" : "password"}
-                            placeholder="비밀번호를 입력해주세요"
+                            placeholder="Password"
                             className="form-input"
                         />
                     )}
@@ -131,7 +130,7 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
                         <input
                             {...field}
                             type={showPasswordCheck ? "text" : "password"}
-                            placeholder="비밀번호를 다시 입력해주세요"
+                            placeholder="Password check"
                             className="form-input"
                         />
                     )}
@@ -212,20 +211,21 @@ const SignupComponent = ({ control, errors, watch, onZipcodePopup }) => {
                 defaultValue=""
                 render={({ field }) => (
                     <div className="zipcode-input-wrapper">
-                        <input
-                            {...field}
-                            type="text"
-                            placeholder="우편번호"
-                            className="form-input"
-                            readOnly
-                        />
                         <button
                             type="button"
                             onClick={onZipcodePopup}
                             className="address-search-button"
-                        >
-                            주소검색
+                            aria-label="주소 검색"
+                            >
+                                주소검색
                         </button>
+                        <input
+                            {...field}
+                            type="text"
+                            placeholder="우편번호"
+                            className="form-input address-input"
+                            readOnly
+                        />
                     </div>
                 )}
             />
